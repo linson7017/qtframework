@@ -1,0 +1,75 @@
+#pragma once
+#include <string>
+#include "Common/qtframework_com.h"
+using namespace std;
+
+typedef void IGIS_Main_Void;
+
+class QTFRAMEWORK_EXPORT app_env
+{
+public:
+	enum DirType
+	{
+		WORKSPACE,
+		RESOURCE,
+		LAYOUT,
+		LOG,
+		STRING_RESOURCE,
+		STYLE_RESOURCE,
+		UI_RESOURCE,
+		UICOMMAND_RESOURCE,
+		MENU_RESOURCE,
+		CONFIG_RESOURCE,
+		IMAGE_RESOURCE,
+		ICON_RESOURCE,
+		SHORTCUT_RESOURCE,
+		LANGUAGE_RESOURCE
+	};
+	enum Language
+	{
+		CHINESE,
+		CHINESE_TW,
+		ENGLISH
+	};
+	app_env(char *argv[]);
+	~app_env(void);
+	static const char* getWorkDir(){return _workDir.c_str();}
+	static const char* getExeName(){return _exeName.c_str();}
+	static const char* getResDir(){return _resDir.c_str();}
+	static const char* getLayoutDir(){return _layoutDir.c_str();}
+	static const char* getStringResDir(){return _stringResDir.c_str();}
+	static const char* getStyleResDir(){return _styleResDir.c_str();}
+	static const char* getUIResDir(){return _uiResDir.c_str();}
+	static const char* getUICommandResDir(){return _uicommandResDir.c_str();}
+	static const char* getMenuResDir(){return _menuResDir.c_str();}
+	static const char* getConfigResDir(){return _configResDir.c_str();}
+	static const char* getImageResDir(){return _imageResDir.c_str();}
+	static const char* getIconResDir(){return _iconResDir.c_str();}
+	static const char* getLanguageDir(){return _languageDir.c_str();}
+	static const char* getShortcutDir(){return _shortcutDir.c_str();}
+	static const char* getLodDir(){return _logDir.c_str();}
+	static const char* getDir(DirType type);
+	static const char* getLanguageFile(Language language);
+	static const char* getLanguageFile(const char* languageStr);
+	//设置和获取主控指针
+	static IGIS_Main_Void* getMainPtr(){return _pMain;}
+	static void setMainPtr(IGIS_Main_Void* pMain){_pMain = pMain;}
+private:
+	static string _workDir;
+	static string _exeName;
+	static string _layoutDir;
+	static string _resDir;
+	static string _stringResDir;
+	static string _styleResDir;
+	static string _uiResDir;
+	static string _uicommandResDir;
+	static string _menuResDir;
+	static string _configResDir;
+	static string _imageResDir;
+	static string _iconResDir;
+	static string _shortcutDir;
+	static string _languageDir;
+	static string _logDir;
+	static IGIS_Main_Void* _pMain;
+};
+

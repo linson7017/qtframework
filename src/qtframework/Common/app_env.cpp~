@@ -1,0 +1,170 @@
+#include <Common/app_env.h>
+#include "Utils/util.h"
+
+string app_env::_workDir="";
+string app_env::_exeName="";
+string app_env::_resDir="";
+string app_env::_layoutDir="";
+string app_env::_stringResDir="";
+string app_env::_styleResDir="";
+string app_env::_uiResDir="";
+string app_env::_uicommandResDir="";
+string app_env::_menuResDir="";
+string app_env::_configResDir="";
+string app_env::_imageResDir="";
+string app_env::_iconResDir="";
+string app_env::_languageDir="";
+string app_env::_shortcutDir="";
+string app_env::_logDir="";
+IGIS_Main_Void* app_env::_pMain=NULL;
+
+
+app_env::app_env(char *argv[])
+{
+	std::string path_buffer;
+	std::string drive;
+	std::string dir;
+	std::string fname;
+	std::string ext;
+	splitpath(argv[0],drive,dir,fname,ext);
+	//工作路径
+	_workDir.append(dir);
+	//执行程序名称
+	_exeName = fname;
+	//资源目录
+	_resDir.append(_workDir);
+	_resDir.append("ui/"+_exeName);
+	_resDir.append("/res/");
+	//布局目录
+	_layoutDir.append(_workDir);
+	_layoutDir.append("ui/"+_exeName);
+	_layoutDir.append("/layout/");
+	//Log目录
+	_logDir.append(_workDir);
+	_logDir.append("log/"+_exeName+"/");
+	//string资源目录
+	_stringResDir.append(_resDir);
+	_stringResDir.append("strings/");
+	//style资源目录
+	_styleResDir.append(_resDir);
+	_styleResDir.append("styles/");
+	//ui资源目录
+	_uiResDir.append(_resDir);
+	_uiResDir.append("ui/");
+	//uicommand资源目录
+	_uicommandResDir.append(_resDir);
+	_uicommandResDir.append("uicommands/");
+	//config资源目录
+	_configResDir.append(_resDir);
+	_configResDir.append("config/");
+	//menu资源目录
+	_menuResDir.append(_resDir);
+	_menuResDir.append("menu/");
+	//image资源目录
+	_imageResDir.append(_resDir);
+	_imageResDir.append("images/");
+	//image资源目录
+	_iconResDir.append(_resDir);
+	_iconResDir.append("icons/");
+	//language资源目录
+	_languageDir.append(_resDir);
+	_languageDir.append("language/");
+	//快捷键资源目录
+	_shortcutDir.append(_resDir);
+	_shortcutDir.append("shortcut/");
+
+}
+
+
+app_env::~app_env(void)
+{
+}
+
+
+const char* app_env::getDir(DirType type)
+{
+	switch(type)
+	{
+	case WORKSPACE:
+		return _workDir.c_str();
+		break;
+	case RESOURCE:
+		return _resDir.c_str();
+		break;
+	case LAYOUT:
+		return _layoutDir.c_str();
+		break;
+	case STRING_RESOURCE:
+		return _stringResDir.c_str();
+		break;
+	case STYLE_RESOURCE:
+		return _styleResDir.c_str();
+		break;
+	case UI_RESOURCE:
+		return _uiResDir.c_str();
+		break;
+	case UICOMMAND_RESOURCE:
+		return _uicommandResDir.c_str();
+		break;
+	case MENU_RESOURCE:
+		return _menuResDir.c_str();
+		break;
+	case CONFIG_RESOURCE:
+		return _configResDir.c_str();
+		break;
+	case IMAGE_RESOURCE:
+		return _imageResDir.c_str();
+		break;
+	case ICON_RESOURCE:
+		return _iconResDir.c_str();
+		break;
+	case LANGUAGE_RESOURCE:
+		return _languageDir.c_str();
+		break;
+	case SHORTCUT_RESOURCE:
+		return _shortcutDir.c_str();
+		break;
+	default:
+		break;
+	}
+	return "";
+}
+
+const char* app_env::getLanguageFile(Language language)
+{
+	switch(language)
+	{
+	case CHINESE:
+		return "qt_zh_CN.qm";
+		break;
+	case CHINESE_TW:
+		return "qt_zh_TW.qm";
+		break;
+	case ENGLISH:
+		return "";
+		break;
+	default:
+		break;
+	}
+	return "";
+}
+
+
+const char* app_env::getLanguageFile(const char* languageStr)
+{
+	std::string tempStr = languageStr;
+	if (tempStr.compare("Chinese")==0||tempStr.compare("chinese"))
+	{
+		return "qt_zh_CN.qm";
+	}
+	else if (tempStr.compare("Chinese_TW")==0||tempStr.compare("chinese_tw"))
+	{
+		return "qt_zh_TW.qm";
+	}
+	else if (tempStr.compare("English")==0||tempStr.compare("english"))
+	{
+		return "";
+	}
+	else
+		return "";
+}

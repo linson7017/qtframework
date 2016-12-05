@@ -1,0 +1,13 @@
+<Widget  activityRoot="true" id="graph"  pos="200,80" align="center" background-color="#eee0a0">
+	<TitleBar titleText="Test"/>
+	<!-- 第一个子窗口 -->
+	<VLayout>	
+		<Widget toolpanel="@toolpanel/panel" stretch="1" background-color="#eee0a0" menu="@menu/menu_test" />
+		<Widget toolpanel="@toolpanel/pane2" stretch="2" background-color="#00e0a0"/>
+	</VLayout>
+	
+	
+	
+	
+
+</Widget>
