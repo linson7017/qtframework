@@ -1,0 +1,1 @@
+#include "../../src/qfmain/QF_Config.h"

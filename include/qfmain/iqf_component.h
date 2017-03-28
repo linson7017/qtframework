@@ -1,0 +1,1 @@
+#include "../../src/qfmain/IQF_Component.h"
