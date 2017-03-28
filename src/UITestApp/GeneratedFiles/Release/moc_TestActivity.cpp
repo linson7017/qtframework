@@ -93,6 +93,8 @@ void *TestActivity::qt_metacast(const char *_clname)
     if (!_clname) return Q_NULLPTR;
     if (!strcmp(_clname, qt_meta_stringdata_TestActivity.stringdata0))
         return static_cast<void*>(const_cast< TestActivity*>(this));
+    if (!strcmp(_clname, "QObject"))
+        return static_cast< QObject*>(const_cast< TestActivity*>(this));
     return CustomActivity::qt_metacast(_clname);
 }
 

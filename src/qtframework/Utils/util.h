@@ -28,6 +28,8 @@ class ui_node;
 //返回值：true或者false
 bool atob(const char* str);
 
+std::pair<int, int> atoip(const char* str);
+
 //将字符串用";;"分离成字符数组
 //参数：
 //	str:输入字符
@@ -83,6 +85,7 @@ void getResImageOrIconUrl(std::string& url,const std::string& istr);
 #define STR_TO_STR_VECTOR(str) atosv(str)  //字符串到QStringList
 #define STR_TO_RES_TEXT(str) getResText(str)  //字符串到资源字符串
 #define STR_TO_RES_STYLE(str) getResStyle(str)  //字符串到资源字Style
+#define STR_TO_INT_PAIR(str) atoip(str)
 
 /*********************** ui_node节点操作 *********************/
 //从Object中获得ui_node节点
@@ -179,7 +182,7 @@ void Gb2312ToUTF8(char *szOut, const char *szIn);
 //	path:路径
 //	type:输出日志类型
 //返回值：无
-void logFileOrPathExist(const char* path,Log::LOG_TYPE type=Log::LOG_WARN);
+void logFileOrPathExist(const char* path,Log::LOG_TYPE type=Log::LOG_WARN,bool autoCreate = false);
 
 
 

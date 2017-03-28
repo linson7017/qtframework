@@ -161,6 +161,88 @@ Qt::ToolButtonStyle qt_standard::getToolButtonStyle(const char* name)
 	else
 		return Qt::ToolButtonFollowStyle;
 }
+//获得标准ToolBar位置
+//参数：
+//		name:输入
+//返回值：ToolButtonStyle实例
+Qt::ToolBarArea qt_standard::getToolBarArea(const char* name)
+{
+    if (strcmp(name, "LeftToolBarArea") == 0)
+        return Qt::LeftToolBarArea;
+    else if (strcmp(name, "RightToolBarArea") == 0)
+        return Qt::RightToolBarArea;
+    else if (strcmp(name, "TopToolBarArea") == 0)
+        return Qt::TopToolBarArea;
+    else if (strcmp(name, "BottomToolBarArea") == 0)
+        return Qt::BottomToolBarArea;
+    else if (strcmp(name, "AllToolBarAreas") == 0)
+        return Qt::AllToolBarAreas;
+    else if (strcmp(name, "NoToolBarArea") == 0)
+        return Qt::NoToolBarArea;
+    else
+        return Qt::TopToolBarArea;
+}
+
+
+Qt::DockWidgetArea qt_standard::getDockWidgetArea(const char* name)
+{
+    if (strcmp(name, "LeftDockWidgetArea") == 0)
+        return Qt::LeftDockWidgetArea;
+    else if (strcmp(name, "RightDockWidgetArea") == 0)
+        return Qt::RightDockWidgetArea;
+    else if (strcmp(name, "TopToolBarArea") == 0)
+        return Qt::TopDockWidgetArea;
+    else if (strcmp(name, "BottomDockWidgetArea") == 0)
+        return Qt::BottomDockWidgetArea;
+    else if (strcmp(name, "AllDockWidgetAreas") == 0)
+        return Qt::AllDockWidgetAreas;
+    else if (strcmp(name, "NoDockWidgetArea") == 0)
+        return Qt::NoDockWidgetArea;
+    else
+        return Qt::LeftDockWidgetArea;
+}
+
+
+QDockWidget::DockWidgetFeature qt_standard::getDockWidgetFeature(const char* name)
+{
+    if (strcmp(name, "DockWidgetClosable") == 0)
+        return QDockWidget::DockWidgetClosable;
+    else if (strcmp(name, "DockWidgetMovable") == 0)
+        return QDockWidget::DockWidgetMovable;
+    else if (strcmp(name, "DockWidgetFloatable") == 0)
+        return QDockWidget::DockWidgetFloatable;
+    else if (strcmp(name, "DockWidgetVerticalTitleBar") == 0)
+        return QDockWidget::DockWidgetVerticalTitleBar;
+    else if (strcmp(name, "AllDockWidgetFeatures") == 0)
+        return QDockWidget::AllDockWidgetFeatures;
+    else if (strcmp(name, "NoDockWidgetFeatures") == 0)
+        return QDockWidget::NoDockWidgetFeatures;
+    else
+        return QDockWidget::AllDockWidgetFeatures;
+}
+
+QDockWidget::DockWidgetFeatures qt_standard::getDockWidgetFeatures(const char* name)
+{
+    QDockWidget::DockWidgetFeatures flags = QDockWidget::NoDockWidgetFeatures;
+    QStringList flagsStr = QString(name).split("|");
+    for (int i=0;i<flagsStr.size();i++)
+    {
+        flags |= getDockWidgetFeature(flagsStr.at(i).toStdString().c_str());
+    }
+    return flags;
+}
+
+
+Qt::Orientation qt_standard::getOrientation(const char* name)
+{
+    if (strcmp(name, "Horizontal") == 0)
+        return Qt::Horizontal;
+    else if (strcmp(name, "Vertical") == 0)
+        return Qt::Vertical;
+    else
+        return Qt::Horizontal;
+}
+
 //获得标准Icon实例
 //参数：
 //		name:输入
@@ -324,6 +406,28 @@ QFont qt_standard::getStandardFont(const char* name)
 }
 
 #ifndef RECOGNIZE_QPORPERTY_DISABLED
+bool qt_standard::exchangProperty(QVariant& property, variant& varient)
+{
+    switch (property.type())
+    {
+    case QVariant::Int:
+        varient.setInt(property.value<int>());
+        return true;
+    case QVariant::Double:
+        varient.setDouble(property.value<double>());
+        return true;
+    case QVariant::Bool:
+        varient.setBool(property.value<bool>());
+        return true;
+    case QVariant::String:
+        varient.setString(property.value<QString>().toStdString().c_str());
+        return true;
+    default:
+        return false;
+    }
+}
+
+
 //获得属性值
 //参数：
 //		name:输入

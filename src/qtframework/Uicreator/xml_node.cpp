@@ -122,8 +122,48 @@ void xml_node::relateXMLNode(xmlNode* xmlnode)
 	setContent((char*)xmlNodeGetContent(xmlnode));
 	while(attr!=NULL)
 	{
+        std::string attributeName = (const char*)attr->name;
+        if (strcmp(attributeName.substr(0,9).c_str(),"parameter")==0)
+        {
+            std::string valueStr = (const char*)attr->children->content;
+            int i = valueStr.find(":");
+            if (i != std::string::npos)
+            {
+                std::string type = valueStr.substr(0, i);
+                std::string vs = valueStr.substr(i + 1, valueStr.length() - 1 - i);
+                variant value;
+                if (strcmp(type.c_str(), "bool") == 0 || strcmp(type.c_str(), "Bool") == 0 || strcmp(type.c_str(), "BOOL") == 0)
+                {
+                    if (strcmp(vs.c_str(), "true") == 0 || strcmp(vs.c_str(), "TRUE") == 0)
+                        value.setBool(true);
+                    else
+                        value.setBool(false);
+                }
+                else if (strcmp(type.c_str(), "int") == 0 || strcmp(type.c_str(), "Int") == 0 || strcmp(type.c_str(), "INT") == 0)
+                {
+                    value.setInt(atoi(vs.c_str()));
+                }
+                else if (strcmp(type.c_str(), "double") == 0 || strcmp(type.c_str(), "double") == 0 || strcmp(type.c_str(), "double") == 0)
+                {
+                    value.setInt(atof(vs.c_str()));
+                }
+                else
+                {
+                    value.setString(vs.c_str());
+                }
+                addParameter((const char*)attr->name, value);
+            }
+            
+        }
 		addAttribute((const char*)attr->name,(const char*)attr->children->content);
+        
 		attr = attr->next;
 	}
 	_id = hasAttribute("id")?getAttribute("id"):"NULL";
+}
+
+
+void xml_node::addParameter(const char* key, const variant& parameter)
+{
+    _parameters[key] = parameter;
 }

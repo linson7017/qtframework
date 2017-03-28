@@ -30,6 +30,17 @@ bool atob(const char* str)
 		return false; 
 }
 
+std::pair<int, int> atoip(const char* str)
+{
+    std::vector<std::string> strVec;
+    std::string temp = str;
+    splitString(temp, strVec, ",");
+    std::pair<int, int> result;
+    result.first = atoi(strVec[0].c_str());
+    result.second = atoi(strVec[1].c_str());
+    return result;
+}
+
 //将字符串用";;"分离成字符数组
 //参数：
 //	str:输入字符
@@ -490,16 +501,25 @@ void Gb2312ToUTF8(char *szOut, const char *szIn)
 //	path:路径
 //	type:输出日志类型
 //返回值：无
-void logFileOrPathExist(const char* path,Log::LOG_TYPE type)
+void logFileOrPathExist(const char* path,Log::LOG_TYPE type, bool autoCreate)
 {
 	if (fileOrPahtExist(path))
 	{		
 	}
 	else
 	{
-		char szMsg[1024];
-		sprintf(szMsg,"%s does not exist!",path);
-		printf(szMsg);
+        char szMsg[1024];
+        if (autoCreate)
+        {
+            createDirectory(path);
+            sprintf(szMsg, "Create Directory %s! \r\n", path);
+            printf(szMsg);
+        }
+        else
+        {
+            sprintf(szMsg, "%s does not exist! \r\n", path);
+            printf(szMsg);
+        }		
 	}
 }
 

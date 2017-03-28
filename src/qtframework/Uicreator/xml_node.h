@@ -11,6 +11,7 @@
 #include <map>
 #include <list>
 #include <libxml/tree.h>
+#include <Utils/variant.h>
 using namespace std;
 /*!
  * \class xml_node
@@ -25,6 +26,7 @@ class xml_node
 public:
 	//定义属性表类型
 	typedef std::map<string,string> AttributeMapType;
+    typedef std::map<string, variant> ParameterMapType;
 	//构造函数
 	//参数：无
 	//返回值：无
@@ -109,6 +111,9 @@ public:
 	//参数：无
 	//返回值：xmlNode节点指针
 	xmlNode* getXMLNode(){return _xmlNode;}
+
+    virtual void addParameter(const char* key, const variant& parameter);
+    virtual ParameterMapType& getParameters() { return _parameters; }
 protected:
 	string _name;
 	string _id;
@@ -116,6 +121,7 @@ protected:
 	list<xml_node*> _childs; 
 	xml_node* _parent;
 	AttributeMapType _attributes;
+    ParameterMapType _parameters;
 	xmlNode* _xmlNode;
 };
 

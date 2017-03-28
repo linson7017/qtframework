@@ -23,7 +23,7 @@ string app_env::_qmlResDir="";
 
 bool app_env::_bShowTooltip=true;
 
-IGIS_Main_Void* app_env::_pMain=NULL;
+IQF_Main* app_env::_pMain=NULL;
 //构造函数
 //参数：wDir qtframework工作路径
 //返回值：无
@@ -124,26 +124,26 @@ void app_env::setup()
 	_qmlResDir.append(_resDir+"qml/");
 
 	////日志输出	
-	logFileOrPathExist(_workDir.c_str(),Log::LOG_ERROR);
+	logFileOrPathExist(_workDir.c_str(),Log::LOG_WARN,true);
 	//logFileOrPathExist(arg,Log::LOG_ERROR);
-	logFileOrPathExist(_layoutDir.c_str(),Log::LOG_ERROR);
-	logFileOrPathExist(_logDir.c_str(),Log::LOG_WARN);
+	logFileOrPathExist(_layoutDir.c_str(),Log::LOG_WARN,true);
+	logFileOrPathExist(_logDir.c_str(),Log::LOG_WARN,true);
 	if (!fileOrPahtExist(_resDir.c_str()))
 	{
-		logFileOrPathExist(_resDir.c_str(),Log::LOG_WARN);
+		logFileOrPathExist(_resDir.c_str(),Log::LOG_WARN, true);
 	}
 	else
 	{
-		logFileOrPathExist(_uiResDir.c_str(),Log::LOG_WARN);
-		logFileOrPathExist(_uicommandResDir.c_str(),Log::LOG_WARN);
-		logFileOrPathExist(_stringResDir.c_str(),Log::LOG_WARN);
-		logFileOrPathExist(_configResDir.c_str(),Log::LOG_WARN);
-		logFileOrPathExist(_styleResDir.c_str(),Log::LOG_WARN);
-		logFileOrPathExist(_imageResDir.c_str(),Log::LOG_WARN);
-		logFileOrPathExist(_iconResDir.c_str(),Log::LOG_WARN);
-		logFileOrPathExist(_languageDir.c_str(),Log::LOG_WARN);
-		logFileOrPathExist(_menuResDir.c_str(),Log::LOG_WARN);
-		logFileOrPathExist(_shortcutDir.c_str(),Log::LOG_WARN);
+		logFileOrPathExist(_uiResDir.c_str(),Log::LOG_WARN, true);
+		logFileOrPathExist(_uicommandResDir.c_str(),Log::LOG_WARN, true);
+		logFileOrPathExist(_stringResDir.c_str(),Log::LOG_WARN, true);
+		logFileOrPathExist(_configResDir.c_str(),Log::LOG_WARN, true);
+		logFileOrPathExist(_styleResDir.c_str(),Log::LOG_WARN, true);
+		logFileOrPathExist(_imageResDir.c_str(),Log::LOG_WARN, true);
+		logFileOrPathExist(_iconResDir.c_str(),Log::LOG_WARN, true);
+		logFileOrPathExist(_languageDir.c_str(),Log::LOG_WARN, true);
+		logFileOrPathExist(_menuResDir.c_str(),Log::LOG_WARN, true);
+		logFileOrPathExist(_shortcutDir.c_str(),Log::LOG_WARN, true);
 	}
 }
 //获得路径

@@ -168,12 +168,6 @@
     <ClCompile Include="Common\qt_context.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_Activity.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_Activity.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_ClickListenser.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -196,12 +190,6 @@
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_SplashWindow.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_CustomActivity.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_CustomActivity.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="UIs\sl_VectorContainer.cpp">
@@ -233,6 +221,21 @@
     </ClCompile>
     <ClCompile Include="Res\res_toolpanel.cpp">
       <Filter>Res</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_CustomActivity.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_CustomActivity.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Activity.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_Activity.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Uicreator\qt_ui_creater.cpp">
+      <Filter>UICreator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -277,9 +280,6 @@
     </CustomBuild>
     <CustomBuild Include="UIs\sl_qtablewidgetitem.ui">
       <Filter>UIs</Filter>
-    </CustomBuild>
-    <CustomBuild Include="GeneratedFiles\ui_sl_qtablewidgetitem.h">
-      <Filter>Generated Files</Filter>
     </CustomBuild>
     <CustomBuild Include="Uicreator\qt_uicommand_executor.h">
       <Filter>UICreator</Filter>
@@ -368,5 +368,10 @@
     <CustomBuild Include="..\..\include\qtframework\qf_messagedef.h">
       <Filter>headers</Filter>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Uicreator\qt_ui_creater.h">
+      <Filter>UICreator</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

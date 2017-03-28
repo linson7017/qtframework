@@ -6,7 +6,9 @@ class PopWidget : public CustomActivity
 public:
 	PopWidget(void);
 	~PopWidget(void);
-    void closeEvent(QCloseEvent *ev){QWidget::closeEvent(ev);}
+    void closeEvent(QCloseEvent *ev){
+       // QWidget::closeEvent(ev);
+    }
 	public slots:
 		void showMessageBox();
 };

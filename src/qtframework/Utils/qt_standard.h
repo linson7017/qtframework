@@ -14,10 +14,12 @@
 #include <QHeaderView>
 #include <QLineEdit>
 #include <QFrame>
+#include <QDockWidget>
 #ifdef USE_QCUSTOM_PLOT
 #include <QCustomPlot.h>
 #endif 
 #include <map>
+#include "Utils/variant.h"
 /*!
  * \class qt_standard
  *
@@ -102,6 +104,16 @@ public:
 	//		name:输入
 	//返回值：Shadow实例
 	static QFrame::Shadow getFrameShadow(const char* name);
+
+    static Qt::ToolBarArea getToolBarArea(const char* name);
+
+    static Qt::DockWidgetArea getDockWidgetArea(const char* name);
+
+    static QDockWidget::DockWidgetFeature getDockWidgetFeature(const char* name);
+
+    static QDockWidget::DockWidgetFeatures getDockWidgetFeatures(const char* name);
+
+    static Qt::Orientation getOrientation(const char* name);
 #ifdef USE_QCUSTOM_PLOT
 	//获得标准Interactions实例
 	//参数：
@@ -122,6 +134,8 @@ public:
 	//		v: 
 	//返回值：Shadow实例
 	static bool getProperty(const char* name,QVariant& v);
+
+    static bool exchangProperty(QVariant& property,variant& varient);
 #endif
 
 

@@ -71,7 +71,15 @@ bool qt_uicommand_executor::execute(xml_node* uicommand,ui_node* sender)
 						}
 						if (!activity) //如果没有找到则自动创建并以文件名为id
 						{
-                            activity = new CustomActivity; //默认都是MainActivity的子窗口内
+                            if (xmlRoot->hasAttribute("CustomStyle")&&STR_TO_BOOL(xmlRoot->getAttribute("CustomStyle")))
+                            {
+                                activity = new CustomActivity; //默认都是MainActivity的子窗口内
+                            }
+                            else
+                            {
+                                activity = new Activity; //默认都是MainActivity的子窗口内
+                            }
+                            
 							activity->setContentView(layout.c_str());
 							R::Instance()->addActivity(id.c_str(),activity); 
 						}	
@@ -371,6 +379,7 @@ bool qt_uicommand_executor::execute(xml_node* uicommand,ui_node* sender)
 			if (widget)
 			{
 				widget->show();
+                return true;
 			}
 			else
 				return false;
@@ -378,6 +387,29 @@ bool qt_uicommand_executor::execute(xml_node* uicommand,ui_node* sender)
 		else
 			return false;
 	}
+    else if (strcmp(uicommand->getAttribute("type"), "ToggleWidget") == 0)
+    {
+        if (uicommand->hasAttribute("widgetID"))
+        {
+            QWidget* widget = (QWidget*)R::Instance()->getObjectFromGlobalMap(uicommand->getAttribute("widgetID"));
+            if (widget)
+            {
+                if (widget->isVisible())
+                {
+                    widget->hide();
+                }
+                else
+                {
+                    widget->show();
+                }
+                return true;
+            }
+            else
+                return false;
+        }
+        else
+            return false;
+    }
 	else if (strcmp(uicommand->getAttribute("type"),"ResizeWidget")==0)
 	{
 		if (uicommand->hasAttribute("widgetID"))

@@ -1,5 +1,5 @@
 #include "TestActivity.h"
-#include <PopWidget.h>
+//#include <PopWidget.h>
 #include <QtGui>
 #include <QtGui>
 #include <Res/R.h>
@@ -30,8 +30,11 @@ TestActivity::TestActivity(void)
 	case 1:									//绝对位置布局
 		{
             setContentView("panel.xml");
+            QAction* action = (QAction*)getViewByID("action1");
+            bool success = QObject::connect(action, SLOT(trigger()), this, SIGNAL(showMessageBox()));
 			/*QProgressBar* pb = (QProgressBar*)getViewByID("pbar");
 			pb->setValue(1000);*/
+            int x = 0;
 		}
 		break;
 	case 2:									//qtframework中嵌入自定义控件或者QDesigner设计控件
@@ -63,7 +66,7 @@ TestActivity::TestActivity(void)
 		break;
 	case 5:									//通过uicommand控制界面静态的逻辑操作
 		{
-			PopWidget* popWidget = new PopWidget;
+			//PopWidget* popWidget = new PopWidget;
 			setContentView("tutorial_5.xml");
 		}
 		break;
@@ -74,7 +77,7 @@ TestActivity::TestActivity(void)
 		break;
 	case 7:									//设置快捷键
 		{
-			PopWidget* popWidget = new PopWidget;
+			//PopWidget* popWidget = new PopWidget;
 			setContentView("tutorial_6.xml");
 		}
 		break;

@@ -145,6 +145,8 @@ public:
 	//参数：name ID
 	//返回值：控件指针
 	static void* getCustomWidget(const char* name);
+
+    static const char* getImageResourceUrl(const char* name);
 private:
 	//构造函数
 	R();

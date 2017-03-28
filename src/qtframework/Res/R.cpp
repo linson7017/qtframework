@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <Res/res_toolpanel.h>
+#include <Utils/util.h>
 
 R* R::_res = NULL;
 R::Garbo R::_garbo;
@@ -211,4 +212,12 @@ void* R::getCustomWidget(const char* name)
 	{
 		return NULL;
 	}
+}
+
+
+const char* R::getImageResourceUrl(const char* name)
+{
+    std::string imageUrl;
+    getResImageOrIconUrl(imageUrl, name);
+    return imageUrl.c_str();
 }

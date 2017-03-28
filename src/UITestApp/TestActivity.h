@@ -3,13 +3,15 @@
 //#include <../ViceMonitor/MonitorConfig.h>
 class QUdpSocket;
 class IViceMonitor;
-class TestActivity:public CustomActivity
+class TestActivity:public CustomActivity,public QObject
 {
 	Q_OBJECT
 public:
 	TestActivity(void);
 	~TestActivity(void);
-    void closeEvent(QCloseEvent *ev){QWidget::closeEvent(ev);}
+    void closeEvent(QCloseEvent *ev){
+        //QWidget::closeEvent(ev);
+    }
 	public slots:
 		void showMessageBox();
 		void refreshData();

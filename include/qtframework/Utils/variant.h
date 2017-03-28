@@ -11,6 +11,7 @@
 
 #pragma once
 #include <string>
+#include <map>
 #include <stdlib.h>
 #include <stdio.h>
 #include "Common/qtframework_com.h"
@@ -19,7 +20,7 @@ using namespace std;
 class QTFRAMEWORK_EXPORT variant;
 
 template<typename T> inline T variant_cast(const variant&);
-
+typedef std::map<std::string, variant> VarientMap;
 /*!
  * \class variant
  *
@@ -239,12 +240,24 @@ public:
 	}
 	//返回模板参数
 	//C++要求模板函数的声明和实现对引用者必须都可见，所以需要放在同一个文件里面或者包含实现的文件
-	template<typename T> T value() const  
-	{
-		return variant_cast<T>(*this);
-	}
-	friend inline bool variant_cast_helper(const variant&, variant::Type, void *);
+    template<typename T> T value() const
+    {
+        return variant_cast<T>(*this);
+    }
+    inline static variant& GetVariant(VarientMap& map, const char* id)
+    {
+        VarientMap::iterator it = map.find(id);
+        if (it != map.end())
+        {
+            return it->second;
+        }
+        else
+        {
+            return variant(NULL);
+        }
+    }
 private:
+    friend inline bool variant_cast_helper(const variant&, variant::Type, void *);
 	union{
 		int iValue;
 		bool bValue;

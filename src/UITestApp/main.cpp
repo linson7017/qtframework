@@ -7,8 +7,8 @@
 #include "Utils/Log.h"
 #include <Res/R.h>
 #include <Utils/variant.h>
-#include <TableActivity.h>
-#include <SimpleTable.h>
+//#include <TableActivity.h>
+//#include <SimpleTable.h>
 //#include "gise_config.h"
 //#include "main/igis_main.h"
 //#include <airtrack/imti_radarmanager.h>
