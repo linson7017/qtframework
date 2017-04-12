@@ -76,7 +76,7 @@ bool qt_command_executor::executeCommand(ui_node* node)
         }
         if (vm.size()>0)
         {
-            pMain->SendMessage(command.c_str(), 0, (void*)&vm);
+            pMain->SendMessage(command.c_str(), vm.size(), (void*)&vm);
         }
         else
         {

@@ -223,6 +223,7 @@ const char* res_style::parseName(const char* str)
 	else if (strcmp(str,"ToolBox")==0)		{return "QToolBox";}
 	else if (strcmp(str,"ToolTip")==0)		{return "QToolTip";}
 	else if (strcmp(str,"TreeWidget")==0)	{return "QTreeWidget";}
+    else if (strcmp(str, "TreeView") == 0) { return "QTreeView"; }
 	else if (strcmp(str,"Widget")==0)		{return "QWidget";}
 	else									
 	{
