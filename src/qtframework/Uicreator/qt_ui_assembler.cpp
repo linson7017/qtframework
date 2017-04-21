@@ -967,6 +967,10 @@ bool qt_ui_assembler::createUI(ui_node* node)
         qt_ui_creater::CreateTreeWidget(node);
 
 	}
+    else if (strcmp(node->getName(), "ListWidget") == 0)
+    {
+        qt_ui_creater::CreateListWidget(node);
+    }
 	else if (strcmp(node->getName(),"VToolBar")==0)
 	{
         qt_ui_creater::CreateVToolBar(node);

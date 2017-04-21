@@ -48,6 +48,7 @@ public:
     static void CreateDateTimeEdit(ui_node* node);
     static void CreateDockWidget(ui_node* node);
     static void CreateMenuBar(ui_node* node);
+    static void CreateListWidget(ui_node* node);
 
     //layout
     static void CreateVLayout(ui_node* node);

@@ -793,6 +793,13 @@ void qt_ui_creater::CreateMenuBar(ui_node* node)
     node->setObject(menuBar);
 }
 
+void qt_ui_creater::CreateListWidget(ui_node* node)
+{
+    node->setType(ui_node::WIDGET);
+    QListWidget* listWidget = new QListWidget;
+    node->setObject(listWidget);
+}
+
 
 void qt_ui_creater::CreateVLayout(ui_node* node) {
     node->setType(ui_node::LAYOUT);
