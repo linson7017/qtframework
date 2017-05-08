@@ -58,5 +58,17 @@
     <ClInclude Include="IQF_Component.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\qfmain\internal\qf_interfacedef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IQF_Command.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IQF_Message.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qf_config_internal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

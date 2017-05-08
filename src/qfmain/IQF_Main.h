@@ -14,7 +14,7 @@ class IQF_Main : public IQF_Observer, public IQF_Subject
 {
 public:
     virtual void Release() = 0;
-    virtual bool ExecuteCommand(int iCommandID, IQF_PropertySet* pInParam, IQF_PropertySet* pOutParam) = 0;
+    virtual bool ExecuteCommand(const char* szCommandID, IQF_PropertySet* pInParam, IQF_PropertySet* pOutParam) = 0;
     virtual void SendMessage(const char* szMessage, int iValue, void *pValue) = 0;
     virtual void SendMessageQf(const char* szMessage, int iValue, void *pValue) = 0;
     virtual void* GetInterfacePtr(const char* szInterfaceID) = 0;

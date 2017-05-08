@@ -83,8 +83,19 @@ bool qt_command_executor::executeCommand(ui_node* node)
             pMain->SendMessage(command.c_str(), 0, (void*)node->getAttribute("id"));
         }
         std::cout << "Execute Command " << command << std::endl;
-        return true;
     }
+	if (node->hasAttribute("command"))
+	{
+		string command = node->getAttribute("command");
+		if (pMain->ExecuteCommand(command.c_str(), 0, 0))
+		{
+			//return true;
+			std::cout << "Execute Command " << command << " Successed !";
+		}
+		else
+			std::cout << "Execute Command " << command << " Failed !";
+	}
+
     return true;
 
     //xml_node* xmlNode = static_cast<xml_node*>(node);
@@ -97,26 +108,20 @@ bool qt_command_executor::executeCommand(ui_node* node)
 bool qt_command_executor::executeCommand(xml_node* node)
 {
 	QF::IQF_Main* pMain = (QF::IQF_Main*)app_env::getMainPtr();
-    /*if (!pMain)
-    {
-        char szMsg[1024];
-        if (node->hasAttribute("command")||node->hasAttribute("msgcommand")||node->hasAttribute("toolcommand"))
-        {
-            sprintf(szMsg, "QtFrameWork ERROR: Execute command of node \"%s\" %s failed! Because IGIS_Main is not initialized!\n",node->getName(),node->hasAttribute("id")?node->getAttribute("id"):"");
-            printf(szMsg);
-        }
-        return false;
-    }
-    if (node->hasAttribute("command"))
-    {
-        string command = node->getAttribute("command");
-        int icommand = STR_TO_INT(command.c_str());
-        if (pMain->ExecuteCommand(icommand, 0, 0))
-        {
-            return true;
-        }else
-            return false;
-    }*/
+	if (!pMain)
+	{
+		return false;
+	}
+	if (node->hasAttribute("command"))
+	{
+		string command = node->getAttribute("command");
+		if (pMain->ExecuteCommand(command.c_str(), 0, 0))
+		{
+			return true;
+		}
+		else
+			return false;
+	}
 	if (node->hasAttribute("msgcommand"))
 	{
 		string command = node->getAttribute("msgcommand");

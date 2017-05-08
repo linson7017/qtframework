@@ -30,15 +30,16 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>../../obj/qfmain/debug</OutDir>
+    <IntDir>../../obj/qfmain/debug</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>../../obj/qtmain/release</OutDir>
-    <IntDir>../../obj/qtmain/release</IntDir>
+    <OutDir>../../obj/qfmain/release</OutDir>
+    <IntDir>../../obj/qfmain/release</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_DLL;QT_CORE_LIB;QFMAIN_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_CORE_LIB;QFMAIN_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -55,8 +56,8 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QFMAIN_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QFMAIN_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;../../include/qfmain;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
@@ -72,7 +73,7 @@
     <PostBuildEvent>
       <Command>copy "$(OutDir)\$(TargetName).lib" "..\..\lib"
 copy "$(OutDir)\$(TargetName).dll" "..\..\bin"
-copy "$(OutDir)\$(TargetName).dll" "E:\codes\MIPF-build\bin\Release"</Command>
+copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -81,12 +82,16 @@ copy "$(OutDir)\$(TargetName).dll" "E:\codes\MIPF-build\bin\Release"</Command>
     <ClCompile Include="QF_Subject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\qfmain\internal\qf_interfacedef.h" />
+    <ClInclude Include="IQF_Command.h" />
     <ClInclude Include="IQF_Component.h" />
+    <ClInclude Include="IQF_Message.h" />
     <ClInclude Include="QF_Config.h" />
     <ClInclude Include="IQF_Main.h" />
     <ClInclude Include="IQF_Observer.h" />
     <ClInclude Include="IQF_Subject.h" />
     <ClInclude Include="CQF_Main.h" />
+    <ClInclude Include="qf_config_internal.h" />
     <ClInclude Include="QF_Subject.h" />
   </ItemGroup>
   <ItemGroup>
@@ -96,7 +101,7 @@ copy "$(OutDir)\$(TargetName).dll" "E:\codes\MIPF-build\bin\Release"</Command>
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties MocDir=".\GeneratedFiles\$(ConfigurationName)" UicDir=".\GeneratedFiles" RccDir=".\GeneratedFiles" lupdateOptions="" lupdateOnBuild="0" lreleaseOptions="" Qt5Version_x0020_x64="Qt5.6.0" MocOptions="" />
+      <UserProperties MocDir=".\GeneratedFiles\$(ConfigurationName)" UicDir=".\GeneratedFiles" RccDir=".\GeneratedFiles" lupdateOptions="" lupdateOnBuild="0" lreleaseOptions="" Qt5Version_x0020_x64="Qt5.7.0" MocOptions="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

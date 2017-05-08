@@ -376,6 +376,7 @@ void Activity::parseShowModeBeforeActived(ui_node* attr)
 	if (!STR_TO_BOOL(attr->getAttribute("activityRoot")))
 		return;
 
+	
 
 	if (attr->hasAttribute("id"))
 	{
@@ -390,6 +391,14 @@ void Activity::parseShowModeBeforeActived(ui_node* attr)
 		Activity* parent = R::Instance()->getActivity(id.c_str());
 		setParent(parent);
 	}
+	// ÑשÊ½
+	if (attr->hasAttribute("style")&&attr->getType()!=ui_node::WIDGET)
+	{
+		string res = attr->getAttribute("style");
+		const char* stylesheet = getResStyle(attr->getAttribute("style"));
+		setStyleSheet(stylesheet);
+	}
+
 	//windowflag
 	if (attr->hasAttribute("flags"))
 	{

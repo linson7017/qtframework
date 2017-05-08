@@ -368,10 +368,8 @@
     <CustomBuild Include="..\..\include\qtframework\qf_messagedef.h">
       <Filter>headers</Filter>
     </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Uicreator\qt_ui_creater.h">
+    <CustomBuild Include="Uicreator\qt_ui_creater.h">
       <Filter>UICreator</Filter>
-    </ClInclude>
+    </CustomBuild>
   </ItemGroup>
 </Project>
