@@ -502,6 +502,9 @@ void* CQF_Main::GetInterfacePtr(const char* szInterfaceID)
     QF_MainInterfaceMap::iterator it_interface = m_interfaces.find(szInterfaceID);
     if (it_interface == m_interfaces.end())
     {
+#ifndef _DEBUG
+        std::cout << "Get interface "<< szInterfaceID <<" failed ! Please check if the interface exists or the related component is registered ! "<< std::endl;
+#endif
         return NULL;
     }
     return it_interface->second;
