@@ -23,7 +23,7 @@ string app_env::_qmlResDir="";
 
 bool app_env::_bShowTooltip=true;
 
-IQF_Main* app_env::_pMain=NULL;
+IQF_Main_Ext* app_env::_pMain=NULL;
 //构造函数
 //参数：wDir qtframework工作路径
 //返回值：无
@@ -65,10 +65,30 @@ void app_env::setWorkDir(const char* wDir)
 //参数：无
 //返回值：无
 void app_env::setup()
-{
+{  
+
 	if (_workDir.empty())
 	{
-		_workDir.append(_appDir+"ui_qtframework/"+_exeName+"/");
+        //检查上级目录是否存有qfconfig文件夹
+        string qfconfigPath = "";
+        if (_appDir.substr(_appDir.length() - 1, 1).compare("/")==0)
+        {
+            qfconfigPath = _appDir.substr(0, _appDir.length() - 1);
+        }
+        else
+        {
+            qfconfigPath = _appDir;
+        }
+        qfconfigPath = qfconfigPath.substr(0, qfconfigPath.find_last_of("/")+1);
+        qfconfigPath.append("qfconfig/");
+        if (fileOrPahtExist(qfconfigPath.append(_exeName).c_str()))
+        {
+            _workDir = qfconfigPath.append("/");
+        }
+        else
+        {
+            _workDir.append(_appDir + "qfconfig/" + _exeName + "/");
+        }	
 	}
 	else
 	{

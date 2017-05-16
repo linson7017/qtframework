@@ -11,6 +11,9 @@
 #include <string.h>
 #include <Res/res_toolpanel.h>
 #include <Utils/util.h>
+#include <Common/app_env.h>
+#include <qfmain/internal/iqf_main_ext.h>
+
 
 R* R::_res = NULL;
 R::Garbo R::_garbo;
@@ -36,7 +39,23 @@ R::R()
 	_uicommand_res = new res_uicommand;
 	_shortcut_res = new res_shortcut;
 	_toolpanel_res = new res_toolpanel;
-	
+    
+    
+    
+}
+
+R* R::Instance()
+{
+    if (_res == 0)
+    {
+        _res = new R;
+        QF::IQF_Main_Ext* pMainExt = (QF::IQF_Main_Ext*)app_env::getMainPtr();
+        if (pMainExt)
+        {
+            pMainExt->RegisterResource(_res);
+        }
+    }
+    return _res;
 }
 
 //Îö¹¹º¯Êý
@@ -220,4 +239,13 @@ const char* R::getImageResourceUrl(const char* name)
     std::string imageUrl;
     getResImageOrIconUrl(imageUrl, name);
     return imageUrl.c_str();
+}
+
+void R::Contructed()
+{
+    QF::IQF_Main_Ext* pMainExt = (QF::IQF_Main_Ext*)app_env::getMainPtr();
+    if (pMainExt)
+    {
+        pMainExt->ResourceConstructed(this);
+    }
 }

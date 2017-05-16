@@ -12,6 +12,8 @@
 #include <QtCore/QVariant>
 #include <QObject>
 
+#include <qfmain/iqf_main.h>
+
 //using namespace gise;
 //构造函数
 //参数：无
@@ -90,10 +92,10 @@ bool qt_command_executor::executeCommand(ui_node* node)
 		if (pMain->ExecuteCommand(command.c_str(), 0, 0))
 		{
 			//return true;
-			std::cout << "Execute Command " << command << " Successed !";
+			std::cout << "Execute Command " << command << " Successed !"<<std::endl;
 		}
 		else
-			std::cout << "Execute Command " << command << " Failed !";
+			std::cout << "Execute Command " << command << " Failed !"<<std::endl;
 	}
 
     return true;

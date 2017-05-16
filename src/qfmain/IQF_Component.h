@@ -1,3 +1,8 @@
+/********************************************************************
+	filename: 	IQF_Component.h
+	author:		Ling Song
+	date: 		ÈýÔÂ 2017
+*********************************************************************/
 #ifndef IComponent_h__
 #define IComponent_h__
 #pragma once

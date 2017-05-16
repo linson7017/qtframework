@@ -12,6 +12,8 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QWidget>
+
+#include <qfmain/iqf_main.h>
 //构造函数
 //参数：无
 //返回值：无

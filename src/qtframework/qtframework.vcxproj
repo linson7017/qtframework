@@ -1,6 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="DebugRelease|Win32">
+      <Configuration>DebugRelease</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugRelease|x64">
+      <Configuration>DebugRelease</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
@@ -36,7 +44,15 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
@@ -52,7 +68,13 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
@@ -65,14 +87,22 @@
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'" />
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'" />
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\temp\radar\obj\debug\qtframework</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\temp\radar\obj\release\qtframework</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">C:\temp\radar\obj\release\qtframework</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\temp\radar\obj\release\qtframework</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">C:\temp\radar\obj\release\qtframework</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)d</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)d</TargetName>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\temp\radar\obj\debug\qtframework</IntDir>
@@ -80,6 +110,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>../../obj/qtframework/release</OutDir>
     <IntDir>../../obj/qtframework/release</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+    <OutDir>../../obj/qtframework/debugrelease</OutDir>
+    <IntDir>../../obj/qtframework/debugrelease</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>../../obj/qtframework/debug</OutDir>
+    <IntDir>../../obj/qtframework/debug</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -144,7 +182,50 @@ copy "$(OutDir)\$(TargetName).dll" "..\..\bin"</Command>
 copy "$(OutDir)\$(TargetName).dll" "..\..\bin"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>UNICODE;WIN32;QT_LARGEFILE_SUPPORT;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QTFRAMEWORK_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets;.\GeneratedFiles\$(ConfigurationName);.\;../../extern/include/iconv;../../extern/include/libxml2;../../include;../../extern/include/QCustomPlot;../../include/qtframework;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>$(OutDir)\$(ProjectName).dll</OutputFile>
+      <AdditionalLibraryDirectories>S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib;../../lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\qtmain.lib;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\Qt5Core.lib;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\Qt5NetWork.lib;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\Qt5Gui.lib;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\Qt5OpenGL.lib;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\Qt5Widgets.lib;libxml2.lib;iconv.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy "$(OutDir)\$(TargetName).lib" "..\..\lib"
+copy "$(OutDir)\$(TargetName).dll" "..\..\bin"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>UNICODE;WIN32;QT_LARGEFILE_SUPPORT;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QTFRAMEWORK_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtQuick;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets;.\GeneratedFiles\$(ConfigurationName);.\;../../extern/include/iconv;../../extern/include/libxml2;../../include;../../extern/include/QCustomPlot;../../include/qtframework;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <Optimization>MaxSpeed</Optimization>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>$(OutDir)\$(ProjectName).dll</OutputFile>
+      <AdditionalLibraryDirectories>S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib;../../lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <AdditionalDependencies>S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\qtmain.lib;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\Qt5Core.lib;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\Qt5NetWork.lib;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\Qt5Gui.lib;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\Qt5OpenGL.lib;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\Qt5Widgets.lib;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\Qt5Quick.lib;libxml2.lib;iconv.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy "$(OutDir)\$(TargetName).lib" "..\..\lib"
+copy "$(OutDir)\$(TargetName).dll" "..\..\bin"
+copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
     <ClCompile>
       <PreprocessorDefinitions>UNICODE;WIN32;QT_LARGEFILE_SUPPORT;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QTFRAMEWORK_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.\GeneratedFiles;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtQuick;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets;.\GeneratedFiles\$(ConfigurationName);.\;../../extern/include/iconv;../../extern/include/libxml2;../../include;../../extern/include/QCustomPlot;../../include/qtframework;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -171,55 +252,81 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
     <ClCompile Include="Common\qt_context.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_Activity.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_AsynchronousAction.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_ClickListenser.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_CustomActivity.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_event_handler.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_GraphicButton.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_GraphicButtonGroup.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_Listener.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_qt_command_executor.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_sl_Button.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_SplashWindow.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_TitleBar.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_TriStateBtnClickListener.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_Activity.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -331,17 +438,31 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       </AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Performing Custom Build Tools</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Performing Custom Build Tools</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
       </Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
       </AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="..\..\include\qtframework\Common\qtframework_com.h">
@@ -361,17 +482,31 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       </AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Performing Custom Build Tools</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Performing Custom Build Tools</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
       </Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
       </AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="..\..\include\qtframework\Common\qt_context.h">
@@ -391,17 +526,31 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       </AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Performing Custom Build Tools</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Performing Custom Build Tools</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
       </Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
       </AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="..\..\include\qtframework\qf_messagedef.h">
@@ -421,17 +570,31 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       </AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Performing Custom Build Tools</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Performing Custom Build Tools</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
       </Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
       </AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="..\..\include\qtframework\Res\R.h">
@@ -451,17 +614,31 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       </AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Performing Custom Build Tools</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Performing Custom Build Tools</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
       </Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
       </AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="..\..\include\qtframework\UIs\Activity.h">
@@ -472,15 +649,23 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing Activity.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Moc%27ing Activity.h...</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing Activity.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Moc%27ing Activity.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtQuick" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtQuick" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="..\..\include\qtframework\UIs\ClickListenser.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -492,13 +677,21 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing ClickListenser.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Moc%27ing ClickListenser.h...</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing ClickListenser.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Moc%27ing ClickListenser.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtQuick" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtQuick" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
     </CustomBuild>
     <CustomBuild Include="..\..\include\qtframework\UIs\Listener.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -510,13 +703,21 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing Listener.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Moc%27ing Listener.h...</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing Listener.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Moc%27ing Listener.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtQuick" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtQuick" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
     </CustomBuild>
     <CustomBuild Include="..\..\include\qtframework\UIs\CustomActivity.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing CustomActivity.h...</Message>
@@ -526,15 +727,23 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing CustomActivity.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Moc%27ing CustomActivity.h...</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing CustomActivity.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Moc%27ing CustomActivity.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtQuick" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtQuick" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="..\..\include\qtframework\UIs\sl_AnimationWidget.h">
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -553,17 +762,31 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       </AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Performing Custom Build Tools</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Performing Custom Build Tools</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
       </Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
       </AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="..\..\include\qtframework\UIs\sl_Button.h">
@@ -576,13 +799,21 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing sl_Button.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Moc%27ing sl_Button.h...</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing sl_Button.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Moc%27ing sl_Button.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtQuick" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtQuick" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
     </CustomBuild>
     <CustomBuild Include="..\..\include\qtframework\UIs\sl_ImageWidget.h">
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -601,17 +832,31 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       </AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Performing Custom Build Tools</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Performing Custom Build Tools</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
       </Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
       </AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="..\..\include\qtframework\UIs\SplashWindow.h">
@@ -624,13 +869,21 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing SplashWindow.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Moc%27ing SplashWindow.h...</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing SplashWindow.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Moc%27ing SplashWindow.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtQuick" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtQuick" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
     </CustomBuild>
     <CustomBuild Include="..\..\include\qtframework\UIs\sl_MapContainer.h">
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -649,17 +902,31 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       </AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Performing Custom Build Tools</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Performing Custom Build Tools</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
       </Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
       </AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="..\..\include\qtframework\UIs\sl_MutexButtonBox.h">
@@ -679,17 +946,31 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       </AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Performing Custom Build Tools</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Performing Custom Build Tools</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
       </Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
       </AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="..\..\include\qtframework\UIs\sl_VectorContainer.h">
@@ -709,17 +990,31 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       </AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Performing Custom Build Tools</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Performing Custom Build Tools</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
       </Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
       </AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="..\..\include\qtframework\Utils\Log.h">
@@ -739,17 +1034,31 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       </AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Performing Custom Build Tools</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Performing Custom Build Tools</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
       </Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
       </AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="..\..\include\qtframework\Utils\variant.h">
@@ -769,17 +1078,31 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       </AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Performing Custom Build Tools</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Performing Custom Build Tools</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
       </Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
       </AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="..\..\include\qtframework\Utils\xml_util.h">
@@ -799,17 +1122,31 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       </AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Performing Custom Build Tools</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Performing Custom Build Tools</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
       </Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
       </AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="Res\res_config.h">
@@ -829,17 +1166,31 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       </AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Performing Custom Build Tools</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Performing Custom Build Tools</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
       </Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
       </AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="Res\res_menu.h">
@@ -859,17 +1210,31 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       </AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Performing Custom Build Tools</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Performing Custom Build Tools</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
       </Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
       </AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="Res\res_shortcut.h">
@@ -889,17 +1254,31 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       </AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Performing Custom Build Tools</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Performing Custom Build Tools</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
       </Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
       </AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="Res\res_string.h">
@@ -919,17 +1298,31 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       </AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Performing Custom Build Tools</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Performing Custom Build Tools</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
       </Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
       </AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="Res\res_style.h">
@@ -949,17 +1342,31 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       </AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Performing Custom Build Tools</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Performing Custom Build Tools</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
       </Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
       </AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="Res\res_toolpanel.h">
@@ -979,17 +1386,31 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       </AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Performing Custom Build Tools</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Performing Custom Build Tools</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
       </Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
       </AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="Res\res_ui.h">
@@ -1009,17 +1430,31 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       </AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Performing Custom Build Tools</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Performing Custom Build Tools</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
       </Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
       </AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="Res\res_uicommand.h">
@@ -1039,17 +1474,31 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       </AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Performing Custom Build Tools</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Performing Custom Build Tools</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
       </Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
       </AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="Uicreator\event_handler.h">
@@ -1062,13 +1511,21 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing event_handler.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Moc%27ing event_handler.h...</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing event_handler.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Moc%27ing event_handler.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtQuick" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtQuick" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
     </CustomBuild>
     <CustomBuild Include="Uicreator\qt_command_executor.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -1080,13 +1537,21 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qt_command_executor.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Moc%27ing qt_command_executor.h...</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qt_command_executor.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Moc%27ing qt_command_executor.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtQuick" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtQuick" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
     </CustomBuild>
     <CustomBuild Include="Uicreator\qt_uicommand_executor.h">
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -1105,17 +1570,31 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       </AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Performing Custom Build Tools</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Performing Custom Build Tools</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
       </Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
       </AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="Uicreator\qt_ui_assembler.h">
@@ -1135,17 +1614,31 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       </AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Performing Custom Build Tools</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Performing Custom Build Tools</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
       </Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
       </AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="Uicreator\ui_node.h">
@@ -1165,17 +1658,31 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       </AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Performing Custom Build Tools</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Performing Custom Build Tools</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
       </Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
       </AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="Uicreator\xml_node.h">
@@ -1195,17 +1702,31 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       </AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Performing Custom Build Tools</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Performing Custom Build Tools</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
       </Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
       </AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="Uicreator\xml_ui_paser.h">
@@ -1225,17 +1746,31 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       </AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Performing Custom Build Tools</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Performing Custom Build Tools</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
       </Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
       </AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="UIs\GraphicButton.h">
@@ -1248,13 +1783,21 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing GraphicButton.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Moc%27ing GraphicButton.h...</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing GraphicButton.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Moc%27ing GraphicButton.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtQuick" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtQuick" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
     </CustomBuild>
     <CustomBuild Include="UIs\GraphicButtonGroup.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -1266,13 +1809,21 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing GraphicButtonGroup.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Moc%27ing GraphicButtonGroup.h...</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing GraphicButtonGroup.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Moc%27ing GraphicButtonGroup.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtQuick" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtQuick" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
     </CustomBuild>
     <CustomBuild Include="UIs\sl_ToolPanel.h">
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -1291,17 +1842,31 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       </AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Performing Custom Build Tools</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Performing Custom Build Tools</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
       </Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
       </AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="Utils\qt_standard.h">
@@ -1321,17 +1886,31 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       </AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Performing Custom Build Tools</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Performing Custom Build Tools</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
       </Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
       </AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="Utils\util.h">
@@ -1351,17 +1930,31 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       </AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Performing Custom Build Tools</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Performing Custom Build Tools</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
       </Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
       </AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="UIs\TriStateBtnClickListener.h">
@@ -1374,13 +1967,21 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing TriStateBtnClickListener.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Moc%27ing TriStateBtnClickListener.h...</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing TriStateBtnClickListener.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Moc%27ing TriStateBtnClickListener.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtQuick" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtQuick" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
     </CustomBuild>
     <CustomBuild Include="UIs\TitleBar.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -1392,13 +1993,21 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing TitleBar.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Moc%27ing TitleBar.h...</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing TitleBar.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Moc%27ing TitleBar.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtQuick" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtQuick" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
     </CustomBuild>
     <CustomBuild Include="UIs\AsynchronousAction.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -1410,13 +2019,21 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing AsynchronousAction.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Moc%27ing AsynchronousAction.h...</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing AsynchronousAction.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Moc%27ing AsynchronousAction.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtQuick" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQTFRAMEWORK_LIB -D_WINDLL  "-I.\GeneratedFiles" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtQuick" "-IS:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I." "-I.\..\..\extern\include\iconv" "-I.\..\..\extern\include\libxml2" "-I.\..\..\include" "-I.\..\..\extern\include\QCustomPlot" "-I.\..\..\include\qtframework"</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -1431,13 +2048,21 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Uic%27ing %(Identity)...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Uic%27ing %(Identity)...</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Uic%27ing %(Identity)...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Uic%27ing %(Identity)...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">"S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -1458,17 +2083,31 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       </AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">Performing Custom Build Tools</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
       </Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">
+      </AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing Custom Build Tools</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">Performing Custom Build Tools</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
+      </Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
       </AdditionalInputs>
     </CustomBuild>
   </ItemGroup>

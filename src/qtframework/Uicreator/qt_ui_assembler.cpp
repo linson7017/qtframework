@@ -1075,18 +1075,20 @@ bool qt_ui_assembler::createUI(ui_node* node)
 					}
 					return false;
 				}
-				if (node->hasAttribute("id"))
-				{
-					char szMsg[1024];
-					sprintf(szMsg, "QtFrameWork ERROR: Create UI %s whose id is \"%s\" failed!! Please check if the name of the node is correct!\n",node->getName(),node->getAttribute("id"));
-					printf(szMsg);
-				}
-				else
-				{
-					char szMsg[1024];
-					sprintf(szMsg, "QtFrameWork ERROR: Create UI %s failed!! Please check if the name of the node is correct!\n",node->getName());
-					printf(szMsg);
-				}
+#ifndef _DEBUG
+                if (node->hasAttribute("id"))
+                {
+                    char szMsg[1024];
+                    sprintf(szMsg, "QtFrameWork ERROR: Create UI %s whose id is \"%s\" failed!! Please check if the name of the node is correct!\n", node->getName(), node->getAttribute("id"));
+                  //  printf(szMsg);
+                }
+                else
+                {
+                    char szMsg[1024];
+                    sprintf(szMsg, "QtFrameWork ERROR: Create UI %s failed!! Please check if the name of the node is correct!\n", node->getName());
+                   // printf(szMsg);
+                }
+#endif		
 				return false;
 			}
 		}

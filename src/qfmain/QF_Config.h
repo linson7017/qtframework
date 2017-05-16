@@ -19,6 +19,11 @@
 #endif
 
 
+/********************************************************************
+	filename: 	QF_Config.h
+	author:		Ling Song
+	date: 		ÈýÔÂ 2017
+*********************************************************************/
 #undef QF_BEGIN_NAMESPACE
 #undef QF_END_NAMESPACE
 #undef QF_USING
@@ -31,6 +36,7 @@
 #	define QF_END_NAMESPACE }
 #	define QF_USING(ns) using ns
 #endif
+
 
 #endif // IQF_Config_h__
 

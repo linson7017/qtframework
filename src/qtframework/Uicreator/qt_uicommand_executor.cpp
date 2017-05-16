@@ -392,20 +392,41 @@ bool qt_uicommand_executor::execute(xml_node* uicommand,ui_node* sender)
         if (uicommand->hasAttribute("widgetID"))
         {
             QWidget* widget = (QWidget*)R::Instance()->getObjectFromGlobalMap(uicommand->getAttribute("widgetID"));
-            if (widget)
+            if (!widget)
             {
-                if (widget->isVisible())
+                return false;
+            }
+
+            if (strcmp(sender->getName(),"Button")==0|| strcmp(sender->getName(), "RadioButton") == 0
+                || strcmp(sender->getName(), "CheckBox") == 0 || strcmp(sender->getName(), "ToolButton") == 0)
+            {
+                QAbstractButton * btn = (QAbstractButton *)sender->getObject();
+                if (btn->isCheckable())
                 {
-                    widget->hide();
+                    widget->setVisible(btn->isChecked());
                 }
                 else
                 {
-                    widget->show();
+                    widget->setVisible(!widget->isVisible());
                 }
-                return true;
+            }
+            else if (strcmp(sender->getName(), "Action") == 0)
+            {
+                QAction * btn = (QAction *)sender->getObject();
+                if (btn->isCheckable())
+                {
+                    widget->setVisible(btn->isChecked());
+                }
+                else
+                {
+                    widget->setVisible(!widget->isVisible());
+                }
             }
             else
-                return false;
+            {
+                widget->setVisible(!widget->isVisible());
+            } 
+            return true;
         }
         else
             return false;

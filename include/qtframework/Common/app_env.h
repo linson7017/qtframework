@@ -14,7 +14,7 @@
 #include "Common/qtframework_com.h"
 using namespace std;
 //主控指针类型
-typedef void IQF_Main;
+typedef void IQF_Main_Ext;
 
 /*!
  * \class app_env
@@ -154,12 +154,12 @@ public:
 	//获取主控指针
 	//参数：无
 	//返回值：主控指针
-	static IQF_Main* getMainPtr(){return _pMain;}
+	static IQF_Main_Ext* getMainPtr(){return _pMain;}
 	//设置主控指针
 	//参数：
 	//      pMain:主控指针
 	//返回值：无
-	static void setMainPtr(IQF_Main* pMain){_pMain = pMain;}
+	static void setMainPtr(IQF_Main_Ext* pMain){_pMain = pMain;}
 
 	//设置是否显示toolTip
 	//参数：
@@ -198,7 +198,7 @@ private:
 	static string _qmlResDir;
 
 	static bool _bShowTooltip;
-	static IQF_Main* _pMain;
+	static IQF_Main_Ext* _pMain;
 };
 
 #endif

@@ -1,3 +1,11 @@
+/*!
+* \file qt_ui_creater.h
+*
+* \author ËÎÁè
+* \date ÎåÔÂ 2016
+*
+*
+*/
 #pragma once
 
 class ui_node;

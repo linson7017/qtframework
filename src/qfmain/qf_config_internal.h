@@ -1,3 +1,8 @@
+/********************************************************************
+	filename: 	qf_config_internal.h
+	author:		Ling Song
+	date: 		ÈýÔÂ 2017
+*********************************************************************/
 #ifndef qf_config_internal_h__
 #define qf_config_internal_h__
 

@@ -40,8 +40,8 @@ const char* res_string::getStringRes(const char* id)
 	}else
 	{
 		char szMsg[1024];
-		sprintf(szMsg, "QtFrameWork ERROR: The string resource whose ID is %s does not exist!\n",id);
-		printf(szMsg);
+	//	sprintf(szMsg, "QtFrameWork ERROR: The string resource whose ID is %s does not exist!\n",id);
+	//	printf(szMsg);
 		return "";
 	}
 }
@@ -55,8 +55,8 @@ vector<string> res_string::getStringListRes(const char* id)
 	}else
 	{
 		char szMsg[1024];
-		sprintf(szMsg, "QtFrameWork ERROR: The stringList resource whose ID is %s does not exist!\n",id);
-		printf(szMsg);
+	//	sprintf(szMsg, "QtFrameWork ERROR: The stringList resource whose ID is %s does not exist!\n",id);
+	//	printf(szMsg);
 		return vector<string>();
 	}
 }

@@ -70,5 +70,8 @@
     <ClInclude Include="qf_config_internal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="IQF_Main_Ext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

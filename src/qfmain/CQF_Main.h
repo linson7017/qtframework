@@ -1,9 +1,14 @@
+/********************************************************************
+	filename: 	CQF_Main.h
+	author:		Ling Song
+	date: 		ÈýÔÂ 2017
+*********************************************************************/
 #ifndef CQF_Main_h__
 #define CQF_Main_h__
 
 #pragma once
 
-#include "IQF_Main.h"
+#include "IQF_Main_Ext.h"
 #include <map>
 #include <vector>
 #include "qf_config_internal.h"
@@ -29,10 +34,10 @@ typedef  std::map<int, int> TQF_IntToIntMap;
 typedef std::vector<IQF_Message*> QF_MessageComponentList;
 typedef std::map<std::string, QF_MessageComponentList*> QF_MainMessageListMap;
 
-class CQF_Main:public IQF_Main
+class CQF_Main:public IQF_Main_Ext
 {
 public:
-    CQF_Main();
+    CQF_Main(const char* szEnterName);
     ~CQF_Main();
 
     //Subject Function
@@ -50,7 +55,10 @@ public:
     void SendMessage(const char* szMessage, int iValue, void *pValue);
     void SendMessageQf(const char* szMessage, int iValue, void *pValue);
     void* GetInterfacePtr(const char* szInterfaceID);
+    const char* GetConfigPath();
+    //Ext
     void RegisterResource(R* pR);
+    void ResourceConstructed(R* pR);
 private:
     void RegisterLibrary(const char* szDllName);
     bool RegisterComponent(IQF_Component* pComponent);
@@ -68,6 +76,8 @@ private:
 
     TQF_CharToIntMap m_messageOrder;
     TQF_IntToIntMap m_messageInterfaceOrder;
+
+    std::string m_configPath;
 };
 
 QF_END_NAMESPACE

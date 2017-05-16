@@ -1,3 +1,8 @@
+/********************************************************************
+	filename: 	IQF_Subject.h
+	author:		Ling Song
+	date: 		ÈýÔÂ 2017
+*********************************************************************/
 #ifndef IQF_Subject_h__
 #define IQF_Subject_h__
 #pragma once

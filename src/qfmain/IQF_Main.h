@@ -1,3 +1,8 @@
+/********************************************************************
+	filename: 	IQF_Main.h
+	author:		Ling Song
+	date: 		ÈýÔÂ 2017
+*********************************************************************/
 #ifndef IQF_Main_h__
 #define IQF_Main_h__
 
@@ -18,10 +23,10 @@ public:
     virtual void SendMessage(const char* szMessage, int iValue, void *pValue) = 0;
     virtual void SendMessageQf(const char* szMessage, int iValue, void *pValue) = 0;
     virtual void* GetInterfacePtr(const char* szInterfaceID) = 0;
-    virtual void RegisterResource(R* pR)=0;
+    virtual const char* GetConfigPath() = 0;
 };
 
-QF_API IQF_Main*  QF_CreateMainObject();
+QF_API IQF_Main*  QF_CreateMainObject(const char* szEnterName="");
 
 QF_END_NAMESPACE;
 

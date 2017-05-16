@@ -2,6 +2,7 @@
 #include <windows.h>
 #include <winnt.h>
 #include <string>
+#include <vector>
 #include <stdio.h>
 #include <assert.h>
 #ifdef UNICODE
@@ -34,11 +35,73 @@ LPCWSTR S2LSTR(std::string s)
 line.append(".so");
 #endif  
 
+std::string&  str_replace_all(std::string& str, const std::string&  old_value, const std::string&  new_value)
+{
+    for (std::string::size_type pos(0); pos != std::string::npos; pos += new_value.length())
+    {
+        if ((pos = str.find(old_value, pos)) != std::string::npos)
+            str.replace(pos, old_value.length(), new_value);
+        else   break;
+    }
+    return   str;
+}
+
+void splitString(std::string& inStr, std::vector<std::string>& outStrVec, std::string sep)
+{
+    std::string temp = inStr.c_str();
+    char* result = NULL;
+    result = strtok((char*)temp.data(), (char*)sep.data());
+    while (result != NULL)
+    {
+        outStrVec.push_back(result);
+        result = strtok(NULL, (char*)sep.data());
+    }
+}
+
+void splitpath(const char*path, std::string& drive, std::string& dir, std::string& fname, std::string& ext)
+{
+    std::string temp = path;
+    str_replace_all(temp, "\\", "/");
+    std::vector<std::string> v;
+    splitString(temp, v, "/");
+    int size = v.size();
+    if (size <= 1)
+    {
+        dir = temp;
+        fname = "";
+        ext = "";
+    }
+    else
+    {
+        fname = v.at(size - 1);
+        if (fname.find(".") != std::string::npos)
+        {
+            int index = fname.find_first_of(".");
+            ext = fname.substr(index + 1, fname.size() - 1);
+            fname = fname.substr(0, index);
+        }
+        if (temp.find(":") != std::string::npos)
+        {
+            int i = temp.find_first_of(":");
+            drive = temp.substr(0, i + 1);
+        }
+        else
+        {
+            drive = "";
+        }
+        dir = temp;
+        if (temp.find("/") != std::string::npos)
+        {
+            int j = dir.find_last_of("/");
+            dir = dir.substr(0, j + 1);
+        }
+    }
+}
+
 #include "CQF_Main.h"
 #include <iostream>
 #include <sstream>
 #include <fstream>
-#include <string>
 #include "IQF_Component.h"
 #include "IQF_Activator.h"
 #include "IQF_Command.h"
@@ -58,26 +121,45 @@ typedef IQF_Activator* (*activatorFunc)(IQF_Main*);
 
 bool CheckValid(std::string& line)
 {
-    if (line.compare(0, 2, "//") == 0)
-    {
-        return false;
-    }
-    if (line.compare(0, 1, "#") == 0)
+    if (line.compare(0, 2, "//") == 0||
+        line.compare(0, 1, "#") == 0||
+        line.empty())
     {
         return false;
     }
     return true;
 }
 
-CQF_Main::CQF_Main()
+CQF_Main::CQF_Main(const char* szEnterName)
 {
     m_pSubject = QF_CreateSubjectObject();
     {
-        char buffer[MAX_PATH];
-        getcwd(buffer, MAX_PATH);
-        std::string componentsConfigFilePath = buffer;
-        componentsConfigFilePath.append("/components.cfg");
-        std::ifstream finComponents(componentsConfigFilePath.c_str(), std::ios::in);
+        if (strcmp(szEnterName,"")==0)
+        {
+            char buffer[MAX_PATH];
+            getcwd(buffer, MAX_PATH);
+            m_configPath = buffer;
+        }
+        else
+        {
+            std::string drive;
+            std::string dir;
+            std::string fname;
+            std::string ext;
+            splitpath(szEnterName, drive, dir, fname, ext);
+            m_configPath = dir.substr(0, dir.find_last_of("/") - 1);
+            m_configPath = m_configPath.substr(0, m_configPath.find_last_of("/") + 1);
+            m_configPath.append("qfconfig/"+fname);
+            std::ifstream test(m_configPath +"/components.cfg", std::ios::in);
+            if (!test)
+            {
+                m_configPath = dir + "qfconfig/" + fname;
+            }
+            test.close();
+        }     
+        
+        std::string componentsFile = m_configPath + "/components.cfg";
+        std::ifstream finComponents(componentsFile, std::ios::in);
         if (!finComponents)
         {
             std::cerr << "The components file can not be opened! Please check if it exists!" << std::endl;
@@ -95,7 +177,8 @@ CQF_Main::CQF_Main()
     }
 
     {
-        std::ifstream finPlugins("plugins.cfg", std::ios::in);
+        std::string pluginsFile = m_configPath + "/plugins.cfg";
+        std::ifstream finPlugins(pluginsFile, std::ios::in);
         if (!finPlugins)
         {
             std::cerr << "The plugins file can not be opened! Please check if it exists!" << std::endl;
@@ -124,15 +207,16 @@ CQF_Main::~CQF_Main()
 
         this->SendMessage(QF_MESSAGE_MAIN_DELETE, 0, this);
 
+        //delete message order
         for (TQF_CharToIntMap::iterator it_mainmessage_order = m_messageOrder.begin(); it_mainmessage_order != m_messageOrder.end(); it_mainmessage_order++)
         {
             char * p_str = (char *)it_mainmessage_order->first;
             delete[]p_str;
         }
 
+        //delete message list
         for (QF_MainMessageListMap::iterator it_message = m_messagelists.begin(); it_message != m_messagelists.end(); it_message++)
         {
-            // delete message list
             QF_MessageComponentList * p_list = it_message->second;
             if (p_list)
                 delete p_list;
@@ -170,6 +254,10 @@ CQF_Main::~CQF_Main()
 #endif
 }
 
+const char* CQF_Main::GetConfigPath()
+{
+    return m_configPath.c_str();
+}
 
 void CQF_Main::RegisterLibrary(const char* szDllName)
 {
@@ -205,12 +293,12 @@ void CQF_Main::RegisterLibrary(const char* szDllName)
     }
     else
     {
-        std::cout << "Load component failed: " << dllPath << std::endl;
+        std::cout << "Load component failed: " << dllPath <<" . ";
         TCHAR szBuf[80];
         LPVOID lpMsgBuf;
         DWORD dw = GetLastError();
 
-        std::cout << "Error Code:" << dw;
+        std::cout << "Error Code:" << dw<<std::endl;
 
     }
 #else
@@ -515,6 +603,14 @@ void CQF_Main::RegisterResource(R* pR)
     for (QF_MainActivatorMap::iterator it = m_activators.begin();it != m_activators.end();it++)
     {
         it->second->Register(pR);
+    }
+}
+
+void CQF_Main::ResourceConstructed(R* pR)
+{
+    for (QF_MainActivatorMap::iterator it = m_activators.begin();it != m_activators.end();it++)
+    {
+        it->second->Contructed(pR);
     }
 }
 

@@ -1,3 +1,8 @@
+/********************************************************************
+	filename: 	IQF_Observer.h
+	author:		Ling Song
+	date: 		ÈýÔÂ 2017
+*********************************************************************/
 #ifndef IQF_Observer_h__
 #define IQF_Observer_h__
 #pragma once

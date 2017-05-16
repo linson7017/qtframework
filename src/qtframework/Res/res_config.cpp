@@ -102,8 +102,8 @@ variant* res_config::getConfigRes(const char* id)
 	}else
 	{
 		char szMsg[1024];
-		sprintf(szMsg, "QtFrameWork ERROR: The config resource whose ID is %s does not exist!\n",id);
-		printf(szMsg);
+		//sprintf(szMsg, "QtFrameWork ERROR: The config resource whose ID is %s does not exist!\n",id);
+		//printf(szMsg);
 		return NULL;
 	}
 }

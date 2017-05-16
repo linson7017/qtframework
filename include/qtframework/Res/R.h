@@ -60,14 +60,8 @@ public:
 	//获得R实例
 	//参数：无
 	//返回值：实例指针
-	static R* Instance()
-	{
-		if (_res == 0)
-		{
-			_res = new R;
-		}
-		return _res;
-	}
+    static R* Instance();
+
 	//获得Style资源
 	//参数：id ID
 	//返回值：资源
@@ -147,6 +141,8 @@ public:
 	static void* getCustomWidget(const char* name);
 
     static const char* getImageResourceUrl(const char* name);
+
+    void Contructed();
 private:
 	//构造函数
 	R();

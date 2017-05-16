@@ -1,3 +1,8 @@
+/********************************************************************
+	filename: 	qf_interfacedef.h
+	author:		Ling Song
+	date: 		ÈıÔÂ 2017
+*********************************************************************/
 #ifndef qf_interfacedef_h__
 #define qf_interfacedef_h__
 
