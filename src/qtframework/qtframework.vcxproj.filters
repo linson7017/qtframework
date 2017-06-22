@@ -237,6 +237,12 @@
     <ClCompile Include="Uicreator\qt_ui_creater.cpp">
       <Filter>UICreator</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\QObjectFactory.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="QObjectRegister.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="UIs\AsynchronousAction.h">
@@ -371,5 +377,13 @@
     <CustomBuild Include="Uicreator\qt_ui_creater.h">
       <Filter>UICreator</Filter>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Utils\QObjectFactory.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="QObjectRegister.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

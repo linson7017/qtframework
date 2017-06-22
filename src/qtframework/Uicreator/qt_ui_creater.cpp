@@ -733,6 +733,27 @@ void qt_ui_creater::CreateAnimationWidget(ui_node* node) {
 void qt_ui_creater::CreateMainWindow(ui_node* node) {
     node->setType(ui_node::WIDGET);
     QMainWindow* mainWindow = new QMainWindow;
+    if (node->hasAttribute("tabShape"))
+    {
+        mainWindow->setTabShape(qt_standard::getTabShape(node->getAttribute("tabShape")));
+    }
+    if (node->hasAttribute("tabPosition"))
+    {
+        std::vector<std::string> temp;
+        std::string str = node->getAttribute("tabPosition");
+        splitString(str, temp, ";");
+        if (temp.size()==2)
+        {
+            mainWindow->setTabPosition(qt_standard::getDockWidgetArea(temp.at(0).c_str()),
+                qt_standard::GetTabPosition(temp.at(1).c_str()));
+        }
+        else if (temp.size() == 1)
+        {
+            mainWindow->setTabPosition(Qt::AllDockWidgetAreas,
+                qt_standard::GetTabPosition(str.c_str()));
+        }
+    }
+
     node->setObject(mainWindow);
 }
 void qt_ui_creater::CreateToolBar(ui_node* node) {

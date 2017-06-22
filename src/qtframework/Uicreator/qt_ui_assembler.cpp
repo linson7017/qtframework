@@ -21,6 +21,7 @@
 #include "UIs/sl_MapContainer.h"
 #include "UIs/sl_ToolPanel.h"
 #include "Uicreator/qt_ui_creater.h"
+#include "Utils/QObjectFactory.h"
 #ifdef USE_QCUSTOM_PLOT
 #include <QCustomPlot.h>
 #endif
@@ -410,6 +411,16 @@ void qt_ui_assembler::assembleWidgetAndWidget(ui_node* father,ui_node* child)
 	{
 		QSplitter* widget = (QSplitter*)father->getObject();
 		widget->addWidget(child_widget);
+        if (father->getChild(father->getChildNum()-1)==child)
+        {
+            for (int i=0;i<father->getChildNum();i++)
+            {
+                if (child->hasAttribute("stretch"))
+                {
+                    widget->setStretchFactor(i, STR_TO_INT(child->getAttribute("stretch")));
+                } 
+            }
+        }
 	}
 	else if (strcmp(father->getName(),"StackedWidget")==0)
 	{
@@ -489,6 +500,21 @@ void qt_ui_assembler::assembleWidgetAndWidget(ui_node* father,ui_node* child)
         {
             mainWindow->setMenuBar((QMenuBar*)child_widget);
         }
+
+        if (child->hasAttribute("centerWidget") && STR_TO_BOOL(child->getAttribute("centerWidget")))
+        {
+            mainWindow->setCentralWidget(child_widget);
+        }
+
+        if (child->hasAttribute("statusBar") && STR_TO_BOOL(child->getAttribute("statusBar")))
+        {
+            QStatusBar* bar = dynamic_cast<QStatusBar*>(child_widget);
+            if (bar)
+            {
+                mainWindow->setStatusBar(bar);
+            }  
+        }
+
     }
     else if (strcmp(father->getName(), "MenuBar") == 0)
     {
@@ -1057,7 +1083,18 @@ bool qt_ui_assembler::createUI(ui_node* node)
 		}
 		else
 		{
-			if (!node->getObject())
+            //判断是否注册到工厂
+            auto factoryCreateObject = QObjectFactory::Instance()->Create(node->getName());
+            if (factoryCreateObject)
+            {
+                QWidget* widget = dynamic_cast<QWidget*>(factoryCreateObject);
+                if (widget)
+                {
+                    node->setType(ui_node::WIDGET);
+                    node->setObject(widget);
+                }
+            }
+			else if (!node->getObject())
 			{
 				if (strcmp("Holder",node->getName())==0)
 				{

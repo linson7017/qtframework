@@ -143,7 +143,7 @@ copy "$(OutDir)\$(TargetName).dll" "..\..\bin"</Command>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <PreprocessorDefinitions>UNICODE;WIN32;QT_LARGEFILE_SUPPORT;QT_CORE_LIB;QT_GUI_LIB;QTFRAMEWORK_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\GeneratedFiles;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include;.\GeneratedFiles\$(ConfigurationName);.\;../../extern/include/iconv;../../extern/include/libxml2;../../include;../../extern/include/QCustomPlot;../../include/qtframework;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtQuick;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets;.\GeneratedFiles\$(ConfigurationName);.\;../../extern/include/iconv;../../extern/include/libxml2;../../include;../../extern/include/QCustomPlot;../../include/qtframework;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -154,11 +154,12 @@ copy "$(OutDir)\$(TargetName).dll" "..\..\bin"</Command>
       <OutputFile>$(OutDir)\$(ProjectName)d.dll</OutputFile>
       <AdditionalLibraryDirectories>S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib;../../lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\qtmaind.lib;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\QtCored4.lib;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\QtGuid4.lib;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\QtNetWorkd4.lib;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\QtOpenGLd4.lib;libxml2.lib;iconv.lib;QCustomPlot.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\qtmain.lib;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\Qt5Cored.lib;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\Qt5NetWorkd.lib;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\Qt5Guid.lib;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\Qt5OpenGLd.lib;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\Qt5Widgetsd.lib;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\Qt5Quickd.lib;libxml2.lib;iconv.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(OutDir)\$(TargetName).lib" "..\..\lib"
-copy "$(OutDir)\$(TargetName).dll" "..\..\bin"</Command>
+      <Command>copy "$(OutDir)\$(TargetName).lib" "..\..\lib\Debug"
+copy "$(OutDir)\$(TargetName).dll" "..\..\bin\Debug"
+copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Debug"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -207,21 +208,21 @@ copy "$(OutDir)\$(TargetName).dll" "..\..\bin"</Command>
     <ClCompile>
       <PreprocessorDefinitions>UNICODE;WIN32;QT_LARGEFILE_SUPPORT;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QTFRAMEWORK_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.\GeneratedFiles;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtGui;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtCore;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtOpenGL;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtQuick;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\include\QtWidgets;.\GeneratedFiles\$(ConfigurationName);.\;../../extern/include/iconv;../../extern/include/libxml2;../../include;../../extern/include/QCustomPlot;../../include/qtframework;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <DebugInformationFormat>None</DebugInformationFormat>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Disabled</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <OutputFile>$(OutDir)\$(ProjectName).dll</OutputFile>
       <AdditionalLibraryDirectories>S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib;../../lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\qtmain.lib;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\Qt5Core.lib;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\Qt5NetWork.lib;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\Qt5Gui.lib;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\Qt5OpenGL.lib;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\Qt5Widgets.lib;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\Qt5Quick.lib;libxml2.lib;iconv.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(OutDir)\$(TargetName).lib" "..\..\lib"
-copy "$(OutDir)\$(TargetName).dll" "..\..\bin"
+      <Command>copy "$(OutDir)\$(TargetName).lib" "..\..\lib\Release"
+copy "$(OutDir)\$(TargetName).dll" "..\..\bin\Release"
 copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -380,6 +381,7 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="QObjectRegister.cpp" />
     <ClCompile Include="Res\R.cpp" />
     <ClCompile Include="Res\res_config.cpp" />
     <ClCompile Include="Res\res_menu.cpp" />
@@ -415,6 +417,7 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
     <ClCompile Include="UIs\TitleBar.cpp" />
     <ClCompile Include="UIs\TriStateBtnClickListener.cpp" />
     <ClCompile Include="Utils\Log.cpp" />
+    <ClCompile Include="Utils\QObjectFactory.cpp" />
     <ClCompile Include="Utils\qt_standard.cpp" />
     <ClCompile Include="Utils\util.cpp" />
     <ClCompile Include="Utils\variant.cpp" />
@@ -2110,6 +2113,10 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
       </AdditionalInputs>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="QObjectRegister.h" />
+    <ClInclude Include="Utils\QObjectFactory.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

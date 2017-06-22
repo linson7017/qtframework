@@ -9,6 +9,7 @@
 #include "Res/res_shortcut.h"
 #include <stdlib.h>
 #include <string.h>
+#include <iostream>
 #include <Res/res_toolpanel.h>
 #include <Utils/util.h>
 #include <Common/app_env.h>
@@ -216,6 +217,11 @@ void R::overWriteConfigFile()
 //返回值：无
 void R::registerCustomWidget(const char* name,void* object)
 {
+    if (object==NULL)
+    {
+        return;
+        std::cerr << "Register Custom Widget " << name << " Failed! " << "Because The Widget Has Not Instanced!";
+    }
 	_customWidgetMap[name] = object;
 }
 //获得用户自定义的Widget
@@ -241,7 +247,7 @@ const char* R::getImageResourceUrl(const char* name)
     return imageUrl.c_str();
 }
 
-void R::Contructed()
+void R::Constructed()
 {
     QF::IQF_Main_Ext* pMainExt = (QF::IQF_Main_Ext*)app_env::getMainPtr();
     if (pMainExt)

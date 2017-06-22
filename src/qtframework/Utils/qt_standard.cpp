@@ -33,7 +33,7 @@ Qt::CheckState qt_standard::getCheckState(const char* name)
 	else if(strcmp(name,"Checked")==0)
 		return Qt::Checked;
 	else
-		return Qt::Unchecked;
+		return (Qt::CheckState)STR_TO_INT(name);
 }
 //获得标准EchoMode实例
 //参数：
@@ -50,7 +50,7 @@ QLineEdit::EchoMode qt_standard::getEchoMode(const char* name)
 	else if(strcmp(name,"PasswordEchoOnEdit")==0)
 		return QLineEdit::PasswordEchoOnEdit;
 	else
-		return QLineEdit::Normal;
+		return (QLineEdit::EchoMode)STR_TO_INT(name);
 }
 //获得标准TabPosition实例
 //参数：
@@ -142,7 +142,7 @@ Qt::Alignment qt_standard::getAlignment(const char* name)
 	else if(strcmp(name,"center")==0)
 		return Qt::AlignCenter;
 	else 
-		return Qt::AlignJustify;
+		return (Qt::Alignment)STR_TO_INT(name);
 }
 //获得标准ToolButtonStyle实例
 //参数：
@@ -159,7 +159,7 @@ Qt::ToolButtonStyle qt_standard::getToolButtonStyle(const char* name)
 	else if(strcmp(name,"ToolButtonTextUnderIcon")==0)
 		return Qt::ToolButtonTextUnderIcon;
 	else
-		return Qt::ToolButtonFollowStyle;
+		return (Qt::ToolButtonStyle)STR_TO_INT(name);
 }
 //获得标准ToolBar位置
 //参数：
@@ -180,28 +180,51 @@ Qt::ToolBarArea qt_standard::getToolBarArea(const char* name)
     else if (strcmp(name, "NoToolBarArea") == 0)
         return Qt::NoToolBarArea;
     else
-        return Qt::TopToolBarArea;
+        return (Qt::ToolBarArea)STR_TO_INT(name);
 }
 
 
 Qt::DockWidgetArea qt_standard::getDockWidgetArea(const char* name)
 {
-    if (strcmp(name, "LeftDockWidgetArea") == 0)
+    if (strcmp(name, "LeftDockWidgetArea") == 0 || strcmp(name, "Left") == 0)
         return Qt::LeftDockWidgetArea;
-    else if (strcmp(name, "RightDockWidgetArea") == 0)
+    else if (strcmp(name, "RightDockWidgetArea") == 0 || strcmp(name, "Right") == 0)
         return Qt::RightDockWidgetArea;
-    else if (strcmp(name, "TopToolBarArea") == 0)
+    else if (strcmp(name, "TopToolBarArea") == 0 || strcmp(name, "Top") == 0)
         return Qt::TopDockWidgetArea;
-    else if (strcmp(name, "BottomDockWidgetArea") == 0)
+    else if (strcmp(name, "BottomDockWidgetArea") == 0 || strcmp(name, "Bottom") == 0)
         return Qt::BottomDockWidgetArea;
-    else if (strcmp(name, "AllDockWidgetAreas") == 0)
+    else if (strcmp(name, "AllDockWidgetAreas") == 0 || strcmp(name, "All") == 0)
         return Qt::AllDockWidgetAreas;
-    else if (strcmp(name, "NoDockWidgetArea") == 0)
+    else if (strcmp(name, "NoDockWidgetArea") == 0 || strcmp(name, "No") == 0)
         return Qt::NoDockWidgetArea;
     else
-        return Qt::LeftDockWidgetArea;
+        return (Qt::DockWidgetArea)STR_TO_INT(name);
 }
 
+QTabWidget::TabShape qt_standard::getTabShape(const char* name)
+{
+    if (strcmp(name, "Rounded") == 0|| strcmp(name, "R") == 0)
+        return QTabWidget::Rounded;
+    else if (strcmp(name, "Triangular") == 0|| strcmp(name, "T") == 0)
+        return QTabWidget::Triangular;
+    else
+        return (QTabWidget::TabShape)STR_TO_INT(name);
+}
+
+QTabWidget::TabPosition qt_standard::GetTabPosition(const char* name)
+{
+    if (strcmp(name, "North") == 0|| strcmp(name, "Top") == 0)
+        return QTabWidget::North;
+    else if (strcmp(name, "South") == 0 || strcmp(name, "Bottom") == 0)
+        return QTabWidget::South;
+    if (strcmp(name, "West") == 0 || strcmp(name, "Left") == 0)
+        return QTabWidget::West;
+    else if (strcmp(name, "East") == 0 || strcmp(name, "Right") == 0)
+        return QTabWidget::East;
+    else
+        return (QTabWidget::TabPosition)STR_TO_INT(name);
+}
 
 QDockWidget::DockWidgetFeature qt_standard::getDockWidgetFeature(const char* name)
 {

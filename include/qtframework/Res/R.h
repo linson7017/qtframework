@@ -142,7 +142,7 @@ public:
 
     static const char* getImageResourceUrl(const char* name);
 
-    void Contructed();
+    void Constructed();
 private:
 	//¹¹Ôìº¯Êý
 	R();

@@ -610,7 +610,7 @@ void CQF_Main::ResourceConstructed(R* pR)
 {
     for (QF_MainActivatorMap::iterator it = m_activators.begin();it != m_activators.end();it++)
     {
-        it->second->Contructed(pR);
+        it->second->Constructed(pR);
     }
 }
 

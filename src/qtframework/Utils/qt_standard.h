@@ -114,6 +114,10 @@ public:
     static QDockWidget::DockWidgetFeatures getDockWidgetFeatures(const char* name);
 
     static Qt::Orientation getOrientation(const char* name);
+
+    static QTabWidget::TabShape getTabShape(const char* name);
+
+    static QTabWidget::TabPosition GetTabPosition(const char* name);
 #ifdef USE_QCUSTOM_PLOT
 	//获得标准Interactions实例
 	//参数：
