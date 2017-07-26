@@ -11,6 +11,7 @@
 
 #pragma once
 #include <map>
+#include <set>
 #include <string>
 #include <vector>
 #include "Common/qtframework_com.h"
@@ -142,6 +143,10 @@ public:
 
     static const char* getImageResourceUrl(const char* name);
 
+
+    static void addUINodeName(const char* name);
+    static bool hasUINodeName(const char* name);
+
     void Constructed();
 private:
 	//构造函数
@@ -159,6 +164,7 @@ private:
 	static IDObjectMapType _global_IDObjectMap; //全局的控件表
 	static IDObjectMapType _customWidgetMap;  //用户注册的Widget表 //20150925
 	typedef map< string,Activity* > IDActivityMapType;
+    static set<string> _UINodeNameSet;
 	static IDActivityMapType _ActivityMap;;
 	static R* _res;
 	static Garbo _garbo;

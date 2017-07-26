@@ -821,6 +821,13 @@ void qt_ui_creater::CreateListWidget(ui_node* node)
     node->setObject(listWidget);
 }
 
+void qt_ui_creater::CreateToolBox(ui_node* node)
+{
+    node->setType(ui_node::WIDGET);
+    QToolBox* toolBox = new QToolBox;
+    node->setObject(toolBox);
+}
+
 
 void qt_ui_creater::CreateVLayout(ui_node* node) {
     node->setType(ui_node::LAYOUT);

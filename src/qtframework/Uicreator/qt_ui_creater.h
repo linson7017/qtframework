@@ -57,6 +57,7 @@ public:
     static void CreateDockWidget(ui_node* node);
     static void CreateMenuBar(ui_node* node);
     static void CreateListWidget(ui_node* node);
+    static void CreateToolBox(ui_node* node);
 
     //layout
     static void CreateVLayout(ui_node* node);

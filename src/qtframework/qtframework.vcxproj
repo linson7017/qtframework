@@ -381,7 +381,6 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="QObjectRegister.cpp" />
     <ClCompile Include="Res\R.cpp" />
     <ClCompile Include="Res\res_config.cpp" />
     <ClCompile Include="Res\res_menu.cpp" />
@@ -2115,7 +2114,7 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="QObjectRegister.h" />
+    <ClInclude Include="UIs\QF_Plugin.h" />
     <ClInclude Include="Utils\QObjectFactory.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

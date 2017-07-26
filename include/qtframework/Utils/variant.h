@@ -108,6 +108,10 @@ public:
 	//参数：
 	//	val: int型变量
 	//返回值：无
+    bool hasValue()
+    {
+        return _type == UnKnown;
+    }
 	void setInt(int val)
 	{
 		_data.iValue=val;

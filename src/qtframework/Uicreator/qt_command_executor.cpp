@@ -45,15 +45,24 @@ bool qt_command_executor::executeCommand(ui_node* node)
             {
                 QObject* obj = (QObject*)node->getObject();
                 std::string propertyStr = node->getAttribute("property");
-                QVariant qProperty = obj->property(propertyStr.c_str());
-                if (qProperty.isValid())
+                if (propertyStr.compare("object")==0)
                 {
                     variant v;
-                    if (qt_standard::exchangProperty(qProperty, v))
-                    {
-                        vm[propertyStr] = v;                        
-                    }
+                    v.setPtr(obj);
+                    vm[propertyStr] = v;
                 }
+                else
+                {
+                    QVariant qProperty = obj->property(propertyStr.c_str());
+                    if (qProperty.isValid())
+                    {
+                        variant v;
+                        if (qt_standard::exchangProperty(qProperty, v))
+                        {
+                            vm[propertyStr] = v;
+                        }
+                    }
+                }   
             }
             if (node->hasAttribute("itemProperty"))
             {
@@ -82,7 +91,7 @@ bool qt_command_executor::executeCommand(ui_node* node)
         }
         else
         {
-            pMain->SendMessage(command.c_str(), 0, (void*)node->getAttribute("id"));
+            pMain->SendMessage(command.c_str(), 0, (void*)node->getObject());
         }
         std::cout << "Execute Command " << command << std::endl;
     }

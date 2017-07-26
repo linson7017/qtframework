@@ -29,6 +29,8 @@ res_toolpanel* R::_toolpanel_res = NULL;
 map< string,void* > R::_global_IDObjectMap;
 map< string,void* > R::_customWidgetMap;
 map< string,Activity* > R::_ActivityMap;
+set<string> R::_UINodeNameSet;
+
 //¹¹Ôìº¯Êý
 R::R()
 {
@@ -254,4 +256,14 @@ void R::Constructed()
     {
         pMainExt->ResourceConstructed(this);
     }
+}
+
+void R::addUINodeName(const char* name)
+{
+    _UINodeNameSet.insert(name);
+}
+
+bool R::hasUINodeName(const char* name)
+{
+    return _UINodeNameSet.count(name);
 }

@@ -33,3 +33,4 @@ QObject* QObjectFactory::Create(string name)
     else
         return nullptr;
 }
+

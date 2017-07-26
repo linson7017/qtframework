@@ -20,6 +20,10 @@
 #include "UIs/sl_VectorContainer.h"
 #include "UIs/sl_MapContainer.h"
 #include "UIs/sl_ToolPanel.h"
+
+#include "Common/app_env.h"
+
+#include "UIs/QF_Plugin.h"
 #include "Uicreator/qt_ui_creater.h"
 #include "Utils/QObjectFactory.h"
 #ifdef USE_QCUSTOM_PLOT
@@ -538,6 +542,40 @@ void qt_ui_assembler::assembleWidgetAndWidget(ui_node* father,ui_node* child)
         QDockWidget* dockWidget = (QDockWidget*)father->getObject();
         dockWidget->setWidget(child_widget);
     }
+    else if (strcmp(father->getName(), "ToolBox") == 0)
+    {
+        QToolBox* toolBox = (QToolBox*)father->getObject();
+        if (child->hasAttribute("text"))
+        {
+            if (child->hasAttribute("index"))
+            {
+                   if (child->hasAttribute("icon"))
+                   {
+                       std::string iconUrl;
+                       getResImageOrIconUrl(iconUrl, child->getAttribute("icon"));
+                       toolBox->insertItem(STR_TO_INT(child->getAttribute("index")),child_widget, QIcon(iconUrl.c_str()),child->getAttribute("text"));
+                   }
+                   else
+                   {
+                       toolBox->insertItem(STR_TO_INT(child->getAttribute("index")), child_widget, child->getAttribute("text"));
+                   }
+            }
+            else
+            {
+                if (child->hasAttribute("icon"))
+                {
+                    std::string iconUrl;
+                    getResImageOrIconUrl(iconUrl, child->getAttribute("icon"));
+                    toolBox->addItem(child_widget, QIcon(iconUrl.c_str()), child->getAttribute("text"));
+                }
+                else
+                {
+                    toolBox->addItem(child_widget, child->getAttribute("text"));
+                }
+            }
+        }
+    }
+
 	////处理在窗口以绝对位置摆放控件，需要有geometry属性,需要在装配后才能setGeometry，否则子控件无法确定父窗口
 	QWidget* widget = (QWidget*)father->getObject();
 	if (child->hasAttribute("geometry"))
@@ -1005,6 +1043,10 @@ bool qt_ui_assembler::createUI(ui_node* node)
 	{
         qt_ui_creater::CreateHToolBar(node);
 	}
+    else if (strcmp(node->getName(), "ToolBox") == 0)
+    {
+        qt_ui_creater::CreateToolBox(node);
+    }
 	else if (strcmp(node->getName(),"Menu")==0)
 	{
         qt_ui_creater::CreateMenu(node);
@@ -1092,6 +1134,12 @@ bool qt_ui_assembler::createUI(ui_node* node)
                 {
                     node->setType(ui_node::WIDGET);
                     node->setObject(widget);
+                }
+                QF::QF_Plugin* plugin = dynamic_cast<QF::QF_Plugin*>(factoryCreateObject);
+                if (plugin)
+                {
+                    plugin->SetMainPtr((QF::IQF_Main*)app_env::getMainPtr());
+                    plugin->InitResource(R::Instance());
                 }
             }
 			else if (!node->getObject())
@@ -1501,6 +1549,15 @@ void qt_ui_assembler::ParseObjectProperty(ui_node* node)
 					}		
 				}
 			}
+            else if (name.left(5)=="user_")
+            {
+                QString propertyName = name.mid(5);
+                QVariant property;
+                if (qt_standard::getProperty(amIt->second.c_str(), property))
+                {
+                    obj->setProperty(propertyName.toLocal8Bit().constData(), property);
+                }
+            }
 			//QPushButton
 			++amIt;
 		}

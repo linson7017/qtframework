@@ -358,7 +358,7 @@ bool CQF_Main::RegisterComponent(IQF_Component* pComponent)
         }
 
         // Register Commands
-        IQF_Command * p_interface_command = (IQF_Command *)pComponent->GetInterfacePtr(QF_INTERFACCE_MAIN_COMMAND);
+        IQF_Command * p_interface_command = (IQF_Command *)pComponent->GetInterfacePtr(QF_INTERFACE_MAIN_COMMAND);
         if (p_interface_command != NULL)
         {
             for (int i = 0; i < p_interface_command->GetCommandCount(); i++)
@@ -381,7 +381,7 @@ bool CQF_Main::RegisterComponent(IQF_Component* pComponent)
         }
 
         // Register message component
-        IQF_Message * p_interface_message = (IQF_Message*)pComponent->GetInterfacePtr(QF_INTERFACCE_MAIN_MESSAGE);
+        IQF_Message * p_interface_message = (IQF_Message*)pComponent->GetInterfacePtr(QF_INTERFACE_MAIN_MESSAGE);
         if (p_interface_message != NULL)
         {
             QF_MainMessageListMap::iterator it;

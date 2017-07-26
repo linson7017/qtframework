@@ -1,3 +1,9 @@
+
+/********************************************************************
+filename: 	QF_Config.h
+author:		Ling Song
+date: 		三月 2017
+*********************************************************************/
 #ifndef IQF_Config_h__
 #define IQF_Config_h__
 
@@ -19,11 +25,6 @@
 #endif
 
 
-/********************************************************************
-	filename: 	QF_Config.h
-	author:		Ling Song
-	date: 		三月 2017
-*********************************************************************/
 #undef QF_BEGIN_NAMESPACE
 #undef QF_END_NAMESPACE
 #undef QF_USING
@@ -35,6 +36,15 @@
 #	define QF_BEGIN_NAMESPACE(ns) namespace ns{
 #	define QF_END_NAMESPACE }
 #	define QF_USING(ns) using ns
+#endif
+
+#ifndef  SAVE_DELETE
+#define SAVE_DELETE(ptr) \
+    if (ptr)              \
+    {                       \
+        delete ptr;     \
+        ptr = NULL;    \
+    }
 #endif
 
 
