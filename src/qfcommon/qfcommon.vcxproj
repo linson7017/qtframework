@@ -53,7 +53,7 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
@@ -139,7 +139,14 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Debug"</Command>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>../../include/qfcommon;../../include/qfmain;../../include;../qfmain;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <PostBuildEvent>
+      <Command>copy "$(OutDir)\$(TargetName).lib" "..\..\lib\Debug"
+copy "$(OutDir)\$(TargetName).dll" "..\..\bin\Debug"
+copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Debug"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -198,9 +205,9 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
       <GenerateDebugInformation>false</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(OutDir)\$(TargetName).lib" "..\..\lib"
-copy "$(OutDir)\$(TargetName).dll" "..\..\bin"
-copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
+      <Command>copy "$(OutDir)\$(TargetName).lib" "..\..\lib\Release"
+copy "$(OutDir)\$(TargetName).dll" "..\..\bin\Release"
+copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release""</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">

@@ -104,7 +104,7 @@
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\temp\radar\obj\release\qtframework</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">C:\temp\radar\obj\release\qtframework</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)d</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)d</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)</TargetName>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\temp\radar\obj\debug\qtframework</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -151,7 +151,7 @@ copy "$(OutDir)\$(TargetName).dll" "..\..\bin"</Command>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <OutputFile>$(OutDir)\$(ProjectName)d.dll</OutputFile>
+      <OutputFile>$(OutDir)\$(ProjectName).dll</OutputFile>
       <AdditionalLibraryDirectories>S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib;../../lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\qtmain.lib;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\Qt5Cored.lib;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\Qt5NetWorkd.lib;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\Qt5Guid.lib;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\Qt5OpenGLd.lib;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\Qt5Widgetsd.lib;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\\lib\Qt5Quickd.lib;libxml2.lib;iconv.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>

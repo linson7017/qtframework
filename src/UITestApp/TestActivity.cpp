@@ -7,7 +7,7 @@
 #include <QtNetwork/QUdpSocket>
 #include <QtWidgets>
 //#include <../ViceMonitor/IViceMonitor.h>
-static const int TUTORIAL_INDEX = 1;
+static const int TUTORIAL_INDEX = 0;
 
 TestActivity::TestActivity(void)
 {

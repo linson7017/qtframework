@@ -1,39 +1,31 @@
 #if ((defined(_MSC_VER) || defined(_WIN32_WCE)) && !defined(GISE_STATIC_LIBS)) || (defined(__HP_aCC) && defined(__HP_WINDLL))
 #include <windows.h>
 #include <winnt.h>
+#else
+line.append(".so");
+#endif  
+
+
+#include "CQF_Main.h"
+
+#include "IQF_Component.h"
+#include "IQF_Activator.h"
+#include "IQF_Command.h"
+#include "IQF_Message.h"
+#include <direct.h>
+#include "qf_eventdef.h"
+
+#include "internal/qf_interfacedef.h"
+
+//std
+#include "QF_String.h"
 #include <string>
 #include <vector>
 #include <stdio.h>
 #include <assert.h>
-#ifdef UNICODE
-std::wstring s2ws(const std::string& s)
-{
-    int len;
-    int slength = (int)s.length() + 1;
-    len = MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, 0, 0);
-    wchar_t* buf = new wchar_t[len];
-    MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, buf, len);
-    std::wstring r(buf);
-    delete[] buf;
-    return r;
-}
-LPCWSTR S2LSTR(std::string s)
-{
-    std::wstring stemp = s2ws(s);
-    LPCWSTR result = stemp.c_str();
-    return result;
-}
-
-#else
-#define S2LPWSTR(s) \
-    ({  \
-        (s.c_str()); \
-    }) \  
-#endif
-
-#else
-line.append(".so");
-#endif  
+#include <iostream>
+#include <sstream>
+#include <fstream>
 
 std::string&  str_replace_all(std::string& str, const std::string&  old_value, const std::string&  new_value)
 {
@@ -97,21 +89,6 @@ void splitpath(const char*path, std::string& drive, std::string& dir, std::strin
         }
     }
 }
-
-#include "CQF_Main.h"
-#include <iostream>
-#include <sstream>
-#include <fstream>
-#include "IQF_Component.h"
-#include "IQF_Activator.h"
-#include "IQF_Command.h"
-#include "IQF_Message.h"
-#include <direct.h>
-
-#include "qf_eventdef.h"
-
-#include "internal/qf_interfacedef.h"
-
 
 QF_BEGIN_NAMESPACE(QF)
 
@@ -274,7 +251,9 @@ void CQF_Main::RegisterLibrary(const char* szDllName)
     std::string dllPath = buffer;
     dllPath.append("\\");
     dllPath.append(line);
-    HINSTANCE hdll = LoadLibrary(S2LSTR(dllPath));
+    
+    HINSTANCE hdll = LoadLibrary((wchar_t*)s2ws(dllPath).c_str());
+    
     if (hdll != NULL)
     {
         componentFunc pf = (componentFunc)GetProcAddress(hdll, "QF_CreateComponentObject");

@@ -35,6 +35,9 @@
     <ClCompile Include="QF_Subject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="QF_String.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IQF_Main.h">
@@ -71,6 +74,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="IQF_Main_Ext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QF_String.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
