@@ -78,6 +78,8 @@ private:
     TQF_IntToIntMap m_messageInterfaceOrder;
 
     std::string m_configPath;
+
+
 };
 
 QF_END_NAMESPACE

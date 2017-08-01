@@ -1,5 +1,7 @@
 #include "QF_String.h"
 
+#include <iostream>
+
 mbstate_t in_cvt_state;
 mbstate_t out_cvt_state;
 
@@ -99,4 +101,67 @@ const std::string ws2s(const std::wstring& ws)
     delete[]extern_buffer;
 
     return result;
+}
+
+std::string&  str_replace_all(std::string& str, const std::string&  old_value, const std::string&  new_value)
+{
+    for (std::string::size_type pos(0); pos != std::string::npos; pos += new_value.length())
+    {
+        if ((pos = str.find(old_value, pos)) != std::string::npos)
+            str.replace(pos, old_value.length(), new_value);
+        else   break;
+    }
+    return   str;
+}
+
+void splitString(std::string& inStr, std::vector<std::string>& outStrVec, std::string sep)
+{
+    std::string temp = inStr.c_str();
+    char* result = NULL;
+    result = strtok((char*)temp.data(), (char*)sep.data());
+    while (result != NULL)
+    {
+        outStrVec.push_back(result);
+        result = strtok(NULL, (char*)sep.data());
+    }
+}
+
+void splitpath(const char*path, std::string& drive, std::string& dir, std::string& fname, std::string& ext)
+{
+    std::string temp = path;
+    str_replace_all(temp, "\\", "/");
+    std::vector<std::string> v;
+    splitString(temp, v, "/");
+    int size = v.size();
+    if (size <= 1)
+    {
+        dir = temp;
+        fname = "";
+        ext = "";
+    }
+    else
+    {
+        fname = v.at(size - 1);
+        if (fname.find(".") != std::string::npos)
+        {
+            int index = fname.find_first_of(".");
+            ext = fname.substr(index + 1, fname.size() - 1);
+            fname = fname.substr(0, index);
+        }
+        if (temp.find(":") != std::string::npos)
+        {
+            int i = temp.find_first_of(":");
+            drive = temp.substr(0, i + 1);
+        }
+        else
+        {
+            drive = "";
+        }
+        dir = temp;
+        if (temp.find("/") != std::string::npos)
+        {
+            int j = dir.find_last_of("/");
+            dir = dir.substr(0, j + 1);
+        }
+    }
 }

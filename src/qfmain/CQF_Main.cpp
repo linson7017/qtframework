@@ -1,8 +1,10 @@
 #if ((defined(_MSC_VER) || defined(_WIN32_WCE)) && !defined(GISE_STATIC_LIBS)) || (defined(__HP_aCC) && defined(__HP_WINDLL))
+//windows api
 #include <windows.h>
 #include <winnt.h>
-#else
-line.append(".so");
+#elif defined(QF_OS_LINUX)
+// unix api
+#include <dlfcn.h>
 #endif  
 
 
@@ -19,76 +21,12 @@ line.append(".so");
 
 //std
 #include "QF_String.h"
-#include <string>
-#include <vector>
 #include <stdio.h>
 #include <assert.h>
-#include <iostream>
 #include <sstream>
 #include <fstream>
+#include <iostream>
 
-std::string&  str_replace_all(std::string& str, const std::string&  old_value, const std::string&  new_value)
-{
-    for (std::string::size_type pos(0); pos != std::string::npos; pos += new_value.length())
-    {
-        if ((pos = str.find(old_value, pos)) != std::string::npos)
-            str.replace(pos, old_value.length(), new_value);
-        else   break;
-    }
-    return   str;
-}
-
-void splitString(std::string& inStr, std::vector<std::string>& outStrVec, std::string sep)
-{
-    std::string temp = inStr.c_str();
-    char* result = NULL;
-    result = strtok((char*)temp.data(), (char*)sep.data());
-    while (result != NULL)
-    {
-        outStrVec.push_back(result);
-        result = strtok(NULL, (char*)sep.data());
-    }
-}
-
-void splitpath(const char*path, std::string& drive, std::string& dir, std::string& fname, std::string& ext)
-{
-    std::string temp = path;
-    str_replace_all(temp, "\\", "/");
-    std::vector<std::string> v;
-    splitString(temp, v, "/");
-    int size = v.size();
-    if (size <= 1)
-    {
-        dir = temp;
-        fname = "";
-        ext = "";
-    }
-    else
-    {
-        fname = v.at(size - 1);
-        if (fname.find(".") != std::string::npos)
-        {
-            int index = fname.find_first_of(".");
-            ext = fname.substr(index + 1, fname.size() - 1);
-            fname = fname.substr(0, index);
-        }
-        if (temp.find(":") != std::string::npos)
-        {
-            int i = temp.find_first_of(":");
-            drive = temp.substr(0, i + 1);
-        }
-        else
-        {
-            drive = "";
-        }
-        dir = temp;
-        if (temp.find("/") != std::string::npos)
-        {
-            int j = dir.find_last_of("/");
-            dir = dir.substr(0, j + 1);
-        }
-    }
-}
 
 QF_BEGIN_NAMESPACE(QF)
 
@@ -244,7 +182,7 @@ void CQF_Main::RegisterLibrary(const char* szDllName)
     {
         line = line.substr(0, foundExt);
     }
-#if ((defined(_MSC_VER) || defined(_WIN32_WCE)) && !defined(GISE_STATIC_LIBS)) || (defined(__HP_aCC) && defined(__HP_WINDLL))
+#ifdef QF_OS_WIN
     line.append(".dll");
     char buffer[MAX_PATH];
     getcwd(buffer, MAX_PATH);
@@ -252,23 +190,22 @@ void CQF_Main::RegisterLibrary(const char* szDllName)
     dllPath.append("\\");
     dllPath.append(line);
     
-    HINSTANCE hdll = LoadLibrary((wchar_t*)s2ws(dllPath).c_str());
+    HINSTANCE pHnd = LoadLibrary((wchar_t*)s2ws(dllPath).c_str());
     
-    if (hdll != NULL)
+    if (pHnd != NULL)
     {
-        componentFunc pf = (componentFunc)GetProcAddress(hdll, "QF_CreateComponentObject");
+        componentFunc pf = (componentFunc)GetProcAddress(pHnd, "QF_CreateComponentObject");
         if (pf)
         {
             RegisterComponent(pf(this));
             std::cout << "Load component " << dllPath << std::endl;
         }
-        activatorFunc af = (activatorFunc)GetProcAddress(hdll, "QF_CreatePluginActivator");
+        activatorFunc af = (activatorFunc)GetProcAddress(pHnd, "QF_CreatePluginActivator");
         if (af)
         {
             RegisterActivator(af(this));
             std::cout << "Load component " << dllPath << std::endl;
         }
-
     }
     else
     {
@@ -280,8 +217,29 @@ void CQF_Main::RegisterLibrary(const char* szDllName)
         std::cout << "Error Code:" << dw<<std::endl;
 
     }
-#else
+#elif defined(QF_OS_LINUX)
     line.append(".so");
+    char buffer[MAX_PATH];
+    getcwd(buffer, MAX_PATH);
+    std::string dllPath = buffer;
+    dllPath.append("/");
+    dllPath.append(line);
+    void* pHnd = dlopen(QFile::encodeName(attempt), dlFlags);
+    f(pHnd != NULL)
+    {
+        componentFunc pf = (componentFunc)dlsym(pHnd, "QF_CreateComponentObject");
+        if (pf)
+        {
+            RegisterComponent(pf(this));
+            std::cout << "Load component " << dllPath << std::endl;
+        }
+        activatorFunc af = (activatorFunc)dlsym(pHnd, "QF_CreatePluginActivator");
+        if (af)
+        {
+            RegisterActivator(af(this));
+            std::cout << "Load component " << dllPath << std::endl;
+        }
+    }
 #endif  
 }
 
@@ -328,12 +286,17 @@ bool CQF_Main::RegisterComponent(IQF_Component* pComponent)
                 assert(false && "Illegal Interface ID!");
                 continue;
             }
-            if (m_interfaces.find(interface_id) != m_interfaces.end())
+
+            if (interface_id.compare(QF_INTERFACE_MAIN_COMMAND)!=0 && 
+                interface_id.compare(QF_INTERFACE_MAIN_MESSAGE) != 0)
             {
-                assert(false && "Interface Name has already exist! Please Rename!");
-                std::cout << "Interface Name " << interface_id << " has already exist! Please Rename!" << std::endl;
-            }
-            m_interfaces[interface_id] = pComponent->GetInterfacePtr(interface_id.c_str());
+                if (m_interfaces.find(interface_id) != m_interfaces.end())
+                {
+                    assert(false && "Interface Name has already exist! Please Rename!");
+                    std::cout << "Interface Name " << interface_id << " has already exist! Please Rename!" << std::endl;
+                }
+                m_interfaces[interface_id] = pComponent->GetInterfacePtr(interface_id.c_str());
+            }        
         }
 
         // Register Commands
