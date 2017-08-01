@@ -69,7 +69,7 @@
     <PostBuildEvent>
       <Command>copy "$(OutDir)\$(TargetName).lib" "..\..\lib\Debug"
 copy "$(OutDir)\$(TargetName).dll" "..\..\bin\Debug"
-copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Debug"</Command>
+copy "$(OutDir)\$(TargetName).dll" "..\..\..\MIPF-Build\bin\Debug"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -91,7 +91,7 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Debug"</Command>
     <PostBuildEvent>
       <Command>copy "$(OutDir)\$(TargetName).lib" "..\..\lib\Release"
 copy "$(OutDir)\$(TargetName).dll" "..\..\bin\Release"
-copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
+copy "$(OutDir)\$(TargetName).dll" "..\..\..\MIPF-Build\bin\Release"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
