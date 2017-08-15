@@ -165,3 +165,70 @@ void splitpath(const char*path, std::string& drive, std::string& dir, std::strin
         }
     }
 }
+
+const char* remove_comment(const std::string& input)
+{
+    enum {
+    literal,
+    single,
+    multiple,
+    string
+  } mode = literal;
+  char last = 0, current;
+  std::string result;
+
+  for (int i=0;i<input.size();i++)
+  {
+      current = input.at(i);
+      switch (mode) {
+      case single: {
+          if (last != '\\' && (current == '\n' || current == '\r')) {
+              result.append(1,current);
+              current = 0;
+              mode = literal;
+          }
+      } break;
+      case multiple: {
+          if (last == '*' && current == '/') {
+              current = 0;
+              mode = literal;
+          }
+      } break;
+      case string: {
+          if (last == '\\') {
+              result.append(1, last);
+              result.append(1, current);
+          }
+          else if (current != '\\') {
+              result.append(1, current);
+              if (current == '"') {
+                  mode = literal;
+              }
+          }
+      } break;
+      default: {
+          if (last == '/') {
+              if (current == '/') {
+                  mode = single;
+              }
+              else if (current == '*') {
+                  mode = multiple;
+              }
+              else {
+                  result.append(1, last);
+                  result.append(1, current);
+              }
+          }
+          else if (current != '/') {
+              result.append(1, current);
+              if (current == '"') {
+                  mode = string;
+              }
+          }
+      } break;
+      }
+      last = current;
+  }
+  return result.c_str();
+
+}

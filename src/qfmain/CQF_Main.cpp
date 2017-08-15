@@ -72,23 +72,33 @@ CQF_Main::CQF_Main(const char* szEnterName)
             }
             test.close();
         }     
+
+        std::cout << "Config path is " << m_configPath << std::endl;
         
         std::string componentsFile = m_configPath + "/components.cfg";
         std::ifstream finComponents(componentsFile, std::ios::in);
+
         if (!finComponents)
         {
             std::cerr << "The components file can not be opened! Please check if it exists!" << std::endl;
             return;
         }
+        std::stringstream buffer;
+        buffer << finComponents.rdbuf();
+        finComponents.close();
+
+        std::string cleanStr(buffer.str());
+        cleanStr = remove_comment(cleanStr);
+        std::stringstream ss;
+        ss.str(cleanStr);
         std::string line;
-        while (!finComponents.eof()) {
-            std::getline(finComponents, line);
+        while (!ss.eof()) {
+            std::getline(ss, line);
             if (CheckValid(line))
             {
                 RegisterLibrary(line.c_str());
             }
-        }
-        finComponents.close();
+        }   
     }
 
     {
@@ -99,15 +109,22 @@ CQF_Main::CQF_Main(const char* szEnterName)
             std::cerr << "The plugins file can not be opened! Please check if it exists!" << std::endl;
             return;
         }
+        std::stringstream buffer;
+        buffer << finPlugins.rdbuf();
+        finPlugins.close();
+
+        std::string cleanStr(buffer.str());
+        cleanStr = remove_comment(cleanStr);
+        std::stringstream ss;
+        ss.str(cleanStr);
         std::string line;
-        while (!finPlugins.eof()) {
-            std::getline(finPlugins, line);
+        while (!ss.eof()) {
+            std::getline(ss, line);
             if (CheckValid(line))
             {
                 RegisterLibrary(line.c_str());
             }
         }
-        finPlugins.close();
     }
 
 }

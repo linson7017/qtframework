@@ -86,7 +86,8 @@ const char* res_style::parseStyleXML(const char* filename)
 					}
 					xml_node itemNode;
 					itemNode.relateXMLNode(item);
-					style_str.append(parseName(itemNode.getName()));
+                    std::string itemqName = parseName(itemNode.getName());
+					style_str.append(itemqName);
 					if (itemNode.hasAttribute("sub-controls"))
 					{
 						style_str.append("::");
@@ -94,9 +95,45 @@ const char* res_style::parseStyleXML(const char* filename)
 					}
 					if (itemNode.hasAttribute("states"))
 					{
-						style_str.append(":");
-						style_str.append(itemNode.getAttribute("states"));
+                        std::string statesStr = itemNode.getAttribute("states");
+                        std::vector<std::string> statesVec;
+                        splitString(statesStr, statesVec, ";");
+                        for (int i=0;i<statesVec.size();i++)
+                        {
+                            style_str.append(":");
+                            style_str.append(statesVec[i]);
+                        }
 					}
+                    if (itemNode.hasAttribute("control-state"))
+                    {
+                        style_str.clear();
+                        std::string statesStr = itemNode.getAttribute("control-state");
+                        std::vector<std::string> statesVec;
+                        splitString(statesStr, statesVec, ";");
+                        for (int i = 0; i < statesVec.size(); i++)
+                        {
+                            style_str.append(itemqName);
+                            std::vector<std::string> controlStatePair;
+                            splitString(statesVec[i], controlStatePair, ",");
+                            if (controlStatePair.size()==2)
+                            {
+                                if (controlStatePair[0].compare("null")!=0)
+                                {
+                                    style_str.append("::");
+                                    style_str.append(controlStatePair[0]);
+                                }
+                                if (controlStatePair[1].compare("null") != 0)
+                                {
+                                    style_str.append(":");
+                                    style_str.append(controlStatePair[1]);
+                                }
+                            }
+                            if (i!= statesVec.size()-1)
+                            {
+                                style_str.append(", ");
+                            }
+                        }
+                    }
 					//以content形式组织属性,每个节点的content为属性内容，property为属性名称，每个节点只能指定一个控件的
 					//一种属性，获得的字符串如下：
 					//QLabel { border-color: red }   

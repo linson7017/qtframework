@@ -137,7 +137,7 @@ void getResQmlUrl(std::string& url,const char* istr)
 	Gb2312ToUTF8(temp,url.c_str());
 	url = temp;
 #endif
-	//logFileOrPathExist(url.c_str());
+	logFileOrPathExist(url.c_str());
 
 }
 
@@ -185,12 +185,12 @@ void getResImageOrIconUrl(std::string& url,const std::string& istr)
 	else
 		url = istr;
 
-#if defined _WIN32 || defined WIN32 || defined __NT__ || defined __WIN32__
-	char temp[1024];
-	Gb2312ToUTF8(temp,url.c_str());
-	url = temp;
-#endif
-	logFileOrPathExist(url.c_str());
+//#if defined _WIN32 || defined WIN32 || defined __NT__ || defined __WIN32__
+//	//char temp[1024];
+//	//Gb2312ToUTF8(temp,url.c_str());
+//	//url = temp;
+//#endif
+//	logFileOrPathExist(url.c_str());
 }
 
 //从Object中获得ui_node节点
@@ -517,8 +517,8 @@ void logFileOrPathExist(const char* path,Log::LOG_TYPE type, bool autoCreate)
         }
         else
         {
-         //   sprintf(szMsg, "%s does not exist! \r\n", path);
-       //     printf(szMsg);
+            sprintf(szMsg, "%s does not exist! \r\n", path);
+            printf(szMsg);
         }		
 	}
 }

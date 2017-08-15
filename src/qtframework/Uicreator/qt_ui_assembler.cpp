@@ -1135,6 +1135,7 @@ bool qt_ui_assembler::createUI(ui_node* node)
                     node->setType(ui_node::WIDGET);
                     node->setObject(widget);
                 }
+
                 QF::QF_Plugin* plugin = dynamic_cast<QF::QF_Plugin*>(factoryCreateObject);
                 if (plugin)
                 {

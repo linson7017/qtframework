@@ -17,4 +17,6 @@ std::string&  str_replace_all(std::string& str, const std::string&  old_value, c
 void splitString(std::string& inStr, std::vector<std::string>& outStrVec, std::string sep);
 void splitpath(const char*path, std::string& drive, std::string& dir, std::string& fname, std::string& ext);
 
+const char* remove_comment(const std::string& input);
+
 #endif // QF_String_h__
