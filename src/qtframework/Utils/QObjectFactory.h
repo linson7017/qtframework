@@ -24,7 +24,7 @@ public:
 
 #define REGISTER_CLASS(NAME, TYPE) static Registrar TYPE##Registrar(NAME, [](void) -> QObject * { return new TYPE();});
 
-class QObjectFactory
+class QTFRAMEWORK_EXPORT QObjectFactory
 {
 public:
     static QObjectFactory * Instance();

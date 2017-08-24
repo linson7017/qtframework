@@ -4,7 +4,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <QTDIR>S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\</QTDIR>
     <LocalDebuggerEnvironment>PATH=$(QTDIR)\bin%3bS:/SDK_X64/MITK2016.11.99/MITK-build/bin/plugins/debug%3bS:/SDK_X64/MITK2016.11.99/MITK-build/bin/debug%3bS:/SDK_X64/MITK2016.11.99/MITK-build/lib/debug%3bS:/SDK_X64/MITK2016.11.99/MITK-build/lib/plugins/debug%3bS:/SDK_X64/MITK2016.11.99/ep/bin%3bS:/SDK_X64/MITK2016.11.99/ep/lib%3bS:/SDK_X64/QT5.7.0/5.7/msvc2015_64/bin%3bS:/SDK_X64/MITK2016.11.99/ep/lib/vigra/bin%3bS:/SDK_X64/MITK2016.11.99/ep/src/SOFA-build/bin/debug%3bS:/SDK_X64/MITK2016.11.99/ep/lib/cmake/ITK-4.9/bin%3bS:/SDK_X64/MITK2016.11.99/ep/x64/vc14/lib/../bin%3bS:/SDK_X64/MITK2016.11.99/ep/src/CTK-build/CTK-build/bin/debug%3bS:/SDK_X64/MITK2016.11.99/ep/src/CTK-build/qRestAPI-build/debug%3b%PATH%</LocalDebuggerEnvironment>
-    <LocalDebuggerCommand>S:\Codes\MIPF-Build\bin\Debug\WorkBench.exe</LocalDebuggerCommand>
+    <LocalDebuggerCommand>S:\Codes\MIPF-Build\bin\Debug\TestApp.exe</LocalDebuggerCommand>
     <LocalDebuggerWorkingDirectory>..\..\..\MIPF-Build\bin\Debug</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>

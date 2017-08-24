@@ -87,8 +87,9 @@ CQF_Main::CQF_Main(const char* szEnterName)
         buffer << finComponents.rdbuf();
         finComponents.close();
 
-        std::string cleanStr(buffer.str());
-        cleanStr = remove_comment(cleanStr);
+        std::string inputStr(buffer.str());
+        std::string cleanStr;
+        remove_comment(inputStr,cleanStr);
         std::stringstream ss;
         ss.str(cleanStr);
         std::string line;
@@ -113,8 +114,9 @@ CQF_Main::CQF_Main(const char* szEnterName)
         buffer << finPlugins.rdbuf();
         finPlugins.close();
 
-        std::string cleanStr(buffer.str());
-        cleanStr = remove_comment(cleanStr);
+        std::string inputStr(buffer.str());
+        std::string cleanStr;
+        remove_comment(inputStr, cleanStr);
         std::stringstream ss;
         ss.str(cleanStr);
         std::string line;

@@ -517,8 +517,8 @@ void logFileOrPathExist(const char* path,Log::LOG_TYPE type, bool autoCreate)
         }
         else
         {
-            sprintf(szMsg, "%s does not exist! \r\n", path);
-            printf(szMsg);
+            //sprintf(szMsg, "%s does not exist! \r\n", path);
+            // printf(szMsg);
         }		
 	}
 }

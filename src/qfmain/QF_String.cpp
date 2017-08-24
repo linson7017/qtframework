@@ -166,7 +166,7 @@ void splitpath(const char*path, std::string& drive, std::string& dir, std::strin
     }
 }
 
-const char* remove_comment(const std::string& input)
+const char* remove_comment(const std::string& input,std::string& result)
 {
     enum {
     literal,
@@ -175,7 +175,7 @@ const char* remove_comment(const std::string& input)
     string
   } mode = literal;
   char last = 0, current;
-  std::string result;
+  result.clear();
 
   for (int i=0;i<input.size();i++)
   {
