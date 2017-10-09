@@ -26,6 +26,7 @@
 #include "UIs/QF_Plugin.h"
 #include "Uicreator/qt_ui_creater.h"
 #include "Utils/QObjectFactory.h"
+#include "Utils/PluginFactory.h"
 #ifdef USE_QCUSTOM_PLOT
 #include <QCustomPlot.h>
 #endif
@@ -1127,6 +1128,7 @@ bool qt_ui_assembler::createUI(ui_node* node)
 		{
             //判断是否注册到工厂
             auto factoryCreateObject = QObjectFactory::Instance()->Create(node->getName());
+            auto factoryCreatePlugin = QF::PluginFactory::Instance()->Create(node->getName());
             if (factoryCreateObject)
             {
                 QWidget* widget = dynamic_cast<QWidget*>(factoryCreateObject);
@@ -1141,6 +1143,26 @@ bool qt_ui_assembler::createUI(ui_node* node)
                 {
                     plugin->SetMainPtr((QF::IQF_Main*)app_env::getMainPtr());
                     plugin->InitResource(R::Instance());
+                    if (plugin->GetPluginHandle()&& !widget)
+                    {
+                        node->setType(ui_node::WIDGET);
+                        node->setObject(plugin->GetPluginHandle());
+                    }
+                }
+            }
+            else if (factoryCreatePlugin)
+            {
+                QF::QF_Plugin* plugin = dynamic_cast<QF::QF_Plugin*>(factoryCreatePlugin);
+                if (plugin)
+                {
+                    plugin->SetAttributes(node->getAttributeMap());
+                    plugin->SetMainPtr((QF::IQF_Main*)app_env::getMainPtr());
+                    plugin->InitResource(R::Instance());
+                    if (plugin->GetPluginHandle())
+                    {
+                        node->setType(ui_node::WIDGET);
+                        node->setObject(plugin->GetPluginHandle());
+                    }
                 }
             }
 			else if (!node->getObject())

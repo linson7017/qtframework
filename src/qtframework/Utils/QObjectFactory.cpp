@@ -1,7 +1,7 @@
 #include "QObjectFactory.h"
 
 
-Registrar::Registrar(string name, function<QObject*(void)> classFactoryFunction)
+QObjectRegister::QObjectRegister(std::string name, std::function<QObject*(void)> classFactoryFunction)
 {
     QObjectFactory::Instance()->RegisterFactoryFunction(name, classFactoryFunction);
 }
@@ -13,13 +13,13 @@ QObjectFactory * QObjectFactory::Instance()
 }
 
 
-void QObjectFactory::RegisterFactoryFunction(string name, function<QObject*(void)> classFactoryFunction)
+void QObjectFactory::RegisterFactoryFunction(std::string name, std::function<QObject*(void)> classFactoryFunction)
 {
     // register the class factory function 
     factoryFunctionRegistry[name] = classFactoryFunction;
 }
 
-QObject* QObjectFactory::Create(string name)
+QObject* QObjectFactory::Create(std::string name)
 {
     QObject * instance = nullptr;
 

@@ -1,0 +1,1 @@
+#include "../../src/qtframework/Utils/PluginFactory.h"

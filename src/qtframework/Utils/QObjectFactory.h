@@ -4,9 +4,10 @@
 	Date:           Month 6 ; Year 2017
 	Purpose:	     
 *********************************************************************/
-#pragma once
+#ifndef QObjectFactory_h__
+#define QObjectFactory_h__
 
-#include <QObject>
+#pragma once
 
 #include <memory>
 #include <string>
@@ -14,29 +15,31 @@
 #include <functional>
 #include "Common/qtframework_com.h"
 
-using namespace  std;
+
+class QObject;
 
 
-class QTFRAMEWORK_EXPORT Registrar {
+class QTFRAMEWORK_EXPORT QObjectRegister {
 public:
-    Registrar(string className, function<QObject*(void)> classFactoryFunction);
+    QObjectRegister(std::string className, std::function<QObject*(void)> classFactoryFunction);
 };
 
-#define REGISTER_CLASS(NAME, TYPE) static Registrar TYPE##Registrar(NAME, [](void) -> QObject * { return new TYPE();});
+#define REGISTER_QOBJECT(NAME, TYPE) static QObjectRegister TYPE##Register(NAME, [](void) -> QObject * { return new TYPE();});
 
 class QTFRAMEWORK_EXPORT QObjectFactory
 {
 public:
     static QObjectFactory * Instance();
 
-    void RegisterFactoryFunction(string name, function<QObject*(void)> classFactoryFunction);
+    void RegisterFactoryFunction(std::string name, std::function<QObject*(void)> classFactoryFunction);
 
-    QObject* Create(string name);
+    QObject* Create(std::string name);
 
 private:
     QObjectFactory() {}
-    map<string, function<QObject*(void)>> factoryFunctionRegistry;
+    std::map<std::string, std::function<QObject*(void)>> factoryFunctionRegistry;
 };
+#endif // QObjectFactory_h__
 
 
 

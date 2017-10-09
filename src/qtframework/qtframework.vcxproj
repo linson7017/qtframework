@@ -416,6 +416,7 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
     <ClCompile Include="UIs\TitleBar.cpp" />
     <ClCompile Include="UIs\TriStateBtnClickListener.cpp" />
     <ClCompile Include="Utils\Log.cpp" />
+    <ClCompile Include="Utils\PluginFactory.cpp" />
     <ClCompile Include="Utils\QObjectFactory.cpp" />
     <ClCompile Include="Utils\qt_standard.cpp" />
     <ClCompile Include="Utils\util.cpp" />
@@ -2115,6 +2116,7 @@ copy "$(OutDir)\$(TargetName).dll" "S:\Codes\MIPF-Build\bin\Release"</Command>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UIs\QF_Plugin.h" />
+    <ClInclude Include="Utils\PluginFactory.h" />
     <ClInclude Include="Utils\QObjectFactory.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

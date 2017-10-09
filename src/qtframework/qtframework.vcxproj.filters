@@ -240,6 +240,9 @@
     <ClCompile Include="Utils\QObjectFactory.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\PluginFactory.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="UIs\AsynchronousAction.h">
@@ -381,6 +384,9 @@
     </ClInclude>
     <ClInclude Include="UIs\QF_Plugin.h">
       <Filter>UIs</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\PluginFactory.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
