@@ -177,7 +177,7 @@ public:
 			return _data.iValue;
 		}
 		else
-			return -1111111;
+			return INT_MAX;
 	}
 	//获得变量值
 	//参数：无
@@ -201,7 +201,7 @@ public:
 			return _data.dValue;
 		}
 		else
-			return -11111111;
+			return FLT_MAX;
 	}
 	//获得变量值
 	//参数：无

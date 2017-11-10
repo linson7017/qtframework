@@ -313,9 +313,7 @@ void CQF_Subject::Notify(const char* szMessage, int iValue, void* pValue)
                         }
                         catch (...)
                         {
-                            //		char sz_msg[48];
-                            //		sprintf(sz_msg,"响应消息【%d】出错", iMessage);
-                            //		GIS_AddLog(0, "CGIS_Subject::Notify", sz_msg);
+                            std::cerr << "Error when execute message " << szMessage;
                         }
 #endif	
                     }
@@ -364,9 +362,7 @@ void CQF_Subject::Notify(const char* szMessage, int iValue, void* pValue)
                                 }
                                 catch (...)
                                 {
-                                    //		char sz_msg[48];
-                                    //		sprintf(sz_msg,"响应消息【%d】出错", iMessage);
-                                    //		GIS_AddLog(0, "CGIS_Subject::Notify", sz_msg);
+                                    std::cerr << "Error when execute message " << szMessage;
                                 }
 #endif	
                             }
@@ -454,7 +450,6 @@ bool CQF_Subject::HasObserver(IQF_Observer* pObserver, CQF_ObserverList* pObserv
     {
         // 先将当前指针前移，再发出消息。
         // 从而使观察家对象能够在消息处理过程中与本被观察对象脱钩
-        //IGIS_Observer* observer = *observer_iterator ;
         SQF_ObserverItem item = *observer_iterator;
         observer_iterator++;
 

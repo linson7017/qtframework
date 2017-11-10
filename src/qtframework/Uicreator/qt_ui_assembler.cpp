@@ -594,6 +594,10 @@ void qt_ui_assembler::assembleWidgetAndWidget(ui_node* father,ui_node* child)
 			child_widget->setGeometry(x,y,w,h);
 			child_widget->setFixedSize(w,h);
 		}	
+        else
+        {
+            child_widget->setGeometry(0.0, 0.0, child_widget->width(),child_widget->height());
+        }
 	}
 }
 //×°ÅäWidgetºÍItem

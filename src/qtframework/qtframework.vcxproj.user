@@ -15,7 +15,7 @@
     <LocalDebuggerCommand Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">../../bin/UITestApp.exe</LocalDebuggerCommand>
     <LocalDebuggerCommand Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../bin/UITestApp.exe</LocalDebuggerCommand>
     <LocalDebuggerCommand Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">../../bin/UITestApp.exe</LocalDebuggerCommand>
-    <LocalDebuggerCommand Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Personal\Desktop\测试程序\WorkBench.exe</LocalDebuggerCommand>
+    <LocalDebuggerCommand Condition="'$(Configuration)|$(Platform)'=='Release|x64'">S:\Codes\MIPF-Build\bin\Release\WorkBench.exe</LocalDebuggerCommand>
     <LocalDebuggerCommand Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">E:\codes\qf\bin\AlgorithmFrameWork.exe</LocalDebuggerCommand>
     <DebuggerFlavor Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">WindowsLocalDebugger</DebuggerFlavor>
     <DebuggerFlavor Condition="'$(Configuration)|$(Platform)'=='DebugRelease|Win32'">WindowsLocalDebugger</DebuggerFlavor>
@@ -85,7 +85,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LocalDebuggerEnvironment>PATH=S:/SDK_X64/MITK2016.11.99/MITK-build/bin/plugins/release;S:/SDK_X64/MITK2016.11.99/MITK-build/bin/release;S:/SDK_X64/MITK2016.11.99/MITK-build/lib/release;S:/SDK_X64/MITK2016.11.99/MITK-build/lib/plugins/release;S:/SDK_X64/MITK2016.11.99/ep/bin;S:/SDK_X64/MITK2016.11.99/ep/lib;S:/SDK_X64/QT5.7.0/5.7/msvc2015_64/bin;S:/SDK_X64/MITK2016.11.99/ep/lib/vigra/bin;S:/SDK_X64/MITK2016.11.99/ep/lib/cmake/ITK-4.9/bin;S:/SDK_X64/MITK2016.11.99/ep/x64/vc14/lib/../bin;S:/SDK_X64/MITK2016.11.99/ep/src/CTK-build/CTK-build/bin/release;S:/SDK_X64/MITK2016.11.99/ep/src/CTK-build/qRestAPI-build/release;S:/SDK_X64/MITK2016.11.99/ep/cmake/install/bin;S:\SDK_X64\QT5.7.0\5.7\msvc2015_64\bin;%PATH%</LocalDebuggerEnvironment>
     <QTDIR>C:\Qt\Qt5.6.1\5.6\msvc2015_64</QTDIR>
-    <LocalDebuggerWorkingDirectory>D:\Personal\Desktop\测试程序</LocalDebuggerWorkingDirectory>
+    <LocalDebuggerWorkingDirectory>S:\Codes\MIPF-Build\bin\Release</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugRelease|x64'">
     <LocalDebuggerEnvironment>PATH=$(QTDIR)\bin%3bE:\codes\qf\bin%3bD:\robot-soft\trunk\Code\lib\release%3b$(QTDIR)\bin%3b"$(QTDIR)\bin%3b$(QTDIR)\bin%3b$(PATH)</LocalDebuggerEnvironment>
