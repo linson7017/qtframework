@@ -45,7 +45,7 @@ bool CheckValid(std::string& line)
     return true;
 }
 
-CQF_Main::CQF_Main(const char* szEnterName)
+CQF_Main::CQF_Main(const char* szEnterName,const char* szLibraryPath)
 {
     m_pSubject = QF_CreateSubjectObject();
     {
@@ -74,6 +74,19 @@ CQF_Main::CQF_Main(const char* szEnterName)
         }     
 
         std::cout << "Config path is " << m_configPath << std::endl;
+
+        if (strcmp(szLibraryPath, "") == 0)
+        {
+            char buffer[MAX_PATH];
+            getcwd(buffer, MAX_PATH);
+            m_libraryPath = buffer;
+        }
+        else
+        {
+            m_libraryPath = szLibraryPath;
+        }
+
+
         
         std::string componentsFile = m_configPath + "/components.cfg";
         std::ifstream finComponents(componentsFile, std::ios::in);
@@ -203,13 +216,14 @@ void CQF_Main::RegisterLibrary(const char* szDllName)
     }
 #ifdef QF_OS_WIN
     line.append(".dll");
-    char buffer[MAX_PATH];
-    getcwd(buffer, MAX_PATH);
-    std::string dllPath = buffer;
+    /*char buffer[MAX_PATH];
+    getcwd(buffer, MAX_PATH);*/
+    std::string dllPath = m_libraryPath;
     dllPath.append("\\");
     dllPath.append(line);
     
-    HINSTANCE pHnd = LoadLibrary((wchar_t*)s2ws(dllPath).c_str());
+    //should selected unicode
+    HINSTANCE pHnd = LoadLibraryW((wchar_t*)s2ws(dllPath).c_str());
     
     if (pHnd != NULL)
     {
@@ -238,9 +252,9 @@ void CQF_Main::RegisterLibrary(const char* szDllName)
     }
 #elif defined(QF_OS_LINUX)
     line.append(".so");
-    char buffer[MAX_PATH];
-    getcwd(buffer, MAX_PATH);
-    std::string dllPath = buffer;
+    /*char buffer[MAX_PATH];
+    getcwd(buffer, MAX_PATH);*/
+    std::string dllPath = m_libraryPath;
     dllPath.append("/");
     dllPath.append(line);
     void* pHnd = dlopen(QFile::encodeName(attempt), dlFlags);

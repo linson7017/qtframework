@@ -26,7 +26,7 @@ public:
     virtual const char* GetConfigPath() = 0;
 };
 
-QF_API IQF_Main*  QF_CreateMainObject(const char* szEnterName="");
+QF_API IQF_Main*  QF_CreateMainObject(const char* szEnterName="",const char* szLibraryPath="");
 
 QF_END_NAMESPACE;
 

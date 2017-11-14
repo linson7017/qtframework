@@ -37,7 +37,7 @@ typedef std::map<std::string, QF_MessageComponentList*> QF_MainMessageListMap;
 class CQF_Main:public IQF_Main_Ext
 {
 public:
-    CQF_Main(const char* szEnterName);
+    CQF_Main(const char* szEnterName ="", const char* szLibraryPath="");
     ~CQF_Main();
 
     //Subject Function
@@ -78,6 +78,7 @@ private:
     TQF_IntToIntMap m_messageInterfaceOrder;
 
     std::string m_configPath;
+    std::string m_libraryPath;
 
 
 };

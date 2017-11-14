@@ -3,9 +3,9 @@
 #include <assert.h>
 QF_BEGIN_NAMESPACE(QF)
 
-IQF_Main*  QF_CreateMainObject(const char* szEnterName)
+IQF_Main*  QF_CreateMainObject(const char* szEnterName,const char* szLibraryPath)
 {
-    IQF_Main* p = new CQF_Main(szEnterName);
+    IQF_Main* p = new CQF_Main(szEnterName, szLibraryPath);
     assert(p);
 
     return p;

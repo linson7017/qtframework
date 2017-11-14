@@ -1,3 +1,6 @@
+20171114
+工程配置由cmake完成，刪除vs工程文件
+
 20170824
 放开QObjectFactory类
 修改部分bug

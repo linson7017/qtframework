@@ -1,5 +1,6 @@
 #include "QF_Subject.h"
 #include "IQF_Observer.h"
+#include <iostream>
 
 #include <assert.h>
 QF_BEGIN_NAMESPACE(QF)
