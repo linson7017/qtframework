@@ -86,6 +86,7 @@ CQF_Main::CQF_Main(const char* szEnterName,const char* szLibraryPath)
             m_libraryPath = szLibraryPath;
         }
 
+        std::cout << "Library path is " << m_libraryPath << std::endl;
 
         
         std::string componentsFile = m_configPath + "/components.cfg";
