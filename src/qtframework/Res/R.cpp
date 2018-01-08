@@ -242,11 +242,11 @@ void* R::getCustomWidget(const char* name)
 }
 
 
-const char* R::getImageResourceUrl(const char* name)
+std::string R::getImageResourceUrl(const char* name)
 {
     std::string imageUrl;
     getResImageOrIconUrl(imageUrl, name);
-    return imageUrl.c_str();
+    return imageUrl;
 }
 
 void R::Constructed()

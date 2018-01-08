@@ -462,19 +462,18 @@ void getAllFilesInCurrentDir(std::string path,std::vector<std::string>& files,st
 	}*/
 	QStringList qfiles;
 #if defined _WIN32 || defined WIN32 || defined __NT__ || defined __WIN32__
-	char temp[1024];
-	Gb2312ToUTF8(temp,path.c_str());
-	path = temp;
+    char temp[1024];
+    Gb2312ToUTF8(temp, path.c_str());
+    path = temp;
 #endif
 	QDir dir(path.c_str());
 	QStringList filters;
 	filters << filter.c_str() ;
 	qfiles = dir.entryList(filters);
-	QStringList::const_iterator it;
-	for (it = qfiles.constBegin(); it != qfiles.constEnd(); ++it )
-	{
-		files.push_back((*it).toStdString());
-	}
+    foreach (QString str , qfiles)
+    {
+        files.push_back(str.toLocal8Bit().constData());
+    }
 }
 
 //Gb2312±àÂë×Ö·û×ª»»ÎªUTF8 ×Ö·û

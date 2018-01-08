@@ -141,7 +141,7 @@ public:
 	//返回值：控件指针
 	static void* getCustomWidget(const char* name);
 
-    static const char* getImageResourceUrl(const char* name);
+    static std::string getImageResourceUrl(const char* name);
 
 
     static void addUINodeName(const char* name);
