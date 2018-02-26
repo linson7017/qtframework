@@ -1,0 +1,6 @@
+set(QTXML_LIBRARIES qtxml)
+
+if(NOT TARGET qtxml)
+	include("${CMAKE_CURRENT_LIST_DIR}/FindlibQtXML.cmake")
+endif()
+

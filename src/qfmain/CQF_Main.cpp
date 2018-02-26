@@ -14,6 +14,8 @@
 #include "IQF_Activator.h"
 #include "IQF_Command.h"
 #include "IQF_Message.h"
+#include "IQF_Properties.h"
+#include "IQF_Property.h"
 #include <direct.h>
 #include "qf_eventdef.h"
 
@@ -229,16 +231,21 @@ void CQF_Main::RegisterLibrary(const char* szDllName)
     if (pHnd != NULL)
     {
         componentFunc pf = (componentFunc)GetProcAddress(pHnd, "QF_CreateComponentObject");
+        activatorFunc af = (activatorFunc)GetProcAddress(pHnd, "QF_CreatePluginActivator");
         if (pf)
         {
             RegisterComponent(pf(this));
             std::cout << "Load component " << dllPath << std::endl;
-        }
-        activatorFunc af = (activatorFunc)GetProcAddress(pHnd, "QF_CreatePluginActivator");
-        if (af)
+        }     
+        else if (af)
         {
             RegisterActivator(af(this));
-            std::cout << "Load component " << dllPath << std::endl;
+            std::cout << "Load plugin " << dllPath << std::endl;
+        }
+        else
+        {
+            std::cout << "Unable to find plugin interface " << dllPath << std::endl;
+            FreeLibrary(pHnd);
         }
     }
     else
@@ -258,7 +265,7 @@ void CQF_Main::RegisterLibrary(const char* szDllName)
     std::string dllPath = m_libraryPath;
     dllPath.append("/");
     dllPath.append(line);
-    void* pHnd = dlopen(QFile::encodeName(attempt), dlFlags);
+    void* pHnd = dlopen(dllPath.c_str());
     f(pHnd != NULL)
     {
         componentFunc pf = (componentFunc)dlsym(pHnd, "QF_CreateComponentObject");
@@ -267,12 +274,28 @@ void CQF_Main::RegisterLibrary(const char* szDllName)
             RegisterComponent(pf(this));
             std::cout << "Load component " << dllPath << std::endl;
         }
+        else
+        {
+            std::cout << "Load component " << dllPath<<" failed! Can not find component interface. Error code:"<<dlerror() << std::endl;
+            dlclose(pHnd);
+        }
         activatorFunc af = (activatorFunc)dlsym(pHnd, "QF_CreatePluginActivator");
         if (af)
         {
             RegisterActivator(af(this));
-            std::cout << "Load component " << dllPath << std::endl;
+            std::cout << "Load plugin " << dllPath << std::endl;
         }
+        else
+        {
+            std::cout << "Load component " << dllPath << " failed! Can not find plugin interface. Error code:" << dlerror() << std::endl;
+            dlclose(pHnd);
+        }
+    }
+    else
+    {
+        std::cout << "Load component " << dllPath << "failed! Error code:"<< dlerror()<< std::endl;
+
+
     }
 #endif  
 }
@@ -489,7 +512,7 @@ void CQF_Main::Release()
     delete this;
 }
 
-bool CQF_Main::ExecuteCommand(const char* szCommandID, IQF_PropertySet* pInParam, IQF_PropertySet* pOutParam)
+bool CQF_Main::ExecuteCommand(const char* szCommandID, IQF_Properties* pInParam, IQF_Properties* pOutParam)
 {
     QF_MainCommandMap::iterator it_command;
 
@@ -505,7 +528,7 @@ bool CQF_Main::ExecuteCommand(const char* szCommandID, IQF_PropertySet* pInParam
 
 #ifndef _DEBUG
     try
-    {
+    {                                                                                                                                             
 #endif
         return p_command->ExecuteCommand(szCommandID, pInParam, pOutParam);
 #ifndef _DEBUG
@@ -588,6 +611,16 @@ void CQF_Main::ResourceConstructed(R* pR)
     {
         it->second->Constructed(pR);
     }
+}
+
+IQF_Properties* CQF_Main::CreateProperties()
+{
+    return QF_CreateProperties();
+}
+
+IQF_Property* CQF_Main::CreateProperty()
+{
+    return QF_CreateProperty();
 }
 
 QF_END_NAMESPACE

@@ -13,13 +13,13 @@
 class R;
 QF_BEGIN_NAMESPACE(QF)
 
-class IQF_PropertySet;
+class IQF_Properties;
 
 class IQF_Main : public IQF_Observer, public IQF_Subject
 {
 public:
     virtual void Release() = 0;
-    virtual bool ExecuteCommand(const char* szCommandID, IQF_PropertySet* pInParam, IQF_PropertySet* pOutParam) = 0;
+    virtual bool ExecuteCommand(const char* szCommandID, IQF_Properties* pInParam, IQF_Properties* pOutParam) = 0;
     virtual void SendMessage(const char* szMessage, int iValue, void *pValue) = 0;
     virtual void SendMessageQf(const char* szMessage, int iValue, void *pValue) = 0;
     virtual void* GetInterfacePtr(const char* szInterfaceID) = 0;

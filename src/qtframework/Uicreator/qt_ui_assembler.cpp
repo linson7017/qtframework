@@ -1147,7 +1147,7 @@ bool qt_ui_assembler::createUI(ui_node* node)
                 {
                     plugin->SetMainPtr((QF::IQF_Main*)app_env::getMainPtr());
                     plugin->InitResource(R::Instance());
-                    if (plugin->GetPluginHandle()&& !widget)
+                    if (plugin->GetPluginHandle() && !widget)
                     {
                         node->setType(ui_node::WIDGET);
                         node->setObject(plugin->GetPluginHandle());

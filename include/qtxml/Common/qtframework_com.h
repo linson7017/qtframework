@@ -1,0 +1,12 @@
+#ifndef QTFRAMEWORK_GLOBAL_H
+#define QTFRAMEWORK_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#ifdef QTFRAMEWORK_LIB
+# define QTFRAMEWORK_EXPORT Q_DECL_EXPORT
+#else
+# define QTFRAMEWORK_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // QTFRAMEWORK_GLOBAL_H

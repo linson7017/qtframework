@@ -1,0 +1,1 @@
+#include "../../src/qtxml/Utils/QObjectFactory.h"

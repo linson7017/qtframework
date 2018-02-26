@@ -11,6 +11,12 @@ IQF_Main_Ext.h
 IQF_Message.h
 IQF_Observer.h
 IQF_Subject.h
+IQF_Properties.h
+IQF_Property.h
+CQF_Properties.h
+CQF_Properties.cpp
+CQF_Property.h
+CQF_Property.cpp
 QF_Config.h
 qf_config_internal.h
 QF_String.cpp

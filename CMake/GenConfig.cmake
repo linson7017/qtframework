@@ -32,3 +32,13 @@ configure_file(
   ${CMAKE_CURRENT_BINARY_DIR}/FindlibQfCommon.cmake
   @ONLY
 )
+configure_file(
+  ${TEMPLATE_DIR}/QtXML-config.cmake.in
+  ${CMAKE_CURRENT_BINARY_DIR}/QtXML-config.cmake
+  @ONLY
+)
+configure_file(
+  ${TEMPLATE_DIR}/FindlibQtXML.cmake.in
+  ${CMAKE_CURRENT_BINARY_DIR}/FindlibQtXML.cmake
+  @ONLY
+)

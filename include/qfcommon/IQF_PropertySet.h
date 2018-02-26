@@ -15,7 +15,7 @@ class IQF_DataBuffer;
 ///
 /// \note 通过全局函数QF_CreatePropertySetObject()创建一个IQF_PropertySet对象。
 ///
-//##ModelId=3F924A5E032C
+//##
 class IQF_PropertySet
 {
   public:
@@ -27,7 +27,6 @@ class IQF_PropertySet
 	///
 	/// \param 无
 	///
-	//##ModelId=3F924C8002DE
     virtual void Release() = 0;
 
 	/// \brief 清除属性集合中的所有属性记录
@@ -38,7 +37,6 @@ class IQF_PropertySet
 	///
 	/// \param 无
 	///
-    //##ModelId=3F924B9E0222
     virtual void Clear() = 0;
 
     /// \brief 获取属性集合中的字段个数。
@@ -49,7 +47,6 @@ class IQF_PropertySet
 	///
 	/// \param 无
 	///
-    //##ModelId=3F924B9E0167
     virtual int GetCount() = 0;
 
     /// \brief 通过字段名称获取指定属性字段
@@ -60,7 +57,6 @@ class IQF_PropertySet
 	///
 	/// \param szName：字段名称
 	///
-    //##ModelId=3F924B9E0177
     virtual IQF_Field* GetPropertyPtr(const char* szName) = 0;
 
     /// \brief 获取属性集合中第一个属性字段对象
@@ -71,7 +67,6 @@ class IQF_PropertySet
 	///
 	/// \param 无
 	///
-    //##ModelId=3F924B9E0196
     virtual IQF_Field* GetFirstPropertyPtr() = 0;
 
     /// \brief 获取属性集合中指定字段的下一个属性字段对象
@@ -82,7 +77,6 @@ class IQF_PropertySet
 	///
 	/// \param pCurrentField：当前属性字段对象的指针
 	///
-    //##ModelId=3F92666703BF
     virtual IQF_Field* GetNextPropertyPtr(IQF_Field* pCurrentField) = 0;
     
     /// \brief 在属性集合中新建一个属性字段。
@@ -96,7 +90,6 @@ class IQF_PropertySet
 	/// \param iType：属性字段数据类型。参见QF_commondef.h中“数据类型”部分的相关定义。
 	/// \param bToBeArchive：选项参数。为true表示在Archive()时该属性字段应归档到数据缓存区中；为false表示在Archive()时该属性字段将被忽略。缺省为true。
 	///
-    //##ModelId=3F924B9E0138
     virtual  IQF_Field* AddProperty(const char* szName, const char* szCaption, int iType, bool bToBeArchive = true) = 0;
 
 	/// \brief 添加一个属性字段。
@@ -107,7 +100,6 @@ class IQF_PropertySet
 	///
 	/// \param pField：带添加的属性字段。
 	///
-    //##ModelId=3F9E1F7101A8
     virtual bool AddProperty(IQF_Field* pField) = 0;
     
     /// \brief 删除指定属性字段。
@@ -118,7 +110,6 @@ class IQF_PropertySet
 	///
 	/// \param szName：要删除的属性字段的名称
 	///
-    //##ModelId=3F924B9E0157
     virtual bool DeleteProperty(const char* szName) = 0;
 
     /// \brief 设置QF_INTEGER类型属性值
@@ -133,7 +124,6 @@ class IQF_PropertySet
 	/// \param iValue：要设置的字段值。
 	/// \param bToBeArchive：选项参数。为true表示在Archive()时该属性字段应归档到数据缓存区中；为false表示在Archive()时该属性字段将被忽略。缺省为true。
 	///
-    //##ModelId=3FA4B0BB038A
     virtual bool SetIntProperty(const char* szName, int iValue, bool bToBeArchive = true) = 0;
 
     /// \brief 设置QF_BOOL类型属性值
@@ -148,7 +138,6 @@ class IQF_PropertySet
 	/// \param bValue：要设置的字段值。
 	/// \param bToBeArchive：选项参数。为true表示在Archive()时该属性字段应归档到数据缓存区中；为false表示在Archive()时该属性字段将被忽略。缺省为true。
 	///
-    //##ModelId=4042B0930167
     virtual bool SetBoolProperty(const char* szName, bool bValue, bool bToBeArchive = true) = 0;
 
     /// \brief 设置QF_DOUBLE类型属性值
@@ -163,7 +152,6 @@ class IQF_PropertySet
 	/// \param dValue：要设置的字段值。
 	/// \param bToBeArchive：选项参数。为true表示在Archive()时该属性字段应归档到数据缓存区中；为false表示在Archive()时该属性字段将被忽略。缺省为true。
 	///
-    //##ModelId=3FA4B1FC027E
     virtual bool SetDoubleProperty(const char* szName, double dValue, bool bToBeArchive = true) = 0;
 
     /// \brief 设置QF_STRING类型属性值
@@ -178,7 +166,6 @@ class IQF_PropertySet
 	/// \param szValue：要设置的字段值。
 	/// \param bToBeArchive：选项参数。为true表示在Archive()时该属性字段应归档到数据缓存区中；为false表示在Archive()时该属性字段将被忽略。缺省为true。
 	///
-    //##ModelId=3FA4B1FE01E2
     virtual bool SetStringProperty(const char* szName, const char* szValue, bool bToBeArchive = true) = 0;
 
 	/// \brief 赋值运算
@@ -189,7 +176,6 @@ class IQF_PropertySet
 	///
 	/// \param right：赋值运算右操作数
 	///
-    //##ModelId=3FA4B2EF0074
     virtual IQF_PropertySet& operator=(const IQF_PropertySet& right) = 0;
 
 	/// \brief 相等运算
@@ -200,7 +186,6 @@ class IQF_PropertySet
 	///
 	/// \param right：相等运算右操作数
 	///
-    //##ModelId=3FA4B2EF0100
     virtual int operator==(const IQF_PropertySet& right) = 0;
 
 	/// \brief 不相等运算
@@ -211,7 +196,6 @@ class IQF_PropertySet
 	///
 	/// \param right：不相等运算右操作数
 	///
-    //##ModelId=3FA4B2EF018D
     virtual int operator!=(const IQF_PropertySet& right) = 0;
 
 

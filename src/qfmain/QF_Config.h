@@ -13,9 +13,12 @@ date: 		三月 2017
 #elif defined(__SUNPRO_CC) && (__SUNPRO_CC >= 0x550)
 #   define QF_DECLSPEC_EXPORT __global
 #   define QF_DECLSPEC_IMPORT
+#elif defined(__linux__) || defined(__linux)
+#   define QF_DECLSPEC_EXPORT __attribute__((visibility("default")))
+#   define QF_DECLSPEC_IMPORT __attribute__((visibility("default")))
 #else
-#   define QF_DECLSPEC_EXPORT /**/
-#   define QF_DECLSPEC_IMPORT /**/
+#   define QF_DECLSPEC_EXPORT 
+#   define QF_DECLSPEC_IMPORT
 #endif
 
 #ifdef QF_API_EXPORTS
@@ -46,6 +49,14 @@ date: 		三月 2017
         ptr = NULL;    \
     }
 #endif
+
+#define QF_DataType_Undefined 0x00
+#define QF_DataType_Integer 0x01
+#define QF_DataType_Double 0x02
+#define QF_DataType_String 0x04
+#define QF_DataType_Bool 0x20
+#define QF_DataType_Ptr 0x40
+
 
 
 #endif // IQF_Config_h__

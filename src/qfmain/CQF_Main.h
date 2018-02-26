@@ -51,7 +51,7 @@ public:
 
     //Main Function
     void Release();
-    bool ExecuteCommand(const char* szCommandID, IQF_PropertySet* pInParam, IQF_PropertySet* pOutParam);
+    bool ExecuteCommand(const char* szCommandID, IQF_Properties* pInParam, IQF_Properties* pOutParam);
     void SendMessage(const char* szMessage, int iValue, void *pValue);
     void SendMessageQf(const char* szMessage, int iValue, void *pValue);
     void* GetInterfacePtr(const char* szInterfaceID);
@@ -59,6 +59,8 @@ public:
     //Ext
     void RegisterResource(R* pR);
     void ResourceConstructed(R* pR);
+    IQF_Properties* CreateProperties();
+    IQF_Property* CreateProperty();
 private:
     void RegisterLibrary(const char* szDllName);
     bool RegisterComponent(IQF_Component* pComponent);

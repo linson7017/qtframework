@@ -22,26 +22,14 @@ struct ltstr
     }
 };
 
-enum QFDataType
-{
-    QF_UNDEFINED = 0x00,
-    QF_INTEGER = 0x01,
-    QF_DOUBLE = 0x02,
-    QF_STRING = 0x04,
-    //	QF_TIME	= 0x08,
-    QF_BINARY = 0x10,
-    QF_BOOL = 0x20
-};
-
 inline bool QF_ISEQUAL_DBL(double d1, double d2) { return (d1 > d2) ? (d1 - d2 < 1.0e-10) : (d2 - d1 < 1.0e-10); }
 
 inline bool QF_ISVALID_BASIC_DATATYPE(int iType)
 {
-    return ((iType == QF_INTEGER) ||
-        (iType == QF_DOUBLE) ||
-        (iType == QF_STRING) ||
-        (iType == QF_BINARY) ||
-        (iType == QF_BOOL));
+    return ((iType == QF_DataType_Integer) ||
+        (iType == QF_DataType_Double) ||
+        (iType == QF_DataType_String) ||
+        (iType == QF_DataType_Bool));
 }
 
 inline bool QF_ISVALID_DATATYPE(int iType)

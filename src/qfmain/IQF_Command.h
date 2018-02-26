@@ -7,12 +7,12 @@
 #define IQF_Command_h__
 
 QF_BEGIN_NAMESPACE(QF)
-class IQF_PropertySet;
+class IQF_Properties;
 
 class IQF_Command
 {
 public:
-	virtual bool ExecuteCommand(const char* szCommandID, IQF_PropertySet* pInParam, IQF_PropertySet* pOutParam) = 0;
+	virtual bool ExecuteCommand(const char* szCommandID, IQF_Properties* pInParam, IQF_Properties* pOutParam) = 0;
 	virtual int GetCommandCount() = 0;
 	virtual const char* GetCommandID(int iIndex) = 0;
 };
