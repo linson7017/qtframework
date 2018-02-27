@@ -14,7 +14,7 @@
 #include <set>
 #include <string>
 #include <vector>
-#include "Common/qtframework_com.h"
+#include "Common/qtxml_com.h"
 using namespace std;
 
 class ui_node;
@@ -37,7 +37,7 @@ class xml_ui_base;
  * \date 五月 2016
  */
 
-class QTFRAMEWORK_EXPORT R
+class QTXML_EXPORT R
 {
 public:
 	 //程序结束析构单例实例

@@ -684,6 +684,10 @@ bool qt_standard::getProperty(const char* name,QVariant& v)
 			return false;
 		}
 	}
+    else
+    {
+        return false;
+    }
 	return true;
 }
 #endif

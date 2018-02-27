@@ -14,10 +14,10 @@
 #include <map>
 #include <stdlib.h>
 #include <stdio.h>
-#include "Common/qtframework_com.h"
+#include "Common/qtxml_com.h"
 using namespace std;
 
-class QTFRAMEWORK_EXPORT variant;
+class QTXML_EXPORT variant;
 
 template<typename T> inline T variant_cast(const variant&);
 typedef std::map<std::string, variant> VarientMap;

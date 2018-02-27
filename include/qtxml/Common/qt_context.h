@@ -11,7 +11,7 @@
 
 #pragma once
 #include <vector>
-#include "Common/qtframework_com.h"
+#include "Common/qtxml_com.h"
 struct sl_Rect
 {
 	int x0;
@@ -32,7 +32,7 @@ class QTranslator;
  * \author 宋凌
  * \date 五月 2016
  */
-class QTFRAMEWORK_EXPORT qt_context
+class QTXML_EXPORT qt_context
 {
 public:
 	//构造函数

@@ -12,7 +12,7 @@
 #include <string>
 #include <map>
 #include <functional>
-#include "Common/qtframework_com.h"
+#include "Common/qtxml_com.h"
 
 namespace QF
 {
@@ -21,12 +21,12 @@ namespace QF
 
 namespace QF
 {
-    class QTFRAMEWORK_EXPORT PluginRegister {
+    class QTXML_EXPORT PluginRegister {
     public:
         PluginRegister(std::string className, std::function<QF::QF_Plugin*(void)> classFactoryFunction);
     };
 
-    class QTFRAMEWORK_EXPORT PluginFactory
+    class QTXML_EXPORT PluginFactory
     {
     public:
         static PluginFactory * Instance();

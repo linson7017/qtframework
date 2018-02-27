@@ -15,7 +15,7 @@ Common/app_env.cpp
 Common/qt_context.cpp
 ${QTXML_EXPROT_INCLUDE_DIR}/Common/app_env.h
 ${QTXML_EXPROT_INCLUDE_DIR}/Common/qt_context.h
-${QTXML_EXPROT_INCLUDE_DIR}/Common/qtframework_com.h
+${QTXML_EXPROT_INCLUDE_DIR}/Common/qtxml_com.h
 )
 
 set(Res_Srcs
@@ -24,7 +24,7 @@ Res/res_config.cpp
 Res/res_shortcut.cpp
 Res/res_string.cpp
 Res/res_style.cpp
-Res/res_uicommand.cpp
+Res/res_command.cpp
 Res/xml_res_base.cpp
 Res/xml_ui_base.h
 
@@ -33,7 +33,7 @@ Res/res_config.h
 Res/res_shortcut.h
 Res/res_string.h
 Res/res_style.h
-Res/res_uicommand.h
+Res/res_command.h
 Res/xml_res_base.h
 Res/xml_ui_base.cpp
 

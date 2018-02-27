@@ -13,20 +13,20 @@
 #include <string>
 #include <map>
 #include <functional>
-#include "Common/qtframework_com.h"
+#include "Common/qtxml_com.h"
 
 
 class QObject;
 
 
-class QTFRAMEWORK_EXPORT QObjectRegister {
+class QTXML_EXPORT QObjectRegister {
 public:
     QObjectRegister(std::string className, std::function<QObject*(void)> classFactoryFunction);
 };
 
 #define REGISTER_QOBJECT(NAME, TYPE) static QObjectRegister TYPE##Register(NAME, [](void) -> QObject * { return new TYPE();});
 
-class QTFRAMEWORK_EXPORT QObjectFactory
+class QTXML_EXPORT QObjectFactory
 {
 public:
     static QObjectFactory * Instance();

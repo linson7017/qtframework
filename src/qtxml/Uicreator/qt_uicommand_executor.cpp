@@ -110,14 +110,14 @@ bool qt_uicommand_executor::execute(xml_node* uicommand,ui_node* sender)
 				if (!activity)
 					return false;	
 			}
-        //	if (strcmp(type.c_str(),"PopDialog")==0)
-        //	{
-        //		activity->setWindowFlags(Qt::Dialog); //以dialog形式显示
-        //	}
-            //if (!activity->isVisible())
-            //{
+        	if (strcmp(type.c_str(),"PopDialog")==0)
+        	{
+        		activity->setWindowFlags(Qt::Dialog); //以dialog形式显示
+        	}
+            if (!activity->isVisible())
+            {
 				activity->active();
-            //}
+            }
 		}
 		else
 		{
@@ -249,10 +249,6 @@ bool qt_uicommand_executor::execute(xml_node* uicommand,ui_node* sender)
             if (uicommand->hasAttribute("style"))
             {
                 widget->setStyleSheet(getResStyle(uicommand->getAttribute("style")));
-            }
-            else if (sender->hasAttribute("uicommand_style"))
-            {
-                widget->setStyleSheet(getResStyle(sender->getAttribute("uicommand_style")));
             }
             else
             {

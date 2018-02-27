@@ -9,7 +9,7 @@
 #pragma once
 #include <vector>
 #include <string>
-#include "Common/qtframework_com.h"
+#include "Common/qtxml_com.h"
 //#include <QWidget>
 
 using namespace std;
@@ -25,7 +25,7 @@ class TriStateBtnClickListener;
  * \author 宋凌
  * \date 五月 2016
  */
-class QTFRAMEWORK_EXPORT  sl_MutexButtonBox
+class QTXML_EXPORT  sl_MutexButtonBox
 {
 public:
 	//构造函数

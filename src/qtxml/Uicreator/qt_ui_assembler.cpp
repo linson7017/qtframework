@@ -806,10 +806,18 @@ void qt_ui_assembler::registerID(ui_node* node)
 		std::string id = node->getAttribute("id");
 		if (_IDMap.count(id.c_str()))
 		{
+           // Log::Instance()->log(Log::LOG_WARN, "duplicate definition of id %s", id.c_str());
+            printf("duplicate definition of id %s\n", id.c_str());
 			//重复定义ID	
 		}
 		else
 		{
+            void*obj = node->getObject();
+            if (obj)
+            {
+                QObject* qObj = (QObject*)obj;
+                qObj->setObjectName(id.c_str());
+            }
 			_IDMap[id] = node->getObject();
 			//加入全局的UINodeMap
 			R::Instance()->addObjectGlobalMap(id.c_str(),node->getObject());
@@ -1548,25 +1556,17 @@ void qt_ui_assembler::ParseObjectProperty(ui_node* node)
 			{
 				QString propertyName = name.mid(2);
 				//QString value = amIt->second;
-				QVariant property = obj->property(propertyName.toLocal8Bit().constData());
-				if (property.isValid())
-				{
-					if (qt_standard::getProperty(amIt->second.c_str(),property))
-					{
-						QVariant p = property;
-						bool ret = obj->setProperty(propertyName.toLocal8Bit().constData(),p);
-					}		
-				}
-			}
-            else if (name.left(5)=="user_")
-            {
-                QString propertyName = name.mid(5);
                 QVariant property;
                 if (qt_standard::getProperty(amIt->second.c_str(), property))
                 {
-                    obj->setProperty(propertyName.toLocal8Bit().constData(), property);
+                    bool ret = obj->setProperty(propertyName.toLocal8Bit().constData(), property);
                 }
-            }
+                else
+                {
+                    property.setValue(QString(amIt->second.c_str()));
+                    bool ret = obj->setProperty(propertyName.toLocal8Bit().constData(), property);
+                }
+			}
 			//QPushButton
 			++amIt;
 		}

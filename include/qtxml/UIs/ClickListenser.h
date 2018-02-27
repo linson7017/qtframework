@@ -1,10 +1,10 @@
 #pragma once
 #include <QtCore/QObject>
 #include "Listener.h"
-#include "Common/qtframework_com.h"
+#include "Common/qtxml_com.h"
 class ui_node;
 
-class QTFRAMEWORK_EXPORT ClickListenser : public Listener
+class QTXML_EXPORT ClickListenser : public Listener
 {
 	Q_OBJECT
 public:

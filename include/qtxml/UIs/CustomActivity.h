@@ -11,7 +11,7 @@
 
 #pragma once
 #include "UIs/Activity.h"
-#include "Common/qtframework_com.h"
+#include "Common/qtxml_com.h"
 
 class TitleBar;
 class QTimer;
@@ -23,7 +23,7 @@ class QTimer;
  * \author ÀŒ¡Ë
  * \date ŒÂ‘¬ 2016
  */
-class QTFRAMEWORK_EXPORT CustomActivity : public Activity
+class QTXML_EXPORT CustomActivity : public Activity
 {
 	Q_OBJECT
 public:

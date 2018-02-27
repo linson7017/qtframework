@@ -13,7 +13,7 @@
 #include <QtGui>
 #include <QWidget>
 #include <string.h>
-#include "Common/qtframework_com.h"
+#include "Common/qtxml_com.h"
 class ui_node;
 class qt_ui_assembler;
 class SplashWindow;
@@ -25,7 +25,7 @@ class SplashWindow;
  * \author 宋凌
  * \date 五月 2016
  */
-class QTFRAMEWORK_EXPORT Activity : /*private*/public QWidget  //这里私有继承，封装Qt功能
+class QTXML_EXPORT Activity : /*private*/public QWidget  //这里私有继承，封装Qt功能
 {
 	Q_OBJECT
 public:

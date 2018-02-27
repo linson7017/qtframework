@@ -13,7 +13,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
-#include "Common/qtframework_com.h"
+#include "Common/qtxml_com.h"
 using namespace std;
 /*!
  * \class Log
@@ -23,7 +23,7 @@ using namespace std;
  * \author 宋凌
  * \date 五月 2016
  */
-class QTFRAMEWORK_EXPORT Log
+class QTXML_EXPORT Log
 {
 public:
 	//日志类型

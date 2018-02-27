@@ -11,7 +11,7 @@
 
 #pragma once
 #include <QPushButton>
-#include "Common/qtframework_com.h"
+#include "Common/qtxml_com.h"
 class ClickListenser;
 /*!
  * \class sl_Button
@@ -21,7 +21,7 @@ class ClickListenser;
  * \author ÀŒ¡Ë
  * \date ŒÂ‘¬ 2016
  */
-class QTFRAMEWORK_EXPORT sl_Button :
+class QTXML_EXPORT sl_Button :
 	/*public ui_node,*/ public QPushButton
 {
 	Q_OBJECT

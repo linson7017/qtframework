@@ -11,7 +11,7 @@
 
 #pragma once
 #include <QLabel>
-#include "Common/qtframework_com.h"
+#include "Common/qtxml_com.h"
 /*!
  * \class sl_ImageWidget
  *
@@ -20,7 +20,7 @@
  * \author 宋凌
  * \date 五月 2016
  */
-class QTFRAMEWORK_EXPORT sl_ImageWidget : public QLabel
+class QTXML_EXPORT sl_ImageWidget : public QLabel
 {
 public:
 	//构造函数

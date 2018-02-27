@@ -12,7 +12,7 @@
 #pragma once
 #include <QSplashScreen>
 //#include "UIs/Activity.h"
-#include "Common/qtframework_com.h"
+#include "Common/qtxml_com.h"
 #include <QtCore/QThread>
 class Activity;
 class QLabel;
@@ -27,7 +27,7 @@ class sl_Timer;
  * \author ÀŒ¡Ë
  * \date ŒÂ‘¬ 2016
  */
-class QTFRAMEWORK_EXPORT SplashWindow:public QSplashScreen
+class QTXML_EXPORT SplashWindow:public QSplashScreen
 {
 	Q_OBJECT
 public:

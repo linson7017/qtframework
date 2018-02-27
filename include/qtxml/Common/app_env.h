@@ -11,7 +11,7 @@
 
 #pragma once
 #include <string>
-#include "Common/qtframework_com.h"
+#include "Common/qtxml_com.h"
 using namespace std;
 //主控指针类型
 typedef void IQF_Main_Ext;
@@ -24,7 +24,7 @@ typedef void IQF_Main_Ext;
  * \author 宋凌
  * \date 五月 2016
  */
-class QTFRAMEWORK_EXPORT app_env
+class QTXML_EXPORT app_env
 {
 public:
 	//目录类型
