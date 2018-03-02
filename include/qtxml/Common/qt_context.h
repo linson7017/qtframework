@@ -76,6 +76,7 @@ public:
 	//		style: 样式
 	//返回值：无
 	static void setApplicationStyle(const char* style);
+    static const char* getApplicationStyle();
 	//添加动态库添加目录
 	//参数：
 	//		path： 路径
@@ -86,6 +87,7 @@ private:
 	static int _primaryScreen; //主屏幕
 	static std::vector<sl_Rect*> _screenRects; //屏幕尺寸序列
 	static QTranslator* _translator; //翻译器
+    static std::string _currentStyle;
 };
 
 #endif

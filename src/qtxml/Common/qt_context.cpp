@@ -13,6 +13,7 @@ int qt_context::_screenNum = 1;
 int qt_context::_primaryScreen =0;
 std::vector<sl_Rect*> qt_context::_screenRects;
 QTranslator* qt_context::_translator = NULL;
+std::string qt_context::_currentStyle = "";
 //构造函数
 //参数：app QApplication指针
 //返回值：无
@@ -94,6 +95,7 @@ bool qt_context::setDefaultLanguage(const char* languageStr)
 void qt_context::setApplicationStyle(const char* style)
 {
 	std::string styleRes = R::Instance()->getStyleResource(style);
+    _currentStyle = style;
 	if (!styleRes.empty())
 	{
         QString qss = styleRes.c_str();
@@ -111,6 +113,11 @@ void qt_context::setApplicationStyle(const char* style)
 		QApplication::setStyle(QStyleFactory::create(style));
 	}
 }
+const char* qt_context::getApplicationStyle()
+{
+    return _currentStyle.c_str();
+}
+
 //添加动态库添加目录
 //参数：path 路径
 //返回值：无

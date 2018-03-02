@@ -1,3 +1,6 @@
+20180302
+qtxml中qtcontext增加getApplicationStyle接口，返回style的id，不是style字符串
+
 20180226
 将qtframework中xml解析部分修改为tinyxml实现，去除对libxml的依赖，库名更正为qtxml
 在qtxml中增加command的xml文件解析，和合并到uicommand中，将uicommands文件夹改名为commands,去除xml的根节点，用Command和UICommand节点名称来区分命令类型，多条命令依然采用Commands来包裹
