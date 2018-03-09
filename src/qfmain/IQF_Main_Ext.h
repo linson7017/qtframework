@@ -10,15 +10,13 @@
 #pragma once
 #include "IQF_Main.h"
 
-class R;
 QF_BEGIN_NAMESPACE(QF)
 
 class IQF_Property;
 class IQF_Main_Ext : public IQF_Main
 {
 public:
-    virtual void RegisterResource(R* pR) = 0;
-    virtual void ResourceConstructed(R* pR) = 0;
+    virtual void ResourceConstructed() = 0;
     virtual IQF_Properties* CreateProperties()=0;
     virtual IQF_Property* CreateProperty()=0;
 };

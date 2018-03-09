@@ -52,11 +52,6 @@ R* R::Instance()
     if (_res == 0)
     {
         _res = new R;
-        QF::IQF_Main_Ext* pMainExt = (QF::IQF_Main_Ext*)app_env::getMainPtr();
-        if (pMainExt)
-        {
-            pMainExt->RegisterResource(_res);
-        }
     }
     return _res;
 }
@@ -254,7 +249,7 @@ void R::Constructed()
     QF::IQF_Main_Ext* pMainExt = (QF::IQF_Main_Ext*)app_env::getMainPtr();
     if (pMainExt)
     {
-        pMainExt->ResourceConstructed(this);
+        pMainExt->ResourceConstructed();
     }
 }
 

@@ -16,8 +16,9 @@ namespace QF
     class QF_Plugin
     {
     public:
-        virtual void InitResource(R* pR) = 0;
+        virtual void InitResource() = 0;
         virtual void SetMainPtr(QF::IQF_Main* pMain) = 0;
+        virtual void SetupResource() = 0;
         virtual WndHandle GetPluginHandle() = 0;
         void SetAttributes(const std::map<std::string, std::string>& attribute)
         {

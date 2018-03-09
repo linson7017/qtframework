@@ -2,7 +2,7 @@
 //构造函数
 //参数：无
 //返回值：无
-ui_node::ui_node():_object(NULL),_uiParent(NULL),_type(UNKNOWN)
+ui_node::ui_node():_uiParent(NULL),_type(UNKNOWN) , _uiName("ui")
 {
 
 }
@@ -12,7 +12,8 @@ ui_node::ui_node():_object(NULL),_uiParent(NULL),_type(UNKNOWN)
 ui_node::ui_node(const ui_node& node) :xml_node(node)
 {
     this->_type = node._type;
-    this->_object = node._object;
+    this->_uiName = node._uiName;
+    this->_objects = node._objects;
 }
 //析构函数
 //参数：无
@@ -60,7 +61,7 @@ void ui_node::clone(ui_node* node)
 	this->_uiChildren = node->_uiChildren;
 	this->_uiParent = node->_uiParent;
 	this->_type = node->_type;
-	this->_object = node->_object;
+	this->_objects = node->_objects;
 	this->_name = node->_name;
 	this->_id = node->_id;
 	//this->_attributes = node->_attributes;
@@ -111,6 +112,41 @@ void ui_node::setParent(ui_node* node)
 ui_node* ui_node::getParent()
 {
 	return _uiParent;
+}
+
+//获得节点关联对象指针
+//参数：无
+//返回值：关联对象指针
+void* ui_node::getObject(const char* name)
+{
+    std::string temp = name;
+    if (temp.empty())
+    {
+        temp = _uiName;
+    }
+    ObjectMapType::iterator it = _objects.find(temp);
+    if (it!=_objects.end())
+    {
+        return it->second;
+    }
+    else
+    {
+        return NULL;
+    }
+
+}
+//设置节点关联对象指针
+//参数：
+//		object：关联对象指针
+//返回值：无
+void ui_node::setObject(void* object, const char* name)
+{
+    std::string temp = name;
+    if (temp.empty())
+    {
+        temp = _uiName;
+    }
+    _objects[temp] = object;
 }
 
 

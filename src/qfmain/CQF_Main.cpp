@@ -47,104 +47,49 @@ bool CheckValid(std::string& line)
     return true;
 }
 
-CQF_Main::CQF_Main(const char* szEnterName,const char* szLibraryPath)
-{
-    m_pSubject = QF_CreateSubjectObject();
+CQF_Main::CQF_Main(const char* szEnterName,const char* szLibraryPath, bool bInit):
+    m_inited(false), 
+    m_pSubject(QF_CreateSubjectObject()),
+    m_enterName(szEnterName),
+    m_libraryPath(szLibraryPath)
+{ 
+    if (strcmp(m_enterName.c_str(), "") == 0)
     {
-        if (strcmp(szEnterName,"")==0)
+        char buffer[MAX_PATH];
+        getcwd(buffer, MAX_PATH);
+        m_configPath = buffer;
+    }
+    else
+    {
+        std::string drive;
+        std::string dir;
+        std::string fname;
+        std::string ext;
+        splitpath(m_enterName.c_str(), drive, dir, fname, ext);
+        m_configPath = dir.substr(0, dir.find_last_of("/") - 1);
+        m_configPath = m_configPath.substr(0, m_configPath.find_last_of("/") + 1);
+        m_configPath.append("qfconfig/" + fname);
+        std::ifstream test(m_configPath + "/components.cfg", std::ios::in);
+        if (!test)
         {
-            char buffer[MAX_PATH];
-            getcwd(buffer, MAX_PATH);
-            m_configPath = buffer;
+            m_configPath = dir + "qfconfig/" + fname;
         }
-        else
-        {
-            std::string drive;
-            std::string dir;
-            std::string fname;
-            std::string ext;
-            splitpath(szEnterName, drive, dir, fname, ext);
-            m_configPath = dir.substr(0, dir.find_last_of("/") - 1);
-            m_configPath = m_configPath.substr(0, m_configPath.find_last_of("/") + 1);
-            m_configPath.append("qfconfig/"+fname);
-            std::ifstream test(m_configPath +"/components.cfg", std::ios::in);
-            if (!test)
-            {
-                m_configPath = dir + "qfconfig/" + fname;
-            }
-            test.close();
-        }     
-
-        std::cout << "Config path is " << m_configPath << std::endl;
-
-        if (strcmp(szLibraryPath, "") == 0)
-        {
-            char buffer[MAX_PATH];
-            getcwd(buffer, MAX_PATH);
-            m_libraryPath = buffer;
-        }
-        else
-        {
-            m_libraryPath = szLibraryPath;
-        }
-
-        std::cout << "Library path is " << m_libraryPath << std::endl;
-
-        
-        std::string componentsFile = m_configPath + "/components.cfg";
-        std::ifstream finComponents(componentsFile, std::ios::in);
-
-        if (!finComponents)
-        {
-            std::cerr << "The components file can not be opened! Please check if it exists!" << std::endl;
-            return;
-        }
-        std::stringstream buffer;
-        buffer << finComponents.rdbuf();
-        finComponents.close();
-
-        std::string inputStr(buffer.str());
-        std::string cleanStr;
-        remove_comment(inputStr,cleanStr);
-        std::stringstream ss;
-        ss.str(cleanStr);
-        std::string line;
-        while (!ss.eof()) {
-            std::getline(ss, line);
-            if (CheckValid(line))
-            {
-                RegisterLibrary(line.c_str());
-            }
-        }   
+        test.close();
     }
 
+    std::cout << "Config path is " << m_configPath << std::endl;
+
+    if (strcmp(m_libraryPath.c_str(), "") == 0)
     {
-        std::string pluginsFile = m_configPath + "/plugins.cfg";
-        std::ifstream finPlugins(pluginsFile, std::ios::in);
-        if (!finPlugins)
-        {
-            std::cerr << "The plugins file can not be opened! Please check if it exists!" << std::endl;
-            return;
-        }
-        std::stringstream buffer;
-        buffer << finPlugins.rdbuf();
-        finPlugins.close();
-
-        std::string inputStr(buffer.str());
-        std::string cleanStr;
-        remove_comment(inputStr, cleanStr);
-        std::stringstream ss;
-        ss.str(cleanStr);
-        std::string line;
-        while (!ss.eof()) {
-            std::getline(ss, line);
-            if (CheckValid(line))
-            {
-                RegisterLibrary(line.c_str());
-            }
-        }
+        char buffer[MAX_PATH];
+        getcwd(buffer, MAX_PATH);
+        m_libraryPath = buffer;
     }
-
+    std::cout << "Library path is " << m_libraryPath << std::endl;
+    if (bInit)
+    {
+        Init();
+    }
 }
 
 
@@ -204,6 +149,67 @@ CQF_Main::~CQF_Main()
 #endif
 }
 
+
+bool CQF_Main::Init()
+{
+    m_inited = true;
+    {
+        std::string componentsFile = m_configPath + "/components.cfg";
+        std::ifstream finComponents(componentsFile, std::ios::in);
+
+        if (!finComponents)
+        {
+            std::cerr << "The components file can not be opened! Please check if it exists!" << std::endl;
+            return false;
+        }
+        std::stringstream buffer;
+        buffer << finComponents.rdbuf();
+        finComponents.close();
+
+        std::string inputStr(buffer.str());
+        std::string cleanStr;
+        remove_comment(inputStr, cleanStr);
+        std::stringstream ss;
+        ss.str(cleanStr);
+        std::string line;
+        while (!ss.eof()) {
+            std::getline(ss, line);
+            if (CheckValid(line))
+            {
+                RegisterLibrary(line.c_str());
+            }
+        }
+    }
+
+    {
+        std::string pluginsFile = m_configPath + "/plugins.cfg";
+        std::ifstream finPlugins(pluginsFile, std::ios::in);
+        if (!finPlugins)
+        {
+            std::cerr << "The plugins file can not be opened! Please check if it exists!" << std::endl;
+            return false;
+        }
+        std::stringstream buffer;
+        buffer << finPlugins.rdbuf();
+        finPlugins.close();
+
+        std::string inputStr(buffer.str());
+        std::string cleanStr;
+        remove_comment(inputStr, cleanStr);
+        std::stringstream ss;
+        ss.str(cleanStr);
+        std::string line;
+        while (!ss.eof()) {
+            std::getline(ss, line);
+            if (CheckValid(line))
+            {
+                RegisterLibrary(line.c_str());
+            }
+        }
+    }
+    return true;
+}
+
 const char* CQF_Main::GetConfigPath()
 {
     return m_configPath.c_str();
@@ -222,12 +228,13 @@ void CQF_Main::RegisterLibrary(const char* szDllName)
     /*char buffer[MAX_PATH];
     getcwd(buffer, MAX_PATH);*/
     std::string dllPath = m_libraryPath;
-    dllPath.append("\\");
+    dllPath.append("/");
     dllPath.append(line);
     
     //should selected unicode
     HINSTANCE pHnd = LoadLibraryW((wchar_t*)s2ws(dllPath).c_str());
     
+    char buf[100];
     if (pHnd != NULL)
     {
         componentFunc pf = (componentFunc)GetProcAddress(pHnd, "QF_CreateComponentObject");
@@ -235,27 +242,34 @@ void CQF_Main::RegisterLibrary(const char* szDllName)
         if (pf)
         {
             RegisterComponent(pf(this));
-            std::cout << "Load component " << dllPath << std::endl;
+            sprintf(buf, "Load component %s.\n", dllPath.c_str());
+            SendMessageQf("QFMAIN_LOAD_COMPONENT_MESSAGE", 0, buf);
+            printf(buf);
         }     
         else if (af)
         {
             RegisterActivator(af(this));
-            std::cout << "Load plugin " << dllPath << std::endl;
+            sprintf(buf, "Load plugin %s.\n", dllPath.c_str());
+            SendMessageQf("QFMAIN_LOAD_COMPONENT_MESSAGE", 0, buf);
+            printf(buf);
         }
         else
         {
-            std::cout << "Unable to find plugin interface " << dllPath << std::endl;
+            sprintf(buf, "Unable to find plugin interface %s.\n", dllPath.c_str());
+            SendMessageQf("QFMAIN_LOAD_COMPONENT_MESSAGE", 0, buf);
+            printf(buf);
             FreeLibrary(pHnd);
         }
     }
     else
     {
-        std::cout << "Load component failed: " << dllPath <<" . ";
         TCHAR szBuf[80];
         LPVOID lpMsgBuf;
         DWORD dw = GetLastError();
 
-        std::cout << "Error Code:" << dw<<std::endl;
+        sprintf(buf, "Load component failed: %s. Error Code: %lu", dllPath.c_str(),dw);
+        SendMessageQf("QFMAIN_LOAD_COMPONENT_MESSAGE", 0, buf);
+        printf(buf);
 
     }
 #elif defined(QF_OS_LINUX)
@@ -478,6 +492,7 @@ void CQF_Main::RegisterActivator(IQF_Activator* pActivator)
         return;
     }
     m_activators[pActivator->GetID()] = pActivator;
+    pActivator->Register();
 }
 
 void CQF_Main::Attach(IQF_Observer* pObserver, const char* szMessage)
@@ -597,19 +612,12 @@ void* CQF_Main::GetInterfacePtr(const char* szInterfaceID)
     return it_interface->second;
 }
 
-void CQF_Main::RegisterResource(R* pR)
-{
-    for (QF_MainActivatorMap::iterator it = m_activators.begin();it != m_activators.end();it++)
-    {
-        it->second->Register(pR);
-    }
-}
 
-void CQF_Main::ResourceConstructed(R* pR)
+void CQF_Main::ResourceConstructed()
 {
-    for (QF_MainActivatorMap::iterator it = m_activators.begin();it != m_activators.end();it++)
+    for (QF_MainActivatorMap::iterator it = m_activators.begin(); it != m_activators.end(); it++)
     {
-        it->second->Constructed(pR);
+        it->second->Constructed();
     }
 }
 

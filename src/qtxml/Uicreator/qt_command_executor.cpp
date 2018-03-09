@@ -141,11 +141,11 @@ bool qt_command_executor::executeCommand(xml_node* node)
             return pMain->ExecuteCommand(res.c_str(), 0, 0);
         }
         xml_node* command = (xml_node*)R::Instance()->getCommandResource(res.c_str());
-        if (command->hasAttribute("id"))
+        if (command->hasAttribute("name"))
         {
             QF::IQF_Properties* properties=pMain->CreateProperties();
-            parseCommandProperty(command, properties);
-            bool success = pMain->ExecuteCommand(command->getAttribute("id"), properties, 0);
+            parseCommandProperty(command, properties,node);
+            bool success = pMain->ExecuteCommand(command->getAttribute("name"), properties, 0);
             properties->Release();
             return success;
         }
@@ -162,7 +162,7 @@ bool qt_command_executor::executeCommand(xml_node* node)
 	return false;
 }
 
-void qt_command_executor::parseCommandProperty(xml_node* commandNode, QF::IQF_Properties* properties)
+void qt_command_executor::parseCommandProperty(xml_node* commandNode, QF::IQF_Properties* properties, xml_node* sender)
 {
     if (commandNode->getChildNum() != 0)
     {
@@ -184,39 +184,75 @@ void qt_command_executor::parseCommandProperty(xml_node* commandNode, QF::IQF_Pr
                 }
                 if (strcmp(child->getAttribute("type"),"Node")==0)
                 { 
-                    xml_node* node = (xml_node*)R::Instance()->getIdentifiedNode(strv[0].c_str());
-                    if (node->hasAttribute(strv[1].c_str()))
+                    if (strv[0].compare("sender")==0)
                     {
-                        properties->SetStringProperty(child->getAttribute("name"), node->getAttribute(strv[1].c_str()));
+                        if (sender->hasAttribute(strv[1].c_str()))
+                        {
+                            properties->SetStringProperty(child->getAttribute("name"), sender->getAttribute(strv[1].c_str()));
+                        }
                     }
+                    else
+                    {
+                        xml_node* node = (xml_node*)R::Instance()->getIdentifiedNode(strv[0].c_str());
+                        if (node)
+                        {
+                            if (node->hasAttribute(strv[1].c_str()))
+                            {
+                                properties->SetStringProperty(child->getAttribute("name"), node->getAttribute(strv[1].c_str()));
+                            }
+                        }
+                    }    
                 }
                 else if (strcmp(child->getAttribute("type"), "Object") == 0)
                 {
-                    QObject* obj = (QObject*)R::Instance()->getObjectFromGlobalMap(strv[0].c_str());
+                    QObject* obj = NULL;
+                    if (strv[0].compare("sender") == 0)
+                    {
+                        ui_node* ui_sender = dynamic_cast<ui_node*>(sender);
+                        if (ui_sender)
+                        {
+                            obj = (QObject*)ui_sender->getObject();
+                        }
+                    }
+                    else
+                    {
+                        obj = (QObject*)R::Instance()->getObjectFromGlobalMap(strv[0].c_str());
+                    } 
                     if (obj)
                     {
                         QVariant v = obj->property(strv[1].c_str());
-                        if (v.isValid())
-                        {
-                            switch (v.type())
-                            {
-                            case QVariant::Int:
-                                properties->SetIntProperty(child->getAttribute("name"), v.toInt());
-                                break;
-                            case QVariant::Double:
-                                properties->SetDoubleProperty(child->getAttribute("name"), v.toDouble());
-                                break;
-                            case QVariant::Bool:
-                                properties->SetBoolProperty(child->getAttribute("name"), v.toBool());
-                                break;
-                            case QVariant::String:
-                                properties->SetStringProperty(child->getAttribute("name"), v.toString().toLocal8Bit().constData());
-                                break;
-                            }
-                        }
+                        setProperty(properties, child->getAttribute("name"), v);
                     }
                 }
+                else if (strcmp(child->getAttribute("type"), "Value") == 0)
+                {
+                    QVariant v;
+                    qt_standard::getProperty(content.c_str(), v);
+                    setProperty(properties, child->getAttribute("name"), v);
+                }
             }
+        }
+    }
+}
+
+void qt_command_executor::setProperty(QF::IQF_Properties* properties, const char* name, const QVariant& v)
+{
+    if (v.isValid())
+    {
+        switch (v.type())
+        {
+        case QVariant::Int:
+            properties->SetIntProperty(name, v.toInt());
+            break;
+        case QVariant::Double:
+            properties->SetDoubleProperty(name, v.toDouble());
+            break;
+        case QVariant::Bool:
+            properties->SetBoolProperty(name, v.toBool());
+            break;
+        case QVariant::String:
+            properties->SetStringProperty(name, v.toString().toLocal8Bit().constData());
+            break;
         }
     }
 }

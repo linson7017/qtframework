@@ -65,6 +65,7 @@ protected:
 	//返回值：无
 	void parseUITree(ui_node* node);
     void assembleUITree(ui_node* node);
+    void setupUITree(ui_node* node);
 	//创建每个节点的实例
 	//参数：
 	//	node: 根节点指针

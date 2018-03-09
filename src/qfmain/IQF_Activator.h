@@ -14,8 +14,8 @@ class IQF_Activator
 public:
     virtual bool Init() = 0;
     virtual const char* GetID() = 0;
-    virtual void Register(R* pR)=0;
-    virtual void Constructed(R* pR) = 0;
+    virtual void Register()=0;
+    virtual void Constructed() = 0;
 };
 
 

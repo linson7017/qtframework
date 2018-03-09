@@ -88,12 +88,12 @@ public:
 	//获得节点关联对象指针
 	//参数：无
 	//返回值：关联对象指针
-	virtual void* getObject(){return _object;}
+    virtual void* getObject(const char* name="");
 	//设置节点关联对象指针
 	//参数：
 	//		object：关联对象指针
 	//返回值：无
-	virtual void setObject(void* object){_object = object;}
+    virtual void setObject(void* object,const char* name="");
 	//复制节点
 	//参数：
 	//		node: 要复制的节点指针
@@ -111,6 +111,8 @@ private:
 	list<ui_node*> _uiChildren; 
 	ui_node* _uiParent;
 	NodeType _type;
-	void* _object;
+    typedef std::map<std::string, void*> ObjectMapType;
+    ObjectMapType _objects;
+    std::string _uiName;
 };
 

@@ -239,4 +239,57 @@ bool CQF_Properties::SetStringProperty(const char* szName, const char* szValue)
     }
 }
 
+
+int CQF_Properties::GetIntProperty(const char* szName, int iValue)
+{
+    IQF_Property* p = GetProperty(szName);
+    if (p)
+    {
+        return p->GetInt();
+    }
+    else
+    {
+        return iValue;
+    }
+}
+
+bool CQF_Properties::GetBoolProperty(const char* szName, bool bValue)
+{
+    IQF_Property* p = GetProperty(szName);
+    if (p)
+    {
+        return p->GetBool();
+    }
+    else
+    {
+        return bValue;
+    }
+}
+
+double CQF_Properties::GetDoubleProperty(const char* szName, bool dValue)
+{
+    IQF_Property* p = GetProperty(szName);
+    if (p)
+    {
+        return p->GetDouble();
+    }
+    else
+    {
+        return dValue;
+    }
+}
+
+const char* CQF_Properties::GetStringProperty(const char* szName, const char* szValue)
+{
+    IQF_Property* p = GetProperty(szName);
+    if (p)
+    {
+        return p->GetString();
+    }
+    else
+    {
+        return szValue;
+    }
+}
+
 QF_END_NAMESPACE

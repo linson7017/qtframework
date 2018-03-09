@@ -19,6 +19,7 @@ class IQF_Main : public IQF_Observer, public IQF_Subject
 {
 public:
     virtual void Release() = 0;
+    virtual bool Init() = 0;
     virtual bool ExecuteCommand(const char* szCommandID, IQF_Properties* pInParam, IQF_Properties* pOutParam) = 0;
     virtual void SendMessage(const char* szMessage, int iValue, void *pValue) = 0;
     virtual void SendMessageQf(const char* szMessage, int iValue, void *pValue) = 0;
@@ -26,7 +27,7 @@ public:
     virtual const char* GetConfigPath() = 0;
 };
 
-QF_API IQF_Main*  QF_CreateMainObject(const char* szEnterName="",const char* szLibraryPath="");
+QF_API IQF_Main*  QF_CreateMainObject(const char* szEnterName="",const char* szLibraryPath="",bool bInit=true);
 
 QF_END_NAMESPACE;
 

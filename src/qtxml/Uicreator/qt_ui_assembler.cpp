@@ -79,6 +79,7 @@ void qt_ui_assembler::assemble()
 {
 	parseUITree(_root);
     assembleUITree(_root);
+    setupUITree(_root);
 }
 //解析节点树
 //参数：node 根节点指针
@@ -128,6 +129,31 @@ void qt_ui_assembler::assembleUITree(ui_node* node)
         return;
     }
 }
+
+void qt_ui_assembler::setupUITree(ui_node* node)
+{
+    if (node->getChildNum() != 0)
+    {
+        for (int i = 0; i < node->getChildNum(); i++)
+        {
+            ui_node* child_node = (ui_node*)node->getChild(i);
+            if (child_node)
+            {
+                QF::QF_Plugin* plugin = (QF::QF_Plugin*)child_node->getObject("plugin");
+                if (plugin)
+                {
+                    plugin->SetupResource();
+                }
+                setupUITree(child_node);
+            }
+        }
+    }
+    else
+    {
+        return;
+    }
+}
+
 
 //装配子节点和父节点
 //参数：father 父节点指针, child 子节点
@@ -1134,8 +1160,10 @@ bool qt_ui_assembler::createUI(ui_node* node)
                 QF::QF_Plugin* plugin = dynamic_cast<QF::QF_Plugin*>(factoryCreateObject);
                 if (plugin)
                 {
+                    plugin->SetAttributes(node->getAttributeMap());
                     plugin->SetMainPtr((QF::IQF_Main*)app_env::getMainPtr());
-                    plugin->InitResource(R::Instance());
+                    plugin->InitResource();
+                    node->setObject(plugin,"plugin");
                     if (plugin->GetPluginHandle()&& !widget)
                     {
                         node->setType(ui_node::WIDGET);
@@ -1150,7 +1178,8 @@ bool qt_ui_assembler::createUI(ui_node* node)
                 {
                     plugin->SetAttributes(node->getAttributeMap());
                     plugin->SetMainPtr((QF::IQF_Main*)app_env::getMainPtr());
-                    plugin->InitResource(R::Instance());
+                    plugin->InitResource();
+                    node->setObject(plugin, "plugin");
                     if (plugin->GetPluginHandle())
                     {
                         node->setType(ui_node::WIDGET);
@@ -1206,6 +1235,22 @@ bool qt_ui_assembler::createUI(ui_node* node)
 	}
 	//*************设置保存在元对象中的属性**********************//
 	ParseObjectProperty(node);
+    //*************如果设置了控制模块，且控制模块被注册**********************//
+    if (node->hasAttribute("pluginModel"))
+    {
+        auto factoryCreatePlugin = QF::PluginFactory::Instance()->Create(node->getAttribute("pluginModel"));
+        if (factoryCreatePlugin)
+        {
+            QF::QF_Plugin* plugin = dynamic_cast<QF::QF_Plugin*>(factoryCreatePlugin);
+            if (plugin)
+            {
+                plugin->SetAttributes(node->getAttributeMap());
+                plugin->SetMainPtr((QF::IQF_Main*)app_env::getMainPtr());
+                plugin->InitResource();
+                node->setObject(plugin, "plugin");
+            }
+        }
+    }
 	 //将有ID的控件放入map
 	registerID(node);
 	

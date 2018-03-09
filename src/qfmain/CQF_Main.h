@@ -37,8 +37,10 @@ typedef std::map<std::string, QF_MessageComponentList*> QF_MainMessageListMap;
 class CQF_Main:public IQF_Main_Ext
 {
 public:
-    CQF_Main(const char* szEnterName ="", const char* szLibraryPath="");
+    CQF_Main(const char* szEnterName ="", const char* szLibraryPath="", bool bInit=false);
     ~CQF_Main();
+
+    bool Init();
 
     //Subject Function
     void Attach(IQF_Observer* pObserver, const char* szMessage = "");
@@ -57,8 +59,7 @@ public:
     void* GetInterfacePtr(const char* szInterfaceID);
     const char* GetConfigPath();
     //Ext
-    void RegisterResource(R* pR);
-    void ResourceConstructed(R* pR);
+    void ResourceConstructed();
     IQF_Properties* CreateProperties();
     IQF_Property* CreateProperty();
 private:
@@ -81,6 +82,8 @@ private:
 
     std::string m_configPath;
     std::string m_libraryPath;
+    std::string m_enterName;
+    bool m_inited;
 
 
 };
