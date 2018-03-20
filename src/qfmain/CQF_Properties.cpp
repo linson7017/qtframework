@@ -189,7 +189,7 @@ bool CQF_Properties::SetBoolProperty(const char* szName, bool bValue)
     }
 }
 
-bool CQF_Properties::SetDoubleProperty(const char* szName, bool dValue)
+bool CQF_Properties::SetDoubleProperty(const char* szName, double dValue)
 {
     ProperteisMapType::iterator it = m_properties.find(szName);
     if (it != m_properties.end())
@@ -266,7 +266,7 @@ bool CQF_Properties::GetBoolProperty(const char* szName, bool bValue)
     }
 }
 
-double CQF_Properties::GetDoubleProperty(const char* szName, bool dValue)
+double CQF_Properties::GetDoubleProperty(const char* szName, double dValue)
 {
     IQF_Property* p = GetProperty(szName);
     if (p)

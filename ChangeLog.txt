@@ -1,3 +1,14 @@
+20180316
+qtxml中插件动态实例化，控件的消息发送和插件绑定，避免不必要的判断
+qtxml中在组装完成后增加SetupResource功能的遍历，插件可以在SetupResource接口中进行初始化
+qtxml中命令模式将msgcommand，uicommand，command合并处理，xml中可以通过Commands集中处理所有命令，命令增加了Property节点解析功能
+Property属性通过json字符串传递
+qtxml添加了json字符串解析功能
+考虑废弃IQF_Activator中Constructed接口
+qfmain中IQF_Main_Ext添加创建IQF_Subject的接口
+
+
+
 20180302
 qtxml中qtcontext增加getApplicationStyle接口，返回style的id，不是style字符串
 

@@ -62,6 +62,7 @@ public:
     void ResourceConstructed();
     IQF_Properties* CreateProperties();
     IQF_Property* CreateProperty();
+    IQF_Subject* CreateSubject();
 private:
     void RegisterLibrary(const char* szDllName);
     bool RegisterComponent(IQF_Component* pComponent);

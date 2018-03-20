@@ -136,6 +136,7 @@ source_group("Utils" FILES ${Utils_Srcs})
 include_directories(
 ${CMAKE_SOURCE_DIR}/include
 ${CMAKE_SOURCE_DIR}/include/qtxml
+${CMAKE_SOURCE_DIR}/include/qfmain
 )
 link_directories(${QF_EXTERN_DIR}/lib)
 

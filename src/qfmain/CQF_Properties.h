@@ -32,11 +32,11 @@ public:
     bool DeleteProperty(const char* szName);
     bool SetIntProperty(const char* szName, int iValue);
     bool SetBoolProperty(const char* szName, bool bValue);
-    bool SetDoubleProperty(const char* szName, bool dValue);
+    bool SetDoubleProperty(const char* szName, double dValue);
     bool SetStringProperty(const char* szName, const char* szValue);
     int GetIntProperty(const char* szName, int iValue) ;
     bool GetBoolProperty(const char* szName, bool bValue) ;
-    double GetDoubleProperty(const char* szName, bool dValue) ;
+    double GetDoubleProperty(const char* szName, double dValue) ;
     const char* GetStringProperty(const char* szName, const char* szValue) ;
 private:
     typedef std::map<std::string, IQF_Property*> ProperteisMapType;

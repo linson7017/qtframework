@@ -36,12 +36,12 @@ public:
 	//		node: xml_node对象指针
 	//返回值：是否执行成功
 	static bool executeCommand(xml_node* node);
-protected:
-	//执行命令
-	//参数：
-	//		uicommand: uicommand类型节点指针
-	//		sender: 消息发送者
-	//返回值：是否执行成功
-	static bool execute(xml_node* uicommand,ui_node* sender);
+    //执行命令
+    //参数：
+    //		uicommand: uicommand类型节点指针
+    //		sender: 消息发送者
+    //返回值：是否执行成功
+    static bool execute(xml_node* uicommand, ui_node* sender);
+	
 };
 

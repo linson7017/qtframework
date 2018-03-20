@@ -5,6 +5,7 @@
 
 #include <map>
 #include <string>
+#include "iqf_observer.h"
 
 class R;
 class QWidget;
@@ -13,7 +14,7 @@ class QWidget;
 namespace QF
 {
     class IQF_Main;
-    class QF_Plugin
+    class QF_Plugin : public IQF_Observer
     {
     public:
         virtual void InitResource() = 0;

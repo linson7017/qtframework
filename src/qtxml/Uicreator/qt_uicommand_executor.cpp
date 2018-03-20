@@ -520,6 +520,19 @@ bool qt_uicommand_executor::execute(xml_node* uicommand,ui_node* sender)
            }
        }
     }
+    else if (strcmp(type.c_str(), "SetProperty") == 0)
+    {
+        QObject* targetObject = (QObject*)R::Instance()->getObjectFromGlobalMap(uicommand->getAttribute("targetID"));
+        if (targetObject&&uicommand->hasAttribute("value") && uicommand->hasAttribute("name"))
+        {
+            QVariant v;
+            if (qt_standard::getProperty(uicommand->getAttribute("value"),v))
+            {
+                targetObject->setProperty(uicommand->getAttribute("name"),
+                    v);
+            }   
+        }
+    }
     else if (strcmp(type.c_str(), "ExistApplication") == 0)
     {
         qApp->exit();
@@ -571,18 +584,18 @@ bool qt_uicommand_executor::executeCommand(xml_node* node)
 		return execute(uicommand, uinode);
 	}
 	//处理多个命令
-	else if (strcmp(uicommand->getName(),"Commands")==0)
-	{
-		int commandNum = uicommand->getChildNum();
-		for (int i=0;i<commandNum;i++)
-		{
-			xml_node* command = uicommand->getChild(i);
-			if (strcmp(command->getName(),"UICommand")==0)
-			{
-				execute(command, uinode);
-			}
-		}
-		return true;
-	}
+    else if (strcmp(uicommand->getName(), "Commands") == 0)
+    {
+        int commandNum = uicommand->getChildNum();
+        for (int i = 0; i < commandNum; i++)
+        {
+            xml_node* command = uicommand->getChild(i);
+            if (strcmp(command->getName(), "UICommand") == 0)
+            {
+                execute(command, uinode);
+            }
+        }
+        return true;
+    }
 	return false;
 }

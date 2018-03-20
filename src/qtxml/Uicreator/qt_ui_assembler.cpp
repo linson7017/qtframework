@@ -32,6 +32,10 @@
 #endif
 #include <string.h>
 
+
+#include <qfmain/internal/iqf_main_ext.h>
+#include <qfmain/iqf_subject.h>
+
 Q_DECLARE_METATYPE(ui_node*) //让qt识别ui_node类型
 //构造函数
 //参数：root 节点树的根节点
@@ -132,6 +136,11 @@ void qt_ui_assembler::assembleUITree(ui_node* node)
 
 void qt_ui_assembler::setupUITree(ui_node* node)
 {
+    QF::QF_Plugin* plugin = (QF::QF_Plugin*)node->getObject("plugin");
+    if (plugin)
+    {
+        plugin->SetupResource();
+    }
     if (node->getChildNum() != 0)
     {
         for (int i = 0; i < node->getChildNum(); i++)
@@ -139,10 +148,9 @@ void qt_ui_assembler::setupUITree(ui_node* node)
             ui_node* child_node = (ui_node*)node->getChild(i);
             if (child_node)
             {
-                QF::QF_Plugin* plugin = (QF::QF_Plugin*)child_node->getObject("plugin");
-                if (plugin)
+                if (node->getObject("subject"))
                 {
-                    plugin->SetupResource();
+                    child_node->setObject(node->getObject("subject"),"subject");
                 }
                 setupUITree(child_node);
             }
@@ -874,6 +882,7 @@ void* qt_ui_assembler::getObjectByID(const char* id)
 //返回值：无
 bool qt_ui_assembler::createUI(ui_node* node)
 {
+    node->addAttribute("ui_node", "true");
 	if (node->getObject())
 	{
 		return true;
@@ -1248,6 +1257,9 @@ bool qt_ui_assembler::createUI(ui_node* node)
                 plugin->SetMainPtr((QF::IQF_Main*)app_env::getMainPtr());
                 plugin->InitResource();
                 node->setObject(plugin, "plugin");
+                QF::IQF_Subject* pSubject = ((QF::IQF_Main_Ext*)app_env::getMainPtr())->CreateSubject();
+                node->setObject(pSubject, "subject");
+                pSubject->Attach(plugin);
             }
         }
     }

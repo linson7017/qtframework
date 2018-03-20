@@ -33,6 +33,28 @@ event_handler::~event_handler(void)
 //返回值：无
 void event_handler::parseAndExecuteCommandForUINode(ui_node* node)
 {
+    if (node->hasAttribute("commands"))
+    {
+        std::string res = node->getAttribute("commands");
+        if (res.find("@commands/") != std::string::npos)
+        {
+            int i = res.find_first_of("@commands/");
+            res = res.substr(i + 10);
+            xml_node* commands = (xml_node*)R::Instance()->getCommandResource(res.c_str());
+            for (int i = 0; i < commands->getChildNum(); i++)
+            {
+                xml_node* childCommand = commands->getChild(i);
+                if (strcmp(childCommand->getName(), "UICommand") == 0)
+                {
+                    qt_uicommand_executor::execute(childCommand, node);
+                }
+                else if (strcmp(childCommand->getName(), "Command") == 0|| strcmp(childCommand->getName(), "MsgCommand") == 0)
+                {
+                    qt_command_executor::execute(childCommand, node);
+                }
+            }
+        }
+    }
 	qt_uicommand_executor::executeCommand(node);
 	qt_command_executor::executeCommand(node);
 }
@@ -41,6 +63,29 @@ void event_handler::parseAndExecuteCommandForUINode(ui_node* node)
 //返回值：无
 void event_handler::parseAndExecuteCommandForXmlNode(xml_node* node)
 {
+    if (node->hasAttribute("commands"))
+    {
+        std::string res = node->getAttribute("commands");
+        if (res.find("@commands/") != std::string::npos)
+        {
+            int i = res.find_first_of("@commands/");
+            res = res.substr(i + 10);
+            xml_node* commands = (xml_node*)R::Instance()->getCommandResource(res.c_str());
+            for (int i = 0; i < commands->getChildNum(); i++)
+            {
+                xml_node* childCommand = commands->getChild(i);
+                if (strcmp(childCommand->getName(), "UICommand") == 0)
+                {
+                    qt_uicommand_executor::execute(childCommand, nullptr);
+                }
+                else if (strcmp(childCommand->getName(), "Command") == 0 || strcmp(childCommand->getName(), "MsgCommand") == 0)
+                {
+                    qt_command_executor::execute(childCommand, node);
+                }
+
+            }
+        }
+    }
 	qt_uicommand_executor::executeCommand(node);
 	qt_command_executor::executeCommand(node);
 }
@@ -125,73 +170,7 @@ void event_handler::handle()
 			return;
 		}
 
-		//是否需要弹出确认对话框
-		if (btn->needToConfirm())
-		{
-			btn->setConfirmed(false);
-			std::string information="";
-			if (node->hasAttribute("confirmDialogText"))
-			{
-				information.append(node->getAttribute("confirmDialogText"));
-				str_replace_all(information,"\\n","\n");
-			}
-			else
-			{
-				information.append( R::Instance()->getStringResource("sure_to_switch"));
-				information.append(node->getAttribute("text"));
-				information.append( R::Instance()->getStringResource("status"));
-				information.append("?");
-			}
-			QMessageBox msgBox;
-			msgBox.setWindowTitle(R::Instance()->getStringResource("confirm_dialog"));
-			msgBox.setInformativeText(information.c_str());
-			msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::Cancel);
-			msgBox.setDefaultButton(QMessageBox::Cancel);
-            QWidget* pa = (QWidget*)R::Instance()->getObjectFromGlobalMap("main");
-            if(pa)
-            {
-                 msgBox.setParent((QWidget*)R::Instance()->getObjectFromGlobalMap("main"));
-            }
-            msgBox.setWindowFlags(Qt::Dialog);
-
-			QPoint pos = btn->pos();
-			pos = btn->mapToGlobal(pos);
-			int x = pos.x();
-            int y = pos.y();//shisx 按钮位置弹出比较合理
-			//if(x > 1400) x = 1400;
-   //         if(y > 1800) y = 1800;//2 screen 1680 * 2100
-            msgBox.move(x,y);
-			int ret =  msgBox.exec();
-			if (ret == QMessageBox::Yes)
-				btn->setConfirmed(true);
-			else
-				btn->setConfirmed(false);
-		}
-		if (node->hasAttribute("uicommand"))
-		{
-			if (btn->needToConfirm())//判断按钮是否需要对话框确认
-			{
-				if (btn->confirmed())
-				{
-					qt_uicommand_executor::executeCommand(node);
-				}
-			}else//不需要确认直接执行命令
-			{
-				qt_uicommand_executor::executeCommand(node);
-			}	
-		}
-		
-		//ssx		
-		if (btn->needToConfirm())//判断按钮是否需要对话框确认
-		{
-			if (btn->confirmed())
-			{
-				qt_command_executor::executeCommand(node);
-			}
-		}else//不需要确认直接执行命令
-		{
-			qt_command_executor::executeCommand(node);
-		}	
+        parseAndExecuteCommandForUINode(node);
 		
 	}
 	else if (strcmp(node->getName(),"Action")==0)

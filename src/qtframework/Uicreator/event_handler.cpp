@@ -124,74 +124,7 @@ void event_handler::handle()
 			//将互斥按钮单击事件响应移到TriStateBtnClickListener::onClick中实现 
 			return;
 		}
-
-		//是否需要弹出确认对话框
-		if (btn->needToConfirm())
-		{
-			btn->setConfirmed(false);
-			std::string information="";
-			if (node->hasAttribute("confirmDialogText"))
-			{
-				information.append(node->getAttribute("confirmDialogText"));
-				str_replace_all(information,"\\n","\n");
-			}
-			else
-			{
-				information.append( R::Instance()->getStringResource("sure_to_switch"));
-				information.append(node->getAttribute("text"));
-				information.append( R::Instance()->getStringResource("status"));
-				information.append("?");
-			}
-			QMessageBox msgBox;
-			msgBox.setWindowTitle(R::Instance()->getStringResource("confirm_dialog"));
-			msgBox.setInformativeText(information.c_str());
-			msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::Cancel);
-			msgBox.setDefaultButton(QMessageBox::Cancel);
-            QWidget* pa = (QWidget*)R::Instance()->getObjectFromGlobalMap("main");
-            if(pa)
-            {
-                 msgBox.setParent((QWidget*)R::Instance()->getObjectFromGlobalMap("main"));
-            }
-            msgBox.setWindowFlags(Qt::Dialog);
-
-			QPoint pos = btn->pos();
-			pos = btn->mapToGlobal(pos);
-			int x = pos.x();
-            int y = pos.y();//shisx 按钮位置弹出比较合理
-			//if(x > 1400) x = 1400;
-   //         if(y > 1800) y = 1800;//2 screen 1680 * 2100
-            msgBox.move(x,y);
-			int ret =  msgBox.exec();
-			if (ret == QMessageBox::Yes)
-				btn->setConfirmed(true);
-			else
-				btn->setConfirmed(false);
-		}
-		if (node->hasAttribute("uicommand"))
-		{
-			if (btn->needToConfirm())//判断按钮是否需要对话框确认
-			{
-				if (btn->confirmed())
-				{
-					qt_uicommand_executor::executeCommand(node);
-				}
-			}else//不需要确认直接执行命令
-			{
-				qt_uicommand_executor::executeCommand(node);
-			}	
-		}
-		
-		//ssx		
-		if (btn->needToConfirm())//判断按钮是否需要对话框确认
-		{
-			if (btn->confirmed())
-			{
-				qt_command_executor::executeCommand(node);
-			}
-		}else//不需要确认直接执行命令
-		{
-			qt_command_executor::executeCommand(node);
-		}	
+        parseAndExecuteCommandForUINode(node);
 		
 	}
 	else if (strcmp(node->getName(),"Action")==0)

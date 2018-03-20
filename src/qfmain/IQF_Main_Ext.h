@@ -13,12 +13,14 @@
 QF_BEGIN_NAMESPACE(QF)
 
 class IQF_Property;
+class IQF_Subject;
 class IQF_Main_Ext : public IQF_Main
 {
 public:
     virtual void ResourceConstructed() = 0;
     virtual IQF_Properties* CreateProperties()=0;
     virtual IQF_Property* CreateProperty()=0;
+    virtual IQF_Subject* CreateSubject() = 0;
 };
 
 

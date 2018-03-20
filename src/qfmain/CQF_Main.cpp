@@ -631,4 +631,9 @@ IQF_Property* CQF_Main::CreateProperty()
     return QF_CreateProperty();
 }
 
+IQF_Subject* CQF_Main::CreateSubject()
+{
+    return QF_CreateSubjectObject();
+}
+
 QF_END_NAMESPACE

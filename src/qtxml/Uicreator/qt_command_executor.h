@@ -50,8 +50,10 @@ public:
 	//返回值：是否执行成功
 	static bool executeCommand(xml_node* node);
 
+    static bool execute(xml_node* command, xml_node* node);
+
 private:
     static void parseCommandProperty(xml_node* commandNode, QF::IQF_Properties* properties,xml_node* sender);
-    static void setProperty(QF::IQF_Properties* properties,const char* name, const QVariant& v);
+    static void setProperty(QF::IQF_Properties* properties,const char* name, const QVariant& v,const char* convertType="");
 };
 

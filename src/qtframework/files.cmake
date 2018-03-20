@@ -127,8 +127,8 @@ source_group("Uicreator" FILES ${Uicreator_Srcs})
 source_group("UIs" FILES ${UIs_Srcs})
 source_group("Utils" FILES ${Utils_Srcs})
 include_directories(
-${CMAKE_SOURCE_DIR}/include
-${CMAKE_SOURCE_DIR}/include/qtframework
+${QF_INCLUDE_DIR}
+${QF_INCLUDE_DIR}/qtframework
 ${QF_EXTERN_DIR}/include/iconv
 ${QF_EXTERN_DIR}/include/libxml2
 )

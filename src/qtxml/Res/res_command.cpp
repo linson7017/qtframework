@@ -65,7 +65,7 @@ void res_command::parseXML(const char* filename)
     tinyxml2::XMLElement* str = doc.RootElement();
     while (str != NULL)
     {
-        if (strcmp(str->Name(), "UICommand") == 0|| strcmp(str->Name(), "Command") == 0)
+        if ((strcmp(str->Name(), "UICommand") == 0)|| (strcmp(str->Name(), "Command") == 0)|| (strcmp(str->Name(), "MsgCommand") == 0))
         {
             xml_node* strNode = new xml_node;
             strNode->relateXMLNode(str);
@@ -93,7 +93,7 @@ void res_command::parseXML(const char* filename)
             tinyxml2::XMLElement* strchild = str->FirstChildElement();
             while (strchild != NULL)
             {
-                if (strcmp(strchild->Name(), "UICommand") == 0 || strcmp(strchild->Name(), "Command") == 0)
+                if ((strcmp(strchild->Name(), "UICommand") == 0) || (strcmp(strchild->Name(), "Command") == 0) || (strcmp(strchild->Name(), "MsgCommand") == 0))
                 {
                     xml_node* commandNode = new xml_node;
                     commandNode->relateXMLNode(strchild);
@@ -104,7 +104,7 @@ void res_command::parseXML(const char* filename)
                          if (strcmp(propertyNode->Name(), "Property") == 0)
                          {
                              xml_node* pn = new xml_node;
-                             pn->relateXMLNode(strchild);
+                             pn->relateXMLNode(propertyNode);
                              commandNode->addChild(pn);
                          }
                          propertyNode = propertyNode->NextSiblingElement();

@@ -92,6 +92,7 @@ void qt_ui_creater::CreateButton(ui_node* node) {
     if (bindObjectWithNode(button, node))
     {
         QObject::connect(button, SIGNAL(clicked()), &gs_event_handler, SLOT(handle()));
+        
         //	button->installEventFilter(&gs_event_handler);
     }
 }
