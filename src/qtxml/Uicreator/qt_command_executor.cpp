@@ -290,6 +290,11 @@ void qt_command_executor::parseCommandProperty(xml_node* commandNode, QF::IQF_Pr
                                QVariant(root.get("value","").asString().c_str()), root.get("type", "").asString().c_str());
                     }
                 }
+                else if (strcmp(child->getAttribute("type"), "Json") == 0)
+                {
+                    setProperty(properties, child->getAttribute("name"),
+                        QVariant(content.c_str()));
+                }
             }
         }
     }

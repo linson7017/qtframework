@@ -3,7 +3,7 @@ INCLUDE(FindPackageHandleStandardArgs)
 if(NOT QTXML_INCLUDE_DIR)
 	FIND_PATH(QTXML_INCLUDE_DIR 
 	NAMES qfconfig.h
-	PATHS @QF_SOURCE_DIRECTORY@/include/qtxml
+	PATHS @QF_SOURCE_DIRECTORY@/include/qtxml 
 	)
 	message(${QTXML_INCLUDE_DIR})
 endif()
@@ -21,7 +21,7 @@ IF(QTXML_FOUND)
 	message("qtxml found!")
 	SET(QTXML_LIBRARIES ${QTXML_LIBRARY})
 	SET(QTXML_INCLUDE_DIRS ${QTXML_INCLUDE_DIR})
-	include_directories(${QTXML_INCLUDE_DIR})
+	include_directories(${QTXML_INCLUDE_DIR} @QF_SOURCE_DIRECTORY@/include/json)
 	link_directories(${QTXML_LIBDIR})
 ELSE(QTXML_FOUND)
 	message("qtxml notfound!")
