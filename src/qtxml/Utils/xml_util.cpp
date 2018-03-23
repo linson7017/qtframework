@@ -86,6 +86,7 @@ bool xml_util::getXMLFileRoot(const char* filename, xml_node* root)
     tinyxml2::XMLError error = doc.LoadFile(filename);
     if (error!=tinyxml2::XML_SUCCESS)
     {
+        printf("Load xml file %s  failed! Error code: %s\n", filename ,doc.ErrorStr());
         return false;
     }
     root->relateXMLNode(doc.RootElement());
