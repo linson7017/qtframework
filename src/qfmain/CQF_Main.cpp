@@ -29,6 +29,8 @@
 #include <fstream>
 #include <iostream>
 
+#include <mbilog.h>
+
 
 QF_BEGIN_NAMESPACE(QF)
 
