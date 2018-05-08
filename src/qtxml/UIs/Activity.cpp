@@ -375,7 +375,7 @@ void Activity::parseShowModeBeforeActived(ui_node* attr)
 	{
 		_id = attr->getAttribute("id");
 	}
-
+    
 	//父窗口
 	if (attr->hasAttribute("parent"))
 	{
@@ -458,6 +458,10 @@ void Activity::parseShowModeBeforeActived(ui_node* attr)
         setFixedWidth(STR_TO_INT(attr->getAttribute("weight")));
     }
 
+    if (attr->hasAttribute("icon"))
+    {
+        setWindowIcon(QIcon(R::Instance()->getImageResourceUrl(attr->getAttribute("icon")).c_str()));
+    }
 }
 
 //设置Widget在屏幕或者父窗口下的显示位置

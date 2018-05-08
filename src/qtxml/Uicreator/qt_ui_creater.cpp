@@ -811,6 +811,10 @@ void qt_ui_creater::CreateDockWidget(ui_node* node)
     {
         dockWidget->setFeatures(qt_standard::getDockWidgetFeatures(node->getAttribute("features")));
     }
+    if(node->hasAttribute("floating"))
+    {
+        dockWidget->setFloating(STR_TO_BOOL(node->getAttribute("floating")));
+    }
     node->setObject(dockWidget);
 }
 

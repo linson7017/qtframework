@@ -1,7 +1,6 @@
 set(QFMAIN_SRCS
 CQF_Main.cpp
 CQF_Main.h
-files.cmake
 IQF_Activator.h
 IQF_Command.h
 IQF_Component.h
@@ -26,4 +25,5 @@ QF_Subject.h
 )
 
 include_directories(${QF_INCLUDE_DIR}/qfmain)
+include_directories(${MBILOG_SOURCE_DIR})
 

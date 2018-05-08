@@ -189,7 +189,9 @@ bool qt_command_executor::executeCommand(xml_node* node)
         }
         else
         {
-            executeCommandSuccess &= pMain->ExecuteCommand(res.c_str(), 0, 0);
+            QF::IQF_Properties* properties = pMain->CreateProperties();
+            executeCommandSuccess &= pMain->ExecuteCommand(res.c_str(), properties, 0);
+            properties->Release();
         }
         if (!executeCommandSuccess)
         {
@@ -208,14 +210,16 @@ bool qt_command_executor::executeCommand(xml_node* node)
         }
         else
         {
+            QF::IQF_Properties* properties = pMain->CreateProperties();
             if (pSubject)
             {
-                pSubject->Notify(node->getAttribute("msgcommand"), 0, 0);
+                pSubject->Notify(node->getAttribute("msgcommand"), 0, properties);
             }
             else
             {
-                pMain->SendMessage(node->getAttribute("msgcommand"), 0, 0);
+                pMain->SendMessage(node->getAttribute("msgcommand"), 0, properties);
             }
+            properties->Release();
         }
 	}
 	return false;

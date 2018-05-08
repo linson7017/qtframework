@@ -40,7 +40,7 @@ public:
     CQF_Main(const char* szEnterName ="", const char* szLibraryPath="", bool bInit=false);
     ~CQF_Main();
 
-    bool Init();
+    bool Init(const char* szComponentFile = "components.cfg", const char* szPluginsFile = "plugins.cfg");
 
     //Subject Function
     void Attach(IQF_Observer* pObserver, const char* szMessage = "");
