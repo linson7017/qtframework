@@ -29,7 +29,7 @@
 #include <fstream>
 #include <iostream>
 
-#include <mbilog.h>
+#include "qf_log.h"
 
 
 QF_BEGIN_NAMESPACE(QF)
@@ -79,7 +79,7 @@ CQF_Main::CQF_Main(const char* szEnterName,const char* szLibraryPath, bool bInit
         test.close();
     }
 
-    MBI_INFO << "Config path is " << m_configPath;
+    QF_INFO << "Config path is " << m_configPath;
 
     if (strcmp(m_libraryPath.c_str(), "") == 0)
     {
@@ -87,7 +87,7 @@ CQF_Main::CQF_Main(const char* szEnterName,const char* szLibraryPath, bool bInit
         getcwd(buffer, MAX_PATH);
         m_libraryPath = buffer;
     }
-    MBI_INFO << "Library path is " << m_libraryPath;
+    QF_INFO << "Library path is " << m_libraryPath;
     if (bInit)
     {
         Init();
@@ -133,7 +133,7 @@ CQF_Main::~CQF_Main()
             }
             catch (...)
             {
-                MBI_ERROR << "Exception Occurs When Delete Component "<< str.c_str()<<"!";
+                QF_ERROR << "Exception Occurs When Delete Component "<< str.c_str()<<"!";
             }
 #endif
         }
@@ -154,13 +154,14 @@ CQF_Main::~CQF_Main()
 bool CQF_Main::Init(const char* szComponentFile, const char* szPluginsFile)
 {
     m_inited = true;
+    if (strcmp(szComponentFile,"")!=0)
     {
         std::string componentsFile = m_configPath +"/"+ szComponentFile;
         std::ifstream finComponents(componentsFile, std::ios::in);
 
         if (!finComponents)
         {
-            MBI_FATAL << "The components file " << componentsFile << "can not be opened! Please check if it exists!";
+            QF_ERROR << "The components file " << componentsFile << "can not be opened! Please check if it exists!";
             return false;
         }
         std::stringstream buffer;
@@ -181,13 +182,13 @@ bool CQF_Main::Init(const char* szComponentFile, const char* szPluginsFile)
             }
         }
     }
-
+    if (strcmp(szPluginsFile, "") != 0)
     {
         std::string pluginsFile = m_configPath + "/" + szPluginsFile;
         std::ifstream finPlugins(pluginsFile, std::ios::in);
         if (!finPlugins)
         {
-            MBI_FATAL << "The plugins file " << pluginsFile << " can not be opened! Please check if it exists!";
+            QF_ERROR << "The plugins file " << pluginsFile << " can not be opened! Please check if it exists!";
             return false;
         }
         std::stringstream buffer;
@@ -241,31 +242,31 @@ void CQF_Main::RegisterLibrary(const char* szDllName)
         if (pf)
         {
             RegisterComponent(pf(this));
-            sprintf(buf, "Load component %s.\n", dllPath.c_str());
+            sprintf(buf, "Load component %s.", dllPath.c_str());
             SendMessageQf("QFMAIN_LOAD_COMPONENT_MESSAGE", 0, buf);
-            MBI_INFO << buf;
+            QF_INFO << buf;
         }     
         else if (af)
         {
             RegisterActivator(af(this));
-            sprintf(buf, "Load plugin %s.\n", dllPath.c_str());
+            sprintf(buf, "Load plugin %s.", dllPath.c_str());
             SendMessageQf("QFMAIN_LOAD_COMPONENT_MESSAGE", 0, buf);
-            MBI_INFO << buf;
+            QF_INFO << buf;
         }
         else
         {
-            sprintf(buf, "Unable to find plugin interface %s.\n", dllPath.c_str());
+            sprintf(buf, "Unable to find plugin interface %s.", dllPath.c_str());
             SendMessageQf("QFMAIN_LOAD_COMPONENT_MESSAGE", 0, buf);
-            MBI_INFO << buf;
+            QF_INFO << buf;
             FreeLibrary(pHnd);
         }
     }
     else
     {
         DWORD dw = GetLastError();
-        sprintf(buf, "Load component failed: %s. Error Code: %lu. \n", dllPath.c_str(),dw);
+        sprintf(buf, "Load component failed: %s. Error Code: %lu. ", dllPath.c_str(),dw);
         SendMessageQf("QFMAIN_LOAD_COMPONENT_MESSAGE", 0, buf);
-        MBI_INFO << buf;
+        QF_INFO << buf;
 
     }
 #elif defined(QF_OS_LINUX)
@@ -318,14 +319,14 @@ bool CQF_Main::RegisterComponent(IQF_Component* pComponent)
 #endif
         if (!pComponent)
         {
-            MBI_ERROR << "Illegal Component ! ";
+            QF_ERROR << "Illegal Component ! ";
            // assert(false && "Illegal Component ! ");
             return false;
         }
         const char* component_id = pComponent->GetComponentID();
         if (!component_id)
         {
-            MBI_ERROR << "Illegal Component ID ! ";
+            QF_ERROR << "Illegal Component ID ! ";
           //  assert(false && "Illegal Component ID !");
             return false;
         }
@@ -333,7 +334,7 @@ bool CQF_Main::RegisterComponent(IQF_Component* pComponent)
         if (!pComponent->Init())
         {
            // assert(false && "Component Init Failed!");
-            MBI_ERROR << "Component " << pComponent->GetComponentID() << " Init Failed!";
+            QF_ERROR << "Component " << pComponent->GetComponentID() << " Init Failed!";
             return false;
         }
 
@@ -358,7 +359,7 @@ bool CQF_Main::RegisterComponent(IQF_Component* pComponent)
                 if (m_interfaces.find(interface_id) != m_interfaces.end())
                 {
                    // assert(false && "Interface Name has already exist! Please Rename!");
-                    MBI_WARN << "Interface Name " << interface_id << " has already exist! Please Rename!";
+                    QF_WARN << "Interface Name " << interface_id << " has already exist! Please Rename!";
                 }
                 m_interfaces[interface_id] = pComponent->GetInterfacePtr(interface_id.c_str());
             }        
@@ -375,14 +376,14 @@ bool CQF_Main::RegisterComponent(IQF_Component* pComponent)
                 if (command_id.empty())
                 {
                     //assert(false && "Illegal Command ID");
-                    MBI_ERROR <<"Illegal Command ID in Component "<< pComponent->GetComponentID()<<" !";
+                    QF_ERROR <<"Illegal Command ID in Component "<< pComponent->GetComponentID()<<" !";
                     continue;
                 }
 
                 if (m_commands.find(command_id) != m_commands.end())
                 {
                     //assert(false && "Command ID Repeat");
-                    MBI_WARN << "Command ID "<< command_id <<" Repeat£¬Please Choose Another ID !";
+                    QF_WARN << "Command ID "<< command_id <<" Repeat£¬Please Choose Another ID !";
                 }
                 m_commands[command_id] = p_interface_command;
             }
@@ -401,7 +402,7 @@ bool CQF_Main::RegisterComponent(IQF_Component* pComponent)
                 if (sz_message_id.empty())
                 {
                     //assert(false && "Illegal Message ID");
-                    MBI_ERROR << "Illegal Message ID in Component " << pComponent->GetComponentID() << " !";
+                    QF_ERROR << "Illegal Message ID in Component " << pComponent->GetComponentID() << " !";
                     continue;
                 }
 
@@ -472,7 +473,7 @@ bool CQF_Main::RegisterComponent(IQF_Component* pComponent)
     }
     catch (...)
     {
-        MBI_ERROR << "Register Component "<< pComponent->GetComponentID()<<" error !";
+        QF_ERROR << "Register Component "<< pComponent->GetComponentID()<<" error !";
     }
 #endif
     return true;
@@ -483,7 +484,7 @@ void CQF_Main::RegisterActivator(IQF_Activator* pActivator)
     if (!pActivator->Init())
     {
        // assert(false && "Component Init Failed!");
-        MBI_ERROR << "Component " << pActivator->GetID() << " Init Failed !";
+        QF_ERROR << "Component " << pActivator->GetID() << " Init Failed !";
         return;
     }
     m_activators[pActivator->GetID()] = pActivator;
@@ -530,7 +531,7 @@ bool CQF_Main::ExecuteCommand(const char* szCommandID, IQF_Properties* pInParam,
     if (it_command == m_commands.end())
     {
         //assert(false && "Can not find the component for command");
-        MBI_ERROR << "Can not find the component for command " << szCommandID;
+        QF_ERROR << "Can not find the component for command " << szCommandID;
         return false;
     }
 
@@ -545,7 +546,7 @@ bool CQF_Main::ExecuteCommand(const char* szCommandID, IQF_Properties* pInParam,
     }
     catch (...)
     {
-        MBI_ERROR << "An Exception Occurs  When Execute Command "<< szCommandID<<" .";
+        QF_ERROR << "An Exception Occurs  When Execute Command "<< szCommandID<<" .";
         return false;
     }
 #endif
@@ -576,14 +577,14 @@ void CQF_Main::SendMessage(const char* szMessage, int iValue, void *pValue)
             }
             else
             {
-                MBI_ERROR << "Illegal message interface! ";
+                QF_ERROR << "Illegal message interface! ";
             }
         }
 #ifndef _DEBUG
     }
     catch (...)
     {
-        MBI_ERROR <<  "Illegal message interface! ";
+        QF_ERROR <<  "Illegal message interface! ";
     }
 #endif
 }
@@ -598,7 +599,7 @@ void* CQF_Main::GetInterfacePtr(const char* szInterfaceID)
     QF_MainInterfaceMap::iterator it_interface = m_interfaces.find(szInterfaceID);
     if (it_interface == m_interfaces.end())
     {
-        MBI_WARN << "Get interface " << szInterfaceID << " failed ! Please check if the interface exists or the related component is registered ! ";
+        QF_WARN << "Get interface " << szInterfaceID << " failed ! Please check if the interface exists or the related component is registered ! ";
 //#ifndef _DEBUG
 //        std::cout << "Get interface "<< szInterfaceID <<" failed ! Please check if the interface exists or the related component is registered ! "<< std::endl;
 //#endif

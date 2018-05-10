@@ -7,11 +7,8 @@ configure_file(
   ${CMAKE_CURRENT_BINARY_DIR}/QtFramework-config.cmake
   @ONLY
 )
-configure_file(
-  ${TEMPLATE_DIR}/FindlibQtframework.cmake.in
-  ${CMAKE_CURRENT_BINARY_DIR}/FindlibQtframework.cmake
-  @ONLY
-)
+
+#qfmain
 configure_file(
   ${TEMPLATE_DIR}/QfMain-config.cmake.in
   ${CMAKE_CURRENT_BINARY_DIR}/QfMain-config.cmake
@@ -22,16 +19,8 @@ configure_file(
   ${CMAKE_CURRENT_BINARY_DIR}/FindlibQfMain.cmake
   @ONLY
 )
-configure_file(
-  ${TEMPLATE_DIR}/QfCommon-config.cmake.in
-  ${CMAKE_CURRENT_BINARY_DIR}/QfCommon-config.cmake
-  @ONLY
-)
-configure_file(
-  ${TEMPLATE_DIR}/FindlibQfCommon.cmake.in
-  ${CMAKE_CURRENT_BINARY_DIR}/FindlibQfCommon.cmake
-  @ONLY
-)
+
+#qtxml
 configure_file(
   ${TEMPLATE_DIR}/QtXML-config.cmake.in
   ${CMAKE_CURRENT_BINARY_DIR}/QtXML-config.cmake
@@ -40,5 +29,12 @@ configure_file(
 configure_file(
   ${TEMPLATE_DIR}/FindlibQtXML.cmake.in
   ${CMAKE_CURRENT_BINARY_DIR}/FindlibQtXML.cmake
+  @ONLY
+)
+
+#qflog
+configure_file(
+  ${TEMPLATE_DIR}/QfLog-config.cmake.in
+  ${CMAKE_CURRENT_BINARY_DIR}/QfLog-config.cmake
   @ONLY
 )

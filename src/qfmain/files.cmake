@@ -25,5 +25,5 @@ QF_Subject.h
 )
 
 include_directories(${QF_INCLUDE_DIR}/qfmain)
-include_directories(${MBILOG_SOURCE_DIR})
+include_directories(${QF_INCLUDE_DIR}/log)
 

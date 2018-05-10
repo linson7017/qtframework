@@ -9,5 +9,4 @@ add_subdirectory(qfmain)
 #add_subdirectory(qfcommon)
 add_subdirectory(qtxml)
 add_subdirectory(jsoncpp)
-add_subdirectory(mbilog)
 
