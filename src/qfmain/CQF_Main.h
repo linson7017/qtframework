@@ -42,7 +42,7 @@ public:
 
     bool Init(const char* szComponentFile = "components.cfg", const char* szPluginsFile = "plugins.cfg");
 
-    //Subject Function
+    //Subject Function                                                                                                          0
     void Attach(IQF_Observer* pObserver, const char* szMessage = "");
     void Detach(IQF_Observer* pObserver, const char* szMessage = "");
     void DetachAll();

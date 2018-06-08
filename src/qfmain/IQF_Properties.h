@@ -28,11 +28,12 @@ public:
     virtual bool SetBoolProperty(const char* szName, bool bValue) = 0;
     virtual  bool SetDoubleProperty(const char* szName, double dValue) = 0;
     virtual  bool SetStringProperty(const char* szName, const char* szValue) = 0;
-
+    virtual bool SetPtrProperty(const char* szName, void* pValue) = 0;
     virtual  int GetIntProperty(const char* szName, int iValue) = 0;
     virtual bool GetBoolProperty(const char* szName, bool bValue) = 0;
     virtual  double GetDoubleProperty(const char* szName, double dValue) = 0;
     virtual  const char* GetStringProperty(const char* szName, const char* szValue) = 0;
+    virtual void* GetPtrProperty(const char* szName, void* pVaule) = 0;
 };
 
 

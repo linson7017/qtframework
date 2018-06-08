@@ -34,10 +34,12 @@ public:
     bool SetBoolProperty(const char* szName, bool bValue);
     bool SetDoubleProperty(const char* szName, double dValue);
     bool SetStringProperty(const char* szName, const char* szValue);
+    bool SetPtrProperty(const char* szName, void* pValue);
     int GetIntProperty(const char* szName, int iValue) ;
     bool GetBoolProperty(const char* szName, bool bValue) ;
     double GetDoubleProperty(const char* szName, double dValue) ;
     const char* GetStringProperty(const char* szName, const char* szValue) ;
+    void* GetPtrProperty(const char* szName, void* pVaule);
 private:
     typedef std::map<std::string, IQF_Property*> ProperteisMapType;
     ProperteisMapType m_properties;

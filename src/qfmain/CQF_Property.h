@@ -33,6 +33,8 @@ public:
     virtual bool SetDouble(double dValue);
     virtual const char* GetString();
     virtual bool SetString(const char* szValue);
+    virtual void* GetPtr();
+    virtual void SetPtr(void* pPtr);
 
     virtual IQF_Property& operator=(const IQF_Property& right);
 
@@ -40,6 +42,7 @@ private:
     void Clear();
     int m_iType;
     void* m_pValue;
+    void* m_pPtr;
     std::string m_szName;
     std::string m_szDesc;
 };

@@ -25,6 +25,10 @@ namespace QF
         {
             m_attributes = attribute;
         }
+        void SetAttribute(const std::string& key,const std::string& value)
+        {
+            m_attributes[key] = value;
+        }
     protected:
         std::map<std::string, std::string> m_attributes;
     };

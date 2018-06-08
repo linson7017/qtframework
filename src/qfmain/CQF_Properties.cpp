@@ -239,6 +239,31 @@ bool CQF_Properties::SetStringProperty(const char* szName, const char* szValue)
     }
 }
 
+bool CQF_Properties::SetPtrProperty(const char* szName, void* pValue)
+{
+    ProperteisMapType::iterator it = m_properties.find(szName);
+    if (it != m_properties.end())
+    {
+        if (it->second->GetType() == QF_DataType_Ptr)
+        {
+            it->second->SetPtr(pValue);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    else
+    {
+        IQF_Property* newProperty = QF_CreateProperty();
+        newProperty->SetType(QF_DataType_Ptr);
+        newProperty->SetPtr(pValue);
+        m_properties[szName] = newProperty;
+        return true;
+    }
+}
+
 
 int CQF_Properties::GetIntProperty(const char* szName, int iValue)
 {
@@ -289,6 +314,19 @@ const char* CQF_Properties::GetStringProperty(const char* szName, const char* sz
     else
     {
         return szValue;
+    }
+}
+
+void* CQF_Properties::GetPtrProperty(const char* szName, void* pVaule)
+{
+    IQF_Property* p = GetProperty(szName);
+    if (p)
+    {
+        return p->GetPtr();
+    }
+    else
+    {
+        return pVaule;
     }
 }
 

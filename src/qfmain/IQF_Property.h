@@ -28,6 +28,8 @@ public:
     virtual bool SetDouble(double dValue) = 0;
     virtual const char* GetString() = 0;
     virtual bool SetString(const char* szValue) = 0;
+    virtual void* GetPtr()=0;
+    virtual void SetPtr(void* pPtr)=0;
 
     virtual IQF_Property& operator=(const IQF_Property& right)=0;
 };

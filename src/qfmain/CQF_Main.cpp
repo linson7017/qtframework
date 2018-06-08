@@ -234,7 +234,7 @@ void CQF_Main::RegisterLibrary(const char* szDllName)
     //should selected unicode
     HINSTANCE pHnd = LoadLibraryW((wchar_t*)s2ws(dllPath).c_str());
     
-    char buf[100];
+    char buf[1024];
     if (pHnd != NULL)
     {
         componentFunc pf = (componentFunc)GetProcAddress(pHnd, "QF_CreateComponentObject");
@@ -266,7 +266,7 @@ void CQF_Main::RegisterLibrary(const char* szDllName)
         DWORD dw = GetLastError();
         sprintf(buf, "Load component failed: %s. Error Code: %lu. ", dllPath.c_str(),dw);
         SendMessageQf("QFMAIN_LOAD_COMPONENT_MESSAGE", 0, buf);
-        QF_INFO << buf;
+        QF_WARN << buf;
 
     }
 #elif defined(QF_OS_LINUX)

@@ -1,3 +1,6 @@
+20180510
+添加了log模块，引用spdlog，并封装流输出接口QF_INFO,QF_WARN,QF_ERROR,QF_DEBUG
+
 20180316
 qtxml中插件动态实例化，控件的消息发送和插件绑定，避免不必要的判断
 qtxml中在组装完成后增加SetupResource功能的遍历，插件可以在SetupResource接口中进行初始化

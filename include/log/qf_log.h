@@ -44,6 +44,7 @@ public:
             if (!console)
             {
                 console = spdlog::stdout_color_mt("qfconsole");
+                spdlog::set_pattern("%^[%L]%$ [%D %T]  %^%v%$");
             }
             switch (this->level)
             {

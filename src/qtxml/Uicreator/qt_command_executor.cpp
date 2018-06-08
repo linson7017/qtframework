@@ -266,6 +266,10 @@ void qt_command_executor::parseCommandProperty(xml_node* commandNode, QF::IQF_Pr
 
                         }
                     }
+                    else
+                    {
+                        printf("Parse property %s failed!Error code:%s .\n", child->getAttribute("name"), reader.getFormatedErrorMessages());
+                    }
                 }
                 else if (strcmp(child->getAttribute("type"), "Object") == 0)
                 {
@@ -282,6 +286,10 @@ void qt_command_executor::parseCommandProperty(xml_node* commandNode, QF::IQF_Pr
                             setProperty(properties, child->getAttribute("name"), v, root.get("type", "").asString().c_str());
                         }
                     }    
+                    else
+                    {
+                        printf("Parse property %s failed!Error code:%s .\n", child->getAttribute("name"),reader.getFormatedErrorMessages());
+                    }
                 }
                 else if (strcmp(child->getAttribute("type"), "Value") == 0)
                 {
@@ -292,6 +300,10 @@ void qt_command_executor::parseCommandProperty(xml_node* commandNode, QF::IQF_Pr
                     {
                           setProperty(properties, child->getAttribute("name"),
                                QVariant(root.get("value","").asString().c_str()), root.get("type", "").asString().c_str());
+                    }
+                    else
+                    {
+                        printf("Parse property %s failed!Error code:%s .\n", child->getAttribute("name"), reader.getFormatedErrorMessages());
                     }
                 }
                 else if (strcmp(child->getAttribute("type"), "Json") == 0)

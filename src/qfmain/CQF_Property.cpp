@@ -195,6 +195,16 @@ bool CQF_Property::SetString(const char* szValue)
 
 }
 
+void* CQF_Property::GetPtr()
+{
+    return m_pPtr;
+}
+
+void CQF_Property::SetPtr(void* pPtr)
+{
+    m_pPtr = pPtr;
+}
+
 IQF_Property& CQF_Property::operator=(const IQF_Property& right)
 {
     Clear();
