@@ -10,12 +10,14 @@ date: 		ÈýÔÂ 2017
 #if ((defined(_MSC_VER) || defined(_WIN32_WCE)) && !defined(GISE_STATIC_LIBS)) || (defined(__HP_aCC) && defined(__HP_WINDLL))
 #   define QF_DECLSPEC_EXPORT __declspec(dllexport)
 #   define QF_DECLSPEC_IMPORT __declspec(dllimport)
+#   define QF_WIN
 #elif defined(__SUNPRO_CC) && (__SUNPRO_CC >= 0x550)
 #   define QF_DECLSPEC_EXPORT __global
 #   define QF_DECLSPEC_IMPORT
 #elif defined(__linux__) || defined(__linux)
 #   define QF_DECLSPEC_EXPORT __attribute__((visibility("default")))
 #   define QF_DECLSPEC_IMPORT __attribute__((visibility("default")))
+#   define QF_LINUX
 #else
 #   define QF_DECLSPEC_EXPORT 
 #   define QF_DECLSPEC_IMPORT

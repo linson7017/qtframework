@@ -221,7 +221,7 @@ void Activity::installContent()
 //返回值：是否设置成功
 bool Activity::setContentView(const char* layout_filename)
 {
-	
+    setWindowFlags(windowFlags()|Qt::Dialog);
 	if (!actionBeforeCreated())
 	{
 		//执行创建前行为失败
@@ -546,6 +546,11 @@ void Activity::closeEvent(QCloseEvent *ev)
 {
     actionBeforeClosed();
     QWidget::closeEvent(ev);
+}
+
+void Activity::setup()
+{
+    _assembler->setupUITree(_assembler->getUINodeTreeRoot());
 }
 
 //会闪烁，暂时去掉

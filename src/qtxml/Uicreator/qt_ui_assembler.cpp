@@ -83,7 +83,7 @@ void qt_ui_assembler::assemble()
 {
 	parseUITree(_root);
     assembleUITree(_root);
-    setupUITree(_root);
+    //setupUITree(_root);
 }
 //解析节点树
 //参数：node 根节点指针
@@ -136,10 +136,34 @@ void qt_ui_assembler::assembleUITree(ui_node* node)
 
 void qt_ui_assembler::setupUITree(ui_node* node)
 {
+    //如果节点有观察者属性则只向观察者发消息
+    if (node->hasAttribute("observers"))
+    {
+        QF::IQF_Subject* pSubject = (QF::IQF_Subject*)node->getObject("subject");
+        if (!pSubject)
+        {
+            pSubject = ((QF::IQF_Main_Ext*)app_env::getMainPtr())->CreateSubject();
+            node->setObject(pSubject, "subject");
+        }
+        std::string observersStr = node->getAttribute("observers");
+        std::vector<std::string> observers;
+        splitString(observersStr, observers, ";");
+        for (int i = 0; i < observers.size(); i++)
+        {
+            _pluginMap;
+            PluginMapType::iterator it = _pluginMap.find(observers.at(i));
+            if (it != _pluginMap.end())
+            {
+                pSubject->Attach(it->second);
+            }    
+        }
+    }
     QF::QF_Plugin* plugin = (QF::QF_Plugin*)node->getObject("plugin");
     if (plugin)
     {
         plugin->SetupResource();
+        plugin->SetAttributes(node->getAttributeMap());
+        plugin->SetObjects(node->getObjectMap());
     }
     if (node->getChildNum() != 0)
     {
@@ -160,6 +184,8 @@ void qt_ui_assembler::setupUITree(ui_node* node)
     {
         return;
     }
+    
+    
 }
 
 
@@ -540,13 +566,19 @@ void qt_ui_assembler::assembleWidgetAndWidget(ui_node* father,ui_node* child)
             menuBar->addMenu((QMenu*)child->getObject());
         }
     }
-    else if (strcmp(father->getName(), "ToolBar") == 0)
+    else if (strcmp(father->getName(), "ToolBar") == 0|| 
+        strcmp(father->getName(), "HToolBar") == 0|| 
+        strcmp(father->getName(), "VToolBar") == 0)
     {
         QToolBar* toolBar = (QToolBar*)father->getObject();
         if (strcmp(child->getName(), "Menu") == 0)
         {
             QMenu* menu = (QMenu*)child->getObject();
             toolBar->addAction(menu->menuAction());
+        }
+        else
+        {
+            toolBar->addWidget(child_widget);
         }
     }
     else if (strcmp(father->getName(), "DockWidget") == 0)
@@ -786,6 +818,10 @@ void qt_ui_assembler::assembleContainerAndWidget(ui_node* father,ui_node* child)
 		}
 		assembleNodes(father->getParent(),child);
 	}
+    else
+    {
+        assembleNodes(father->getParent(), child);
+    }
 }
 
 //将节点中的命令参数设置给QObject以用于传递给命令执行器
@@ -1194,6 +1230,10 @@ bool qt_ui_assembler::createUI(ui_node* node)
                         node->setType(ui_node::WIDGET);
                         node->setObject(plugin->GetPluginHandle());
                     }
+                    if (node->hasAttribute("id"))
+                    {
+                        _pluginMap[node->getAttribute("id")] = plugin;
+                    }
                 }
             }
 			else if (!node->getObject())
@@ -1263,6 +1303,7 @@ bool qt_ui_assembler::createUI(ui_node* node)
             }
         }
     }
+    
 	 //将有ID的控件放入map
 	registerID(node);
 	
@@ -1341,6 +1382,14 @@ void qt_ui_assembler::ParseWidgetCommonAttribute(ui_node* node)
 	{
 		widget->setMinimumHeight(STR_TO_INT(node->getAttribute("minHeight")));
 	}
+    if (node->hasAttribute("maxWidth"))
+    {
+        widget->setMaximumWidth(STR_TO_INT(node->getAttribute("maxWidth")));
+    }
+    if (node->hasAttribute("maxHeight"))
+    {
+        widget->setMaximumHeight(STR_TO_INT(node->getAttribute("maxHeight")));
+    }
 	//设置控件是否可用
 	if (node->hasAttribute("disabled"))
 	{

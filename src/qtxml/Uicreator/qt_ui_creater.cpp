@@ -1125,6 +1125,10 @@ void qt_ui_creater::CreateAction(ui_node* node) {
         action->setCheckable(true);
         action->setChecked(STR_TO_BOOL(node->getAttribute("checked")));
     }
+    if (node->hasAttribute("tip"))
+    {
+        action->setToolTip(node->getAttribute("tip"));
+    }
     node->setObject(action);
     //Ìí¼ÓactionµÄÏìÓ¦
     if (bindObjectWithNode(action, node))

@@ -14,7 +14,7 @@ class QWidget;
 namespace QF
 {
     class IQF_Main;
-    class QF_Plugin : public IQF_Observer
+    class  QF_Plugin : public IQF_Observer
     {
     public:
         virtual void InitResource() = 0;
@@ -29,8 +29,17 @@ namespace QF
         {
             m_attributes[key] = value;
         }
+        void SetObjects(const std::map<std::string, void*>& objects)
+        {
+            m_objects = objects;
+        }
+        void SetObject(const std::string& key, void* obj)
+        {
+            m_objects[key] = obj;
+        }
     protected:
         std::map<std::string, std::string> m_attributes;
+        std::map<std::string, void*> m_objects;
     };
 }
 

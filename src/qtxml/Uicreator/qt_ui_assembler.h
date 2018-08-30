@@ -13,6 +13,10 @@ class xml_ui_paser;
 class event_handler;
 class sl_MutexButtonBox;
 class AView;
+namespace QF
+{
+    class QF_Plugin;
+}
 /*!
  * \class qt_ui_assembler
  *
@@ -58,6 +62,7 @@ public:
 	//参数：无
 	//返回值：事件处理器指针
 	void* getEventHandler();
+    void setupUITree(ui_node* node);
 protected:
 	//解析节点树
 	//参数：
@@ -65,7 +70,7 @@ protected:
 	//返回值：无
 	void parseUITree(ui_node* node);
     void assembleUITree(ui_node* node);
-    void setupUITree(ui_node* node);
+    
 	//创建每个节点的实例
 	//参数：
 	//	node: 根节点指针
@@ -150,6 +155,9 @@ private:
 	event_handler* _event_handler;
 	typedef std::map<std::string, void*> IDObjectMapType;
 	IDObjectMapType _IDMap;
+
+    typedef std::map<std::string, QF::QF_Plugin*> PluginMapType;
+    PluginMapType _pluginMap;
 };
 
 

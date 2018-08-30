@@ -26,6 +26,7 @@ using namespace std;
 class ui_node : public xml_node
 {
 public:
+    typedef std::map<std::string, void*> ObjectMapType;
 	//节点类型
 	enum NodeType
 	{
@@ -89,6 +90,9 @@ public:
 	//参数：无
 	//返回值：关联对象指针
     virtual void* getObject(const char* name="");
+    virtual ObjectMapType getObjectMap() {
+        return _objects;
+    }
 	//设置节点关联对象指针
 	//参数：
 	//		object：关联对象指针
@@ -111,7 +115,6 @@ private:
 	list<ui_node*> _uiChildren; 
 	ui_node* _uiParent;
 	NodeType _type;
-    typedef std::map<std::string, void*> ObjectMapType;
     ObjectMapType _objects;
     std::string _uiName;
 };

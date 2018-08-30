@@ -165,7 +165,7 @@ public:
 		_splashWindow = pSplashWindow;
 		_bShowSplashWindow = bShowSplashWindow;
 	}
-	
+    void setup();
 	friend class SplashWindow;
 public slots:
 	//ÏÔÊ¾´°¿Ú
