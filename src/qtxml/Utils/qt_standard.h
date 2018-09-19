@@ -118,6 +118,11 @@ public:
     static QTabWidget::TabShape getTabShape(const char* name);
 
     static QTabWidget::TabPosition GetTabPosition(const char* name);
+
+    static QPalette::ColorRole GetPaletteColorRole(const QString& roleStr);
+
+    static QPalette::ColorGroup GetPaletteColorGroup(const QString& groupStr);
+
 #ifdef USE_QCUSTOM_PLOT
 	//获得标准Interactions实例
 	//参数：

@@ -874,25 +874,31 @@ void qt_ui_assembler::registerID(ui_node* node)
 	if (node->hasAttribute("id"))
 	{
 		std::string id = node->getAttribute("id");
-		if (_IDMap.count(id.c_str()))
+        int i = 0;
+        char a[100];
+        std::string ti = id;
+        //检查是否重复定义ID	
+        while (_IDMap.count(ti.c_str()))
 		{
-           // Log::Instance()->log(Log::LOG_WARN, "duplicate definition of id %s", id.c_str());
-            printf("duplicate definition of id %s\n", id.c_str());
-			//重复定义ID	
+            ti = id + "_" + itoa(i, a, 10);
+            i++;
 		}
-		else
-		{
-            void*obj = node->getObject();
-            if (obj)
-            {
-                QObject* qObj = (QObject*)obj;
-                qObj->setObjectName(id.c_str());
-            }
-			_IDMap[id] = node->getObject();
-			//加入全局的UINodeMap
-			R::Instance()->addObjectGlobalMap(id.c_str(),node->getObject());
-            R::Instance()->addIdentifiedNode(id.c_str(), node);
-		}
+        if (id.compare(ti)!=0)
+        {
+            printf("Duplicate definition of id %s! Rename it %s.\n", id.c_str(),ti.c_str());
+            id = ti;
+            node->addAttribute("id", id.c_str());
+        }
+        void*obj = node->getObject();
+        if (obj)
+        {
+            QObject* qObj = (QObject*)obj;
+            qObj->setObjectName(id.c_str());
+        }
+		_IDMap[id] = node->getObject();
+		//加入全局的UINodeMap
+		R::Instance()->addObjectGlobalMap(id.c_str(),node->getObject());
+        R::Instance()->addIdentifiedNode(id.c_str(), node);
 	}
 }
 //获得对象指针
@@ -1331,9 +1337,13 @@ void qt_ui_assembler::ParseWidgetCommonAttribute(ui_node* node)
 				ui_node* menuRootNode = R::Instance()->getMenuResource(menuID.c_str());
 				if (menuRootNode)
 				{
-					//实例化并装配菜单
-					parseUITree(menuRootNode);
-                    assembleUITree(menuRootNode);
+                    void* obj = R::Instance()->getObjectFromGlobalMap(menuRootNode->getAttribute("id"));
+                    if (!obj)
+                    {
+                        //实例化并装配菜单
+                        parseUITree(menuRootNode);
+                        assembleUITree(menuRootNode);
+                    }				
 				}	
 			}
 		}

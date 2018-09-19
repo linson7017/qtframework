@@ -460,7 +460,7 @@ void Activity::parseShowModeBeforeActived(ui_node* attr)
 
     if (attr->hasAttribute("icon"))
     {
-        setWindowIcon(QIcon(R::Instance()->getImageResourceUrl(attr->getAttribute("icon")).c_str()));
+        setWindowIcon(QIcon(R::Instance()->getImageResourceUrl(attr->getAttribute("icon"))));
     }
 }
 

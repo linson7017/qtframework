@@ -15,19 +15,15 @@
 #include <string>
 #include <vector>
 #include "Common/qtxml_com.h"
-using namespace std;
 
 class ui_node;
-class res_style;
-class res_string;
-class res_command;
 class xml_node;
-class res_config;
 class Activity;
 class variant;
-class res_shortcut;
 
 class xml_ui_base;
+
+class R_Private;
 /*!
  * \class R
  *
@@ -66,19 +62,23 @@ public:
 	//参数：id ID
 	//返回值：资源
 	static const char* getStyleResource(const char* id);
+
 	//获得String资源
 	//参数：id ID
 	//返回值：资源
 	static const char* getStringResource(const char* id);
-	static std::vector<string> getStringListResource(const char* id);
+	static std::vector<std::string> getStringListResource(const char* id);
+
 	//获得Application的样式
 	//参数：无
 	//返回值：资源
 	static const char* getMainStyle();
+
 	//获得UICommand资源
 	//参数：id ID
 	//返回值：资源
 	static const xml_node* getCommandResource(const char* id);
+
 	//获得快捷键资源
 	//参数：name ID
 	//返回值：资源
@@ -87,22 +87,27 @@ public:
 	//参数：name ID
 	//返回值：资源
 	static const variant* getConfigResource(const char* name);
+
 	//向全局的Map中添加id-Object
 	//参数：id ID，object 对象指针
 	//返回值：添加是否成功
 	static bool addObjectGlobalMap(const char* id,void* object);
+
 	//从全局Map中获取id-Object
 	//参数：id ID
 	//返回值：实例指针
 	static void* getObjectFromGlobalMap(const char* id);
+
 	//向全局的Map中添加id-Activity
 	//参数：id ID，activity 对象指针
 	//返回值：添加是否成功
 	static bool addActivity(const char* id,Activity* activity);
+
 	//从全局Map中获取id-Activity
 	//参数：id ID
 	//返回值：实例指针
 	static Activity* getActivity(const char* id);
+
 	//获得UI资源树的根节点，此时还没有装配，节点中Object为空，无法加载到UI上
 	//参数：id ID
 	//返回值：节点指针
@@ -125,6 +130,7 @@ public:
 	//添加Config资源,存在会覆盖
 	//参数：id ID， variant 值
 	//返回值：根节点指针
+
 	static void addConfigResource(const char* id,variant* v);
 	//覆盖Config资源
 	//参数：无
@@ -135,12 +141,13 @@ public:
 	//参数：name ID， object 控件指针
 	//返回值：无
 	static void registerCustomWidget(const char* name,void* object);
+
 	//获得用户自定义的Widget
 	//参数：name ID
 	//返回值：控件指针
 	static void* getCustomWidget(const char* name);
 
-    static std::string getImageResourceUrl(const char* name);
+    static const char* getImageResourceUrl(const char* name);
 
 
     static void addUINodeName(const char* name);
@@ -153,27 +160,9 @@ public:
 private:
 	//构造函数
 	R();
-	static res_style* _style_res;
-	static res_string* _string_res;
-	static res_command* _command_res;
-	static res_config* _config_res;
-	static res_shortcut* _shortcut_res;
-
-    //UI
-	static xml_ui_base* _toolpanel_res;
-    static xml_ui_base* _ui_res;
-    static xml_ui_base* _menu_res;
-
-	typedef map< string,void* > IDObjectMapType;
-	static IDObjectMapType _global_IDObjectMap; //全局的控件表
-	static IDObjectMapType _customWidgetMap;  //用户注册的Widget表 //20150925
-	typedef map< string,Activity* > IDActivityMapType;
-    static set<string> _UINodeNameSet;
-	static IDActivityMapType _ActivityMap;;
-	static R* _res;
-	static Garbo _garbo;
-    typedef map<string, xml_node*> IdentifiedNodeMapType;
-    static IdentifiedNodeMapType _IdentifiedNodeMap;
+    static Garbo _garbo;
+    static R* _res;
+    static R_Private* _rp;
 };
 
 #endif

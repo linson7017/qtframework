@@ -450,6 +450,109 @@ bool qt_standard::exchangProperty(QVariant& property, variant& varient)
     }
 }
 
+QPalette::ColorGroup qt_standard::GetPaletteColorGroup(const QString& groupStr)
+{
+    if (groupStr.compare("Disabled") == 0)
+    {
+        return QPalette::Disabled;
+    }
+    else if (groupStr.compare("Active") == 0|| groupStr.compare("Normal") == 0)
+    {
+        return QPalette::Active;
+    }
+    else if (groupStr.compare("Inactive") == 0)
+    {
+        return QPalette::Inactive;
+    }
+    else if (groupStr.compare("NColorGroups") == 0)
+    {
+        return QPalette::NColorGroups;
+    }
+    else if (groupStr.compare("Current") == 0)
+    {
+        return QPalette::Current;
+    }
+    else 
+    {
+        return QPalette::All;
+    }
+}
+
+QPalette::ColorRole qt_standard::GetPaletteColorRole(const QString& roleStr)
+{
+    if (roleStr.compare("alternate-base") == 0)
+    {
+        return QPalette::AlternateBase;
+    }
+    else if (roleStr.compare("base") == 0)
+    {
+        return QPalette::Base;
+    }
+    else if (roleStr.compare("bright-text") == 0)
+    {
+        return QPalette::BrightText;
+    }
+    else if (roleStr.compare("button") == 0)
+    {
+        return QPalette::Button;
+    }
+    else if (roleStr.compare("button-text") == 0)
+    {
+        return QPalette::ButtonText;
+    }
+    else if (roleStr.compare("dark") == 0)
+    {
+        return QPalette::Dark;
+    }
+    else if (roleStr.compare("highlight") == 0)
+    {
+        return QPalette::Highlight;
+    }
+    else if (roleStr.compare("highlighted-text") == 0)
+    {
+        return QPalette::HighlightedText;
+    }
+    else if (roleStr.compare("light") == 0)
+    {
+        return QPalette::Light;
+    }
+    else if (roleStr.compare("link") == 0)
+    {
+        return QPalette::Link;
+    }
+    else if (roleStr.compare("link-visited") == 0)
+    {
+        return QPalette::LinkVisited;
+    }
+    else if (roleStr.compare("mid") == 0)
+    {
+        return QPalette::Mid;
+    }
+    else if (roleStr.compare("midlight") == 0)
+    {
+        return QPalette::Midlight;
+    }
+    else if (roleStr.compare("shadow") == 0)
+    {
+        return QPalette::Shadow;
+    }
+    else if (roleStr.compare("text") == 0)
+    {
+        return QPalette::Text;
+    }
+    else if (roleStr.compare("window") == 0)
+    {
+        return QPalette::Window;
+    }
+    else if (roleStr.compare("window-text") == 0)
+    {
+        return QPalette::WindowText;
+    }
+    else
+    {
+        return QPalette::NoRole;
+    }
+}
 
 //获得属性值
 //参数：

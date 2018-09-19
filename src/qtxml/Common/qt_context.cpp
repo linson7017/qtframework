@@ -8,6 +8,8 @@
 #include <QTranslator>
 #include <QStyleFactory>
 #include "Utils/util.h"
+#include "Utils/qt_standard.h"
+#include <iostream>
 
 int qt_context::_screenNum = 1;
 int qt_context::_primaryScreen =0;
@@ -92,6 +94,82 @@ bool qt_context::setDefaultLanguage(const char* languageStr)
 //设置application样式
 //参数：style 样式
 //返回值：无
+
+QString StyleContent(const QString& str,const QString& group)
+{
+    QString groupStr = "QPalette";
+    if (!group.isEmpty())
+    {
+        groupStr.append(":");
+        groupStr.append(group);
+    }
+    if (str.contains(groupStr,Qt::CaseInsensitive))
+    {
+        int index = str.indexOf(groupStr, Qt::CaseInsensitive);
+        if (index==-1)
+        {
+            return "";
+        }
+        QString subStr = str.mid(index + groupStr.length());
+        int lb = subStr.indexOf("{");
+        int rb = subStr.indexOf("}");
+        if (lb==-1||rb==-1)
+        {
+            return "";
+        }
+        else
+        {
+            subStr = subStr.left(rb);
+            return subStr.mid(lb+1);
+        }
+    }
+    else
+    {
+        return "";
+    }
+}
+
+
+
+void SetPalette(QPalette& palette,const QString& styleContent, const QString& groupStr)
+{
+    QStringList styleList = styleContent.split(";");
+    QPalette::ColorGroup group = qt_standard::GetPaletteColorGroup(groupStr); 
+    foreach(QString str, styleList)
+    {
+        QStringList pair = str.split(":");
+        if (pair.size()!=2)
+        {
+            continue;
+        }
+        QString role = pair[0];
+        QString value = pair[1];
+        role.remove(QRegExp("\\s"));
+        value.remove(QRegExp("\\s"));
+        if (!role.isEmpty()&&!value.isEmpty())
+        {
+            palette.setColor(group, qt_standard::GetPaletteColorRole(role), QColor(value));
+            palette.setBrush(group, qt_standard::GetPaletteColorRole(role), QColor(value));
+
+        }
+    }
+}
+
+void ParsePalettes(const QString& paletteStr,QPalette& palette)
+{
+    QStringList group;
+    group << "Normal" << "Active" << "Inactive" << "Disabled"<<"";
+    QString str = "";
+    foreach(QString gs,group)
+    {
+        str = StyleContent(paletteStr, gs);
+        if (!str.isEmpty())
+        {
+            SetPalette(palette, str, gs);
+        }
+    }
+}
+
 void qt_context::setApplicationStyle(const char* style)
 {
 	std::string styleRes = R::Instance()->getStyleResource(style);
@@ -99,12 +177,9 @@ void qt_context::setApplicationStyle(const char* style)
 	if (!styleRes.empty())
 	{
         QString qss = styleRes.c_str();
-         if (qss.contains("QPalette{background:"))
-         {
-             int index = qss.indexOf("QPalette{background:");
-             QString paletteColor = qss.mid(index+20, 7);
-             qApp->setPalette(QPalette(QColor(paletteColor)));
-         }  
+        QPalette palette = qApp->palette();
+        ParsePalettes(qss,palette);
+        qApp->setPalette(palette);
         qApp->setStyleSheet(qss);
 		//qApp->setStyleSheet(styleRes.c_str());
 	}

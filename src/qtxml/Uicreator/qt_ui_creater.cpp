@@ -72,8 +72,8 @@ bool qt_ui_creater::bindObjectWithNode(void* object, ui_node* node)
 
 void qt_ui_creater::CreateButton(ui_node* node) {
     node->setType(ui_node::WIDGET);
-    //QPushButton* button = new QPushButton;
-    sl_Button* button = new sl_Button;
+    QPushButton* button = new QPushButton;
+    /*sl_Button* button = new sl_Button;
 
     if (node->hasAttribute("needToConfirm"))
     {
@@ -82,7 +82,7 @@ void qt_ui_creater::CreateButton(ui_node* node) {
     if (node->hasAttribute("available"))
     {
         button->setAvailable(STR_TO_BOOL(node->getAttribute("available")));
-    }
+    }*/
 
     if (node->hasAttribute("flat"))
     {

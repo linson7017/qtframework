@@ -258,7 +258,7 @@ bool event_handler::eventFilter(QObject *obj, QEvent *event)
 				std::string str = "@menu/";
 				if (menuID.find(str)!=std::string::npos)
 				{
-					menuID = menuID.substr(menuID.find_first_of(str)+6);
+					menuID = menuID.substr(menuID.find_first_of(str) + str.length());
 					R* r = R::Instance();
 					QMenu* menu = (QMenu*)R::Instance()->getObjectFromGlobalMap(menuID.c_str());
 					if (menu)
