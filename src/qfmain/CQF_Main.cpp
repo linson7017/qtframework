@@ -537,11 +537,24 @@ bool CQF_Main::ExecuteCommand(const char* szCommandID, IQF_Properties* pInParam,
 
     IQF_Command * p_command = it_command->second;
 
+	
+
 #ifndef _DEBUG
     try
     {                                                                                                                                             
 #endif
-        return p_command->ExecuteCommand(szCommandID, pInParam, pOutParam);
+		bool bPropertiesNotInitialized = false;
+		if (!pInParam)
+		{
+			pInParam = QF::QF_CreateProperties();
+			bPropertiesNotInitialized = true;
+		}
+        bool success =  p_command->ExecuteCommand(szCommandID, pInParam, pOutParam);
+		if (bPropertiesNotInitialized)
+		{ 
+			pInParam->Release(); 
+		}
+		return success;
 #ifndef _DEBUG
     }
     catch (...)
